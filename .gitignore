@@ -1,0 +1,30 @@
+syntax: glob
+# Backup files from Emacs
+*~
+# Backup files from patch
+*.orig
+*.rej
+# Object files and libraries
+*.o
+*.os
+*.a
+*.so
+# TeX output
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.log
+*.nav
+*.out
+*.pdf
+*.snm
+*.toc
+# SCons
+*.pyc
+.sconsign
+.sconf_temp
+.sconsign.dblite
+config.log
+cache
+build

@@ -1,0 +1,336 @@
+% -*- mode: plain-tex -*-
+
+% (c) Copyright 2007 as an unpublished work by Yue Shi Lai. All Rights
+% Reserved.
+%
+% Y. S. LAI PROPRIETARY/CONFIDENTIAL. YOU MAY NOT COPY, MODIFY, ADAPT,
+% OR TRANSLATE THIS FILE EXCEPT EXPRESSLY PERMITTED.
+
+\relax
+
+\documentclass[twocolumn]{article}
+\usepackage{fontdoc}
+\usepackage{times}
+\usepackage[mtpbb]{mtpro2}
+
+\title{The {\em MathT\i{}me Professional II} math italic encoding
+vector}
+\author{Yue Shi Lai}
+\date{28 July 2007\\Version 1.0}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+This document describes the {\em MathT\i{}me Professional II}
+blackboard bold encoding.
+
+\showbranches
+\encoding
+
+\needsfontinstversion{1.917}
+
+\begincomment
+\section{Default values}
+\endcomment
+
+\setstr{codingscheme}{MATHTIME2 BLACKBOARD BOLD}
+\setstr{encodingname}{MathTime2BlackboardBoldEncoding}
+
+\setint{italicslant}{0}		% italic slant
+\setint{interword}{0}		% interword space
+\setint{stretchword}{0}		% interword stretch
+\setint{shrinkword}{0}		% interword shrink
+\ifisglyph{x}\then
+   \setint{xheight}{\height{x}}	% x-height
+\Else
+   \setint{xheight}{457}	% x-height
+\Fi
+\setint{quad}{1000}		% quad
+\setint{extraspace}{0}		% extra space after .
+
+\begincomment
+\section{Font dimensions}
+\endcomment
+
+\setfontdimen{1}{italicslant}	% italic slant
+\setfontdimen{2}{interword}	% interword space
+\setfontdimen{3}{stretchword}	% interword stretch
+\setfontdimen{4}{shrinkword}	% interword shrink
+\setfontdimen{5}{xheight}	% x-height
+\setfontdimen{6}{quad}		% quad
+\setfontdimen{7}{extraspace}	% extra space after .
+
+\begincomment
+\section{The encoding}
+There are 63 glyphs in this encoding.
+\endcomment
+
+\nextslot{32}
+\setslot{visiblespace}
+   \comment{A visible space glyph `\texttt{\char`\ }'.}
+\endsetslot
+
+\nextslot{48}
+\setslot{u1D7D8}
+   \comment{The blackboard bold number zero `$\mathbb{0}$'.}
+\endsetslot
+
+\setslot{u1D7D9}
+   \comment{The blackboard bold number one `$\mathbb{1}$'.}
+\endsetslot
+
+\setslot{u1D7DA}
+   \comment{The blackboard bold number two `$\mathbb{2}$'.}
+\endsetslot
+
+\setslot{u1D7DB}
+   \comment{The blackboard bold number three `$\mathbb{3}$'.}
+\endsetslot
+
+\setslot{u1D7DC}
+   \comment{The blackboard bold number four `$\mathbb{4}$'.}
+\endsetslot
+
+\setslot{u1D7DD}
+   \comment{The blackboard bold number five `$\mathbb{5}$'.}
+\endsetslot
+
+\setslot{u1D7DE}
+   \comment{The blackboard bold number six `$\mathbb{6}$'.}
+\endsetslot
+
+\setslot{u1D7DF}
+   \comment{The blackboard bold number seven `$\mathbb{7}$'.}
+\endsetslot
+
+\setslot{u1D7E0}
+   \comment{The blackboard bold number eight `$\mathbb{8}$'.}
+\endsetslot
+
+\setslot{u1D7E1}
+   \comment{The blackboard bold number nine `$\mathbb{9}$'.}
+\endsetslot
+
+\nextslot{65}
+\setslot{u1D538}
+   \comment{The blackboard bold letter `$\mathbb{A}$'.}
+\endsetslot
+
+\setslot{u1D539}
+   \comment{The blackboard bold letter `$\mathbb{B}$'.}
+\endsetslot
+
+\setslot{uni2102}
+   \comment{The blackboard bold letter `$\mathbb{C}$'.}
+\endsetslot
+
+\setslot{u1D53B}
+   \comment{The blackboard bold letter `$\mathbb{D}$'.}
+\endsetslot
+
+\setslot{u1D53C}
+   \comment{The blackboard bold letter `$\mathbb{E}$'.}
+\endsetslot
+
+\setslot{u1D53D}
+   \comment{The blackboard bold letter `$\mathbb{F}$'.}
+\endsetslot
+
+\setslot{u1D53E}
+   \comment{The blackboard bold letter `$\mathbb{G}$'.}
+\endsetslot
+
+\setslot{uni210D}
+   \comment{The blackboard bold letter `$\mathbb{H}$'.}
+\endsetslot
+
+\setslot{u1D540}
+   \comment{The blackboard bold letter `$\mathbb{I}$'.}
+\endsetslot
+
+\setslot{u1D541}
+   \comment{The blackboard bold letter `$\mathbb{J}$'.}
+\endsetslot
+
+\setslot{u1D542}
+   \comment{The blackboard bold letter `$\mathbb{K}$'.}
+\endsetslot
+
+\setslot{u1D543}
+   \comment{The blackboard bold letter `$\mathbb{L}$'.}
+\endsetslot
+
+\setslot{u1D544}
+   \comment{The blackboard bold letter `$\mathbb{M}$'.}
+\endsetslot
+
+\setslot{uni2115}
+   \comment{The blackboard bold letter `$\mathbb{N}$'.}
+\endsetslot
+
+\setslot{u1D546}
+   \comment{The blackboard bold letter `$\mathbb{O}$'.}
+\endsetslot
+
+\setslot{uni2119}
+   \comment{The blackboard bold letter `$\mathbb{P}$'.}
+\endsetslot
+
+\setslot{uni211A}
+   \comment{The blackboard bold letter `$\mathbb{Q}$'.}
+\endsetslot
+
+\setslot{uni211D}
+   \comment{The blackboard bold letter `$\mathbb{R}$'.}
+\endsetslot
+
+\setslot{u1D54A}
+   \comment{The blackboard bold letter `$\mathbb{S}$'.}
+\endsetslot
+
+\setslot{u1D54B}
+   \comment{The blackboard bold letter `$\mathbb{T}$'.}
+\endsetslot
+
+\setslot{u1D54C}
+   \comment{The blackboard bold letter `$\mathbb{U}$'.}
+\endsetslot
+
+\setslot{u1D54D}
+   \comment{The blackboard bold letter `$\mathbb{V}$'.}
+\endsetslot
+
+\setslot{u1D54E}
+   \comment{The blackboard bold letter `$\mathbb{W}$'.}
+\endsetslot
+
+\setslot{u1D54F}
+   \comment{The blackboard bold letter `$\mathbb{X}$'.}
+\endsetslot
+
+\setslot{u1D550}
+   \comment{The blackboard bold letter `$\mathbb{Y}$'.}
+\endsetslot
+
+\setslot{uni2124}
+   \comment{The blackboard bold letter `$\mathbb{Z}$'.}
+\endsetslot
+
+\nextslot{97}
+\setslot{u1D552}
+   \comment{The blackboard bold letter `$\mathbb{a}$'.}
+\endsetslot
+
+\setslot{u1D553}
+   \comment{The blackboard bold letter `$\mathbb{b}$'.}
+\endsetslot
+
+\setslot{u1D554}
+   \comment{The blackboard bold letter `$\mathbb{c}$'.}
+\endsetslot
+
+\setslot{u1D555}
+   \comment{The blackboard bold letter `$\mathbb{d}$'.}
+\endsetslot
+
+\setslot{u1D556}
+   \comment{The blackboard bold letter `$\mathbb{e}$'.}
+\endsetslot
+
+\setslot{u1D557}
+   \comment{The blackboard bold letter `$\mathbb{f}$'.}
+\endsetslot
+
+\setslot{u1D558}
+   \comment{The blackboard bold letter `$\mathbb{g}$'.}
+\endsetslot
+
+\setslot{u1D559}
+   \comment{The blackboard bold letter `$\mathbb{h}$'.}
+\endsetslot
+
+\setslot{u1D55A}
+   \comment{The blackboard bold letter `$\mathbb{i}$'.}
+\endsetslot
+
+\setslot{u1D55B}
+   \comment{The blackboard bold letter `$\mathbb{j}$'.}
+\endsetslot
+
+\setslot{u1D55C}
+   \comment{The blackboard bold letter `$\mathbb{k}$'.}
+\endsetslot
+
+\setslot{u1D55D}
+   \comment{The blackboard bold letter `$\mathbb{l}$'.}
+\endsetslot
+
+\setslot{u1D55E}
+   \comment{The blackboard bold letter `$\mathbb{m}$'.}
+\endsetslot
+
+\setslot{u1D55F}
+   \comment{The blackboard bold letter `$\mathbb{n}$'.}
+\endsetslot
+
+\setslot{u1D560}
+   \comment{The blackboard bold letter `$\mathbb{o}$'.}
+\endsetslot
+
+\setslot{u1D561}
+   \comment{The blackboard bold letter `$\mathbb{p}$'.}
+\endsetslot
+
+\setslot{u1D562}
+   \comment{The blackboard bold letter `$\mathbb{q}$'.}
+\endsetslot
+
+\setslot{u1D563}
+   \comment{The blackboard bold letter `$\mathbb{r}$'.}
+\endsetslot
+
+\setslot{u1D564}
+   \comment{The blackboard bold letter `$\mathbb{s}$'.}
+\endsetslot
+
+\setslot{u1D565}
+   \comment{The blackboard bold letter `$\mathbb{t}$'.}
+\endsetslot
+
+\setslot{u1D566}
+   \comment{The blackboard bold letter `$\mathbb{u}$'.}
+\endsetslot
+
+\setslot{u1D567}
+   \comment{The blackboard bold letter `$\mathbb{v}$'.}
+\endsetslot
+
+\setslot{u1D568}
+   \comment{The blackboard bold letter `$\mathbb{w}$'.}
+\endsetslot
+
+\setslot{u1D569}
+   \comment{The blackboard bold letter `$\mathbb{x}$'.}
+\endsetslot
+
+\setslot{u1D56A}
+   \comment{The blackboard bold letter `$\mathbb{y}$'.}
+\endsetslot
+
+\setslot{u1D56B}
+   \comment{The blackboard bold letter `$\mathbb{z}$'.}
+\endsetslot
+
+\setslot{u1D55A.dotless}
+   \comment{The blackboard bold dotless letter `$\mathbb{\imath}$'.}
+\endsetslot
+
+\setslot{u1D55B.dotless}
+   \comment{The blackboard bold dotless letter `$\mathbb{\jmath}$'.}
+\endsetslot
+
+\endencoding
+
+\end{document}

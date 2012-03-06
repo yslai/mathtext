@@ -1,0 +1,864 @@
+% -*- mode: plain-tex -*-
+
+% (c) Copyright 2007 as an unpublished work by Yue Shi Lai. All Rights
+% Reserved.
+%
+% Y. S. LAI PROPRIETARY/CONFIDENTIAL. YOU MAY NOT COPY, MODIFY, ADAPT,
+% OR TRANSLATE THIS FILE EXCEPT EXPRESSLY PERMITTED.
+
+\relax
+
+\documentclass[twocolumn]{article}
+\usepackage{fontdoc}
+\usepackage{times,mtpro2}
+
+\title{The {\em MathT\i{}me Professional II} math symbol encoding
+vector}
+\author{Yue Shi Lai}
+\date{31 October 2007\\Version 1.0}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+This document describes the {\em MathT\i{}me Professional II} math
+symbol (LMP2) encoding.
+
+\showbranches
+\encoding
+
+\needsfontinstversion{1.917}
+
+\begincomment
+\section{Default values}
+\endcomment
+
+\setstr{codingscheme}{MATHTIME2 MATH SYMBOLS}
+\setstr{encodingname}{MathTime2MathSymbolEncoding}
+
+\setint{italicslant}{0}		% italic slant
+\setint{interword}{0}		% interword space
+\setint{stretchword}{0}		% interword stretch
+\setint{shrinkword}{0}		% interword shrink
+\ifisglyph{x}\then
+   \setint{xheight}{\height{x}}	% x-height
+\Else
+   \setint{xheight}{457}	% x-height
+\Fi
+\setint{quad}{1000}		% quad
+\setint{extraspace}{0}		% extra space after .
+
+\comment{The following font dimension defaults are taken from 
+\texttt{mt2syt}.}
+
+\setint{num1}{701}		% num 1
+\setint{num2}{404}		% num 2
+\setint{num3}{454}		% num 3
+\setint{denom1}{710}		% denom 1
+\setint{denom2}{355}		% denom 2
+\setint{sup1}{413}		% sup 1
+\setint{sup2}{363}		% sup 2
+\setint{sup3}{289}		% sup 3
+\setint{sub1}{150}		% sub 1
+\setint{sub2}{269}		% sub 2
+\setint{supdrop}{386}		% supdrop
+\setint{subdrop}{50}		% subdrop
+\setint{delim1}{2390}		% delim 1
+\setint{delim2}{1010}		% delim 2
+\setint{axisheight}{252}	% math axis height
+
+\begincomment
+\section{Font dimensions}
+\endcomment
+
+\setfontdimen{1}{italicslant}	% italic slant
+\setfontdimen{2}{interword}	% interword space
+\setfontdimen{3}{stretchword}	% interword stretch
+\setfontdimen{4}{shrinkword}	% interword shrink
+\setfontdimen{5}{xheight}	% x-height
+\setfontdimen{6}{quad}		% quad
+\setfontdimen{7}{extraspace}	% extra space after .
+
+\setfontdimen{8}{num1}		% num 1
+\setfontdimen{9}{num2}		% num 2
+\setfontdimen{10}{num3}		% num 3
+\setfontdimen{11}{denom1}	% denom 1
+\setfontdimen{12}{denom2}	% denom 2
+\setfontdimen{13}{sup1}		% sup 1
+\setfontdimen{14}{sup2}		% sup 2
+\setfontdimen{15}{sup3}		% sup 3
+\setfontdimen{16}{sub1}		% sub 1
+\setfontdimen{17}{sub2}		% sub 2
+\setfontdimen{18}{supdrop}	% supdrop
+\setfontdimen{19}{subdrop}	% subdrop
+\setfontdimen{20}{delim1}	% delim 1
+\setfontdimen{21}{delim2}	% delim 2
+\setfontdimen{22}{axisheight}	% math axis height
+
+\begincomment
+\section{The encoding}
+There are 185 glyphs in this encoding.
+\endcomment
+
+\setslot{minus}
+   \comment{The subtraction symbol `$-$'.}
+\endsetslot
+
+\setslot{periodcentered}
+   \comment{The centered dot symbol `$\cdot$'.
+       It is called `dotmath' in Adobe Symbol.}
+\endsetslot
+
+\setslot{multiply}
+   \comment{The multiplication symbol `$\times$'.}
+\endsetslot
+
+\setslot{asteriskmath}
+   \comment{The centered asterisk symbol `$*$'.}
+\endsetslot
+
+\setslot{divide}
+   \comment{The division symbol `$\plaindiv$'.}
+\endsetslot
+
+\setslot{diamondmath}
+   \comment{The diamond symbol `$\diamond$'.}
+\endsetslot
+
+\setslot{plusminus}
+   \comment{The plus or minus symbol `$\pm$'.}
+\endsetslot
+
+\setslot{minusplus}
+   \comment{The minus or plus symbol `$\mp$'.}
+\endsetslot
+
+\setslot{circleplus}
+   \comment{The circled plus symbol `$\oplus$'.}
+\endsetslot
+
+\setslot{circleminus}
+   \comment{The circled minus symbol `$\ominus$'.}
+\endsetslot
+
+\setslot{circlemultiply}
+   \comment{The circled multiplication symbol `$\otimes$'.}
+\endsetslot
+
+\setslot{circledivide}
+   \comment{The circled oblique symbol `$\oslash$'.}
+\endsetslot
+
+\setslot{circledot}
+   \comment{The circled dot symbol `$\odot$'.}
+\endsetslot
+
+\setslot{circlecopyrt}
+   \comment{The large circle symbol `$\bigcirc$' used for building the
+      copyright symbol `\copyright'.}
+\endsetslot
+
+\setslot{openbullet}
+   \comment{The circle symbol `$\circ$'.}
+\endsetslot
+
+\setslot{bullet}
+   \comment{The bullet symbol `$\bullet$'.}
+\endsetslot
+
+\setslot{equivasymptotic}
+   \comment{The asymptotic equals symbol `$\asymp$'.}
+\endsetslot
+
+\setslot{equivalence}
+   \comment{The equivalence symbol `$\equiv$'.}
+\endsetslot
+
+\setslot{reflexsubset}
+   \comment{The subset or equals symbol `$\subseteq$'.}
+\endsetslot
+
+\setslot{reflexsuperset}
+   \comment{The superset or equals symbol `$\supseteq$'.}
+\endsetslot
+
+\setslot{lessequal}
+   \comment{The less or equals symbol `$\leq$'.}
+\endsetslot
+
+\setslot{greaterequal}
+   \comment{The greater or equals symbol `$\geq$'.}
+\endsetslot
+
+\setslot{precedesequal1}		% was: precedesequal
+   \comment{The precedes or equals symbol `$\preceq$'.}
+\endsetslot
+
+\setslot{followsequal1}			% was: followsequal
+   \comment{The follows or equals symbol `$\succeq$'.}
+\endsetslot
+
+\setslot{similar}
+   \comment{The similar symbol `$\sim$'.}
+\endsetslot
+
+\setslot{approxequal}
+   \comment{The approximate equality symbol `$\approx$'.}
+\endsetslot
+
+\setslot{propersubset}
+   \comment{The subset symbol `$\subset$'.}
+\endsetslot
+
+\setslot{propersuperset}
+   \comment{The superset symbol `$\supset$'.}
+\endsetslot
+
+\setslot{lessmuch}
+   \comment{The much less symbol `$\ll$'.}
+\endsetslot
+
+\setslot{greatermuch}
+   \comment{The much greater symbol `$\gg$'.}
+\endsetslot
+
+\setslot{precedes} % was curlyless
+   \comment{The precedes symbol `$\prec$'.}
+\endsetslot
+
+\setslot{follows} % was curlygreater
+   \comment{The follows symbol `$\succ$'.}
+\endsetslot
+
+\setslot{arrowleft}
+   \comment{The left arrow symbol `$\leftarrow$'.}
+\endsetslot
+
+\setslot{arrowright}
+   \comment{The right arrow symbol `$\rightarrow$'.}
+\endsetslot
+
+\setslot{arrowup}
+   \comment{The up arrow symbol `$\uparrow$'.}
+\endsetslot
+
+\setslot{arrowdown}
+   \comment{The down arrow symbol `$\downarrow$'.}
+\endsetslot
+
+\setslot{arrowboth}
+   \comment{The horizontal arrow symbol `$\leftrightarrow$'.}
+\endsetslot
+
+\setslot{arrownortheast}
+   \comment{The north-east arrow symbol `$\nearrow$'.}
+\endsetslot
+
+\setslot{arrowsoutheast}
+   \comment{The south-east arrow symbol `$\searrow$'.}
+\endsetslot
+
+\setslot{similarequal}
+   \comment{The similar or equal symbol `$\simeq$'.}
+\endsetslot
+
+\setslot{arrowdblleft}
+   \comment{The double left arrow symbol `$\Leftarrow$'.}
+\endsetslot
+
+\setslot{arrowdblright}
+   \comment{The double right arrow symbol `$\Rightarrow$'.}
+\endsetslot
+
+\setslot{arrowdblup}
+   \comment{The double up arrow symbol `$\Uparrow$'.}
+\endsetslot
+
+\setslot{arrowdbldown}
+   \comment{The double down arrow symbol `$\Downarrow$'.}
+\endsetslot
+
+\setslot{arrowdblboth}
+   \comment{The double horizontal arrow symbol `$\Leftrightarrow$'.}
+\endsetslot
+
+\setslot{arrownorthwest}
+   \comment{The north-west arrow symbol `$\nwarrow$'.}
+\endsetslot
+
+\setslot{arrowsouthwest}
+   \comment{The south-west arrow symbol `$\swarrow$'.}
+\endsetslot
+
+\setslot{proportional}
+   \comment{The proportional symbol `$\propto$'.}
+\endsetslot
+
+\setslot{prime}
+   \comment{The prime symbol `$\prime$'.}
+\endsetslot
+
+\setslot{infinity}
+   \comment{The infinity symbol `$\infty$'.}
+\endsetslot
+
+\setslot{element}
+   \comment{The set membership symbol `$\in$'.}
+\endsetslot
+
+\setslot{owner}
+   \comment{The backwards set membership symbol `$\ni$'.}
+\endsetslot
+
+\setslot{triangle}
+   \comment{The upwards triangle symbol `$\bigtriangleup$'.}
+\endsetslot
+
+\setslot{triangleinv}
+   \comment{The downwards triangle symbol `$\bigtriangledown$'.}
+\endsetslot
+
+\setslot{negationslash}
+   \comment{The negation slash symbol, used to construct
+       negated relations or arrows such as `$\not=$'.}
+\endsetslot
+
+\setslot{mapstochar}
+   \comment{The maps to building block symbol `$\mapstochar$',
+      used to build `$\mapsto$'.}
+\endsetslot
+
+\setslot{universal}
+   \comment{The universal quantification symbol `$\forall$'.}
+\endsetslot
+
+\setslot{existential}
+   \comment{The existential quantification symbol `$\exists$'.}
+\endsetslot
+
+\setslot{logicalnot}
+   \comment{The negation symbol `$\plainneg$'.}
+\endsetslot
+
+\setslot{emptysetstress}
+   \comment{The `stressed' empty set symbol `$\emptyset$', which should
+      look like a zero with a slash.  The `emptyset' symbol is a circle
+      with a slash.}
+\endsetslot
+
+\setslot{Rfraktur}
+   \comment{The upper case Fraktur R symbol `$\Re$'.  It is called
+       `Rfractur' rather than `Rfraktur' in MathTime and Lucida New Math.}
+\endsetslot
+
+\setslot{Ifraktur}
+   \comment{The upper case Fraktur I symbol `$\Im$'.  It is called
+       `Ifractur' rather than `Ifraktur' in MathTime and Lucida New Math.}
+\endsetslot
+
+\setslot{latticetop}
+   \comment{The inverted perpendicular symbol `$\top$'.}
+\endsetslot
+
+\setslot{perpendicular}
+   \comment{The perpendicular symbol `$\perp$'.}
+\endsetslot
+
+\setslot{aleph}
+   \comment{The aleph symbol `$\aleph$'.}
+\endsetslot
+
+\setslot{tie}
+   \comment{The tie accent symbol `\t oo'.}
+\endsetslot
+
+\setslot{composition}
+   \comment{The composition symbol `$\comp$'.}
+\endsetslot
+
+\setslot{plus}
+   \comment{The addition sign `+'.}
+\endsetslot
+
+\setslot{equal}
+   \comment{The equals sign `='.}
+\endsetslot
+
+\setslot{vector}
+   \comment{The vector accent symbol `$\vec{x}$'.}
+\endsetslot
+
+\setslot{triangleright}
+   \comment{The triangle symbol `$\triangleright$'.}
+\endsetslot
+
+\setslot{triangleleft}
+   \comment{The triangle symbol `$\triangleleft$'.}
+\endsetslot
+
+\setslot{bonddbl}
+\endsetslot
+
+\setslot{semicolon}
+   \comment{The semi-colon punctuation mark `;'.}
+\endsetslot
+
+\setslot{grave}
+   \comment{The grave accent `\`a'.}
+\endsetslot
+
+\setslot{acute}
+   \comment{The acute accent `\'a'.}
+\endsetslot
+
+\setslot{caron}
+   \comment{The caron or h\'a\v cek accent `\v a'.}
+\endsetslot
+
+\setslot{breve}
+   \comment{The breve accent `\u a'.}
+\endsetslot
+
+\setslot{macron}
+   \comment{The macron accent `\=a'.}
+\endsetslot
+
+\setslot{circumflex}
+   \comment{The circumflex accent `\^ a'.}
+\endsetslot
+
+\setslot{dotaccent}
+   \comment{The dot accent `\.a'.}
+\endsetslot
+
+\setslot{tilde}
+   \comment{The tilde accent `\~a'.}
+\endsetslot
+
+\setslot{dieresis}
+   \comment{The umlaut or dieresis accent `\"a'.}
+\endsetslot
+
+\setslot{macronwider}
+   \comment{The wider macron accent `$\mathrm{\wwbar{a}}$'.}
+\endsetslot
+
+\setslot{dotaccentup}
+   \comment{The upward moved dot accent `$\mathrm{\dotup{a}}$'.}
+\endsetslot
+
+\setslot{dieresisup}
+   \comment{The upward moved umlaut or dieresis accent
+      `$\mathrm{\ddotup{a}}$'.}
+\endsetslot
+
+\setslot{ringfitted}
+   \comment{The ring accent `\aa', fitted to be the same width as an
+      upper case `A'.}
+\endsetslot
+
+\setslot{colon}
+   \comment{The colon punctuation mark `:'.}
+\endsetslot
+
+\setslot{integerdivide}
+   \comment{The symbol `$\smallsetminus$'.}
+\endsetslot
+
+\setslot{cupproduct}
+   \comment{The cup-product symbol `$\cupprod$'.}
+\endsetslot
+
+\setslot{capproduct}
+   \comment{The cap-product symbol `$\capprod$'.}
+\endsetslot
+
+\setslot{union}
+   \comment{The set union symbol `$\cup$'.}
+\endsetslot
+
+\setslot{intersection}
+   \comment{The set intersection symbol `$\cap$'.}
+\endsetslot
+
+\setslot{unionmulti}
+   \comment{The multiset union symbol `$\uplus$'.}
+\endsetslot
+
+\setslot{logicaland}
+   \comment{The meet symbol `$\wedge$'.}
+\endsetslot
+
+\setslot{logicalor}
+   \comment{The join symbol `$\vee$'.}
+\endsetslot
+
+\setslot{turnstileleft}
+   \comment{The turnstile symbol `$\vdash$'.}
+\endsetslot
+
+\setslot{turnstileright}
+   \comment{The backwards turnstile symbol `$\dashv$'.}
+\endsetslot
+
+\setslot{floorleft}
+   \comment{The left floor symbol `$\lfloor$'.}
+\endsetslot
+
+\setslot{floorright}
+   \comment{The right floor symbol `$\rfloor$'.}
+\endsetslot
+
+\setslot{ceilingleft}
+   \comment{The left ceiling symbol `$\lceil$'.}
+\endsetslot
+
+\setslot{ceilingright}
+   \comment{The right ceiling symbol `$\rceil$'.}
+\endsetslot
+
+\setslot{braceleft}
+   \comment{The left brace symbol `$\{$'.}
+\endsetslot
+
+\setslot{braceright}
+   \comment{The right brace symbol `$\}$'.}
+\endsetslot
+
+\setslot{angleleft}
+   \comment{The left angle bracket symbol `$\langle$'.
+       It is called `angbracketleft' in MathTime and Lucida,
+       but `angleleft' in Adobe Symbol.}
+\endsetslot
+
+\setslot{angleright}
+   \comment{The right angle bracket symbol `$\rangle$'.
+       It is called `angbracketright' in MathTime and Lucida,
+       but `angleleft' in Adobe Symbol.}
+\endsetslot
+
+\setslot{bar}
+   \comment{The vertical bar symbol `$|$'.}
+\endsetslot
+
+\setslot{bardbl}
+   \comment{The parallel vertical bars symbol `$\parallel$'.}
+\endsetslot
+
+\setslot{arrowbothv}
+   \comment{The vertical arrows symbol `$\updownarrow$'.}
+\endsetslot
+
+\setslot{arrowdblbothv}
+   \comment{The double vertical arrows symbol `$\Updownarrow$'.}
+\endsetslot
+
+\setslot{backslash}
+   \comment{The backwards oblique symbol `$\backslash$'.}
+\endsetslot
+
+\setslot{wreathproduct}
+   \comment{The Wreath product symbol `$\wr$'.}
+\endsetslot
+
+\setslot{radicallow}
+   \comment{The lowered radical symbol `$\surd$'.}
+\endsetslot
+
+\setslot{coproduct}
+   \comment{The textstyle coproduct symbol `$\coprod$'.}
+\endsetslot
+
+\setslot{gradient}
+   \comment{The inverted Delta symbol `$\nabla$'.
+       It is also called `gradient' in MathTime and Lucida,
+       but `gradient' in Adobe Symbol.}
+\endsetslot
+
+\setslot{integral}
+   \comment{The small integral symbol `$\plainint$'.}
+\endsetslot
+
+\setslot{unionsq}
+   \comment{The square union symbol `$\sqcup$'.}
+\endsetslot
+
+\setslot{intersectionsq}
+   \comment{The square intersection symbol `$\sqcap$'.}
+\endsetslot
+
+\setslot{subsetsqequal}
+   \comment{The square subset or equal symbol `$\sqsubseteq$'.}
+\endsetslot
+
+\setslot{supersetsqequal}
+   \comment{The square superset or equal symbol `$\sqsupseteq$'.}
+\endsetslot
+
+\setslot{macronwider1}
+   \comment{The wider macron accent `$\mathrm{\wbar{a}}$'.}
+\endsetslot
+
+\setslot{circumflexwider1}
+   \comment{The wider circumflex accent `$\mathrm{\what{a}}$'.}
+\endsetslot
+
+\setslot{tildewider1}
+   \comment{The wider tilde accent `$\mathrm{\wtilde{a}}$'.}
+\endsetslot
+
+\setslot{caronwider1}
+   \comment{The wider caron or h\'a\v cek accent
+     `$\mathrm{\wcheck{a}}$'.}
+\endsetslot
+
+\setslot{club}
+   \comment{The club suit symbol `$\clubsuit$'.}
+\endsetslot
+
+\setslot{diamond}
+   \comment{The diamond suit symbol `$\diamondsuit$'.}
+\endsetslot
+
+\setslot{heart}
+   \comment{The heart suit symbol `$\heartsuit$'.}
+\endsetslot
+
+\setslot{spade}
+   \comment{The spade suit symbol `$\spadesuit$'.}
+\endsetslot
+
+\setslot{clubopen}
+   \comment{The open club suit symbol `$\openclubsuit$'.}
+\endsetslot
+
+\setslot{clubshaded}
+   \comment{The shaded club suit symbol `$\shadedclubsuit$'.}
+\endsetslot
+
+\setslot{spadeopen}
+   \comment{The open spade suit symbol `$\openspadesuit$'.}
+\endsetslot
+
+\setslot{spadeshaded}
+   \comment{The shaded spade suit symbol `$\shadedspadesuit$'.}
+\endsetslot
+
+\setslot{hbar}
+   \comment{The symbol `$\hbar$'.}
+\endsetslot
+
+\setslot{notelement}
+   \comment{The symbol `$\notin$'.}
+\endsetslot
+
+\setslot{angle}
+   \comment{The symbol `$\angle$'.}
+\endsetslot
+
+\setslot{approaches}
+   \comment{The symbol `$\doteq$'.}
+\endsetslot
+
+\setslot{satisfies}
+   \comment{The symbol `$\vDash$'.}
+\endsetslot
+
+\setslot{bowtie}
+   \comment{The symbol `$\bowtie$'.}
+\endsetslot
+
+\setslot{congruent}
+   \comment{The symbol `$\cong$'.}
+\endsetslot
+
+\setslot{arrowhookleft1}
+   \comment{The symbol `$\hookleftarrow$'.}
+\endsetslot
+
+\setslot{arrowhookright1}
+   \comment{The symbol `$\hookrightarrow$'.}
+\endsetslot
+
+\setslot{arrowleftlong}
+   \comment{The symbol `$\longleftarrow$'.}
+\endsetslot
+
+\setslot{arrowrightlong}
+   \comment{The symbol `$\longrightarrow$'.}
+\endsetslot
+
+\setslot{arrowdblleftlong}
+   \comment{The symbol `$\Longleftarrow$'.}
+\endsetslot
+
+\setslot{arrowdblrightlong}
+   \comment{The symbol `$\Longrightarrow$'.}
+\endsetslot
+
+\setslot{mapsto1}
+   \comment{The symbol `$\mapsto$'.}
+\endsetslot
+
+\setslot{mapsto1long}
+   \comment{The symbol `$\longmapsto$'.}
+\endsetslot
+
+\setslot{arrowbothlong}
+   \comment{The symbol `$\longleftrightarrow$'.}
+\endsetslot
+
+\setslot{arrowdblbothlong}
+   \comment{The symbol `$\Longleftrightarrow$'.}
+\endsetslot
+
+\setslot{harpoonleftright}
+   \comment{The symbol `$\rightleftharpoons$'.}
+\endsetslot
+
+\setslot{notless}
+   \comment{The symbol `$\nless$'.}
+\endsetslot
+
+\setslot{notlessequal}
+   \comment{The symbol `$\nleq$'.}
+\endsetslot
+
+\setslot{notprecedes}
+   \comment{The symbol `$\nprec$'.}
+\endsetslot
+
+\setslot{notprecedesoreql}
+   \comment{The symbol `$\npreceq$'.}
+\endsetslot
+
+\setslot{notsubset}
+   \comment{The symbol `$\notsubset$'.}
+\endsetslot
+
+\setslot{notsubseteql}
+   \comment{The symbol `$\nsubseteq$'.}
+\endsetslot
+
+\setslot{notsubsetsqeql}
+   \comment{The symbol `$\notsqsubseteq$'.}
+\endsetslot
+
+\setslot{notgreater}
+   \comment{The symbol `$\ngtr$'.}
+\endsetslot
+
+\setslot{notgreaterequal}
+   \comment{The symbol `$\ngeq$'.}
+\endsetslot
+
+\setslot{notfollows}
+   \comment{The symbol `$\nsucc$'.}
+\endsetslot
+
+\setslot{notfollowsoreql}
+   \comment{The symbol `$\nsucceq$'.}
+\endsetslot
+
+\setslot{notsuperset}
+   \comment{The symbol `$\notsupset$'.}
+\endsetslot
+
+\setslot{notsuperseteql}
+   \comment{The symbol `$\nsupseteq$'.}
+\endsetslot
+
+\setslot{notsupersetsqeql}
+   \comment{The symbol `$\notsqsupseteq$'.}
+\endsetslot
+
+\setslot{notequal}
+   \comment{The symbol `$\neq$'.}
+\endsetslot
+
+\setslot{notidentical}
+   \comment{The symbol `$\notequiv$'.}
+\endsetslot
+
+\setslot{notsimilar}
+   \comment{The symbol `$\nsim$'.}
+\endsetslot
+
+\setslot{notsimilarequal}
+   \comment{The symbol `$\notsimeq$'.}
+\endsetslot
+
+\setslot{notapproxequal}
+   \comment{The symbol `$\notapprox$'.}
+\endsetslot
+
+\setslot{notcongruent}			% was: notapproxequual
+   \comment{The symbol `$\ncong$'.}
+\endsetslot
+
+\setslot{notequivasymptotic}
+   \comment{The symbol `$\notasymp$'.}
+\endsetslot
+
+\setslot{tripledot}
+   \comment{The triple dot accent `$\mathrm{\dddot{a}}$'.}
+\endsetslot
+
+\setslot{quadrupledot}
+   \comment{The quadruple dot accent `$\mathrm{\ddddot{a}}$'.}
+\endsetslot
+
+\setslot{tripledotup}
+   \comment{The upward moved triple dot accent
+      `$\mathrm{\dddotup{a}}$'.}
+\endsetslot
+
+\setslot{quadrupledotup}
+   \comment{The upward moved quadruple dot accent
+      `$\mathrm{\ddddotup{a}}$'.}
+\endsetslot
+
+\setslot{hslash}
+   \comment{The symbol `$\hslash$'.}
+\endsetslot
+
+\setslot{similararrow}
+   \comment{The symbol `$\simarrow$'.}
+\endsetslot
+
+\setslot{digamma}
+   \comment{The symbol `$\digamma$'.}
+\endsetslot
+
+\setslot{logicaland1}
+   \comment{The symbol `$\varland$'.}
+\endsetslot
+
+\setslot{contraction}
+   \comment{The symbol `$\contraction$'.}
+\endsetslot
+
+\setslot{colonequal}
+   \comment{The symbol `$\coloneq$'.}
+\endsetslot
+
+\setslot{equalcolon}
+   \comment{The symbol `$\eqcolon$'.}
+\endsetslot
+
+\setslot{hatequal}
+   \comment{The symbol `$\hateq$'.}
+\endsetslot
+
+\setslot{circledashbullet}
+   \comment{The symbol `$\circdashbullet$'.}
+\endsetslot
+
+\setslot{bulletdashcircle}
+   \comment{The symbol `$\bulletdashcirc$'.}
+\endsetslot
+
+\endencoding
+
+\end{document}

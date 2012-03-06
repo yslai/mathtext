@@ -1,0 +1,537 @@
+# lcdf-typetools texglyphlist.txt, Version 2.33
+# Contents: Extensions to the Adobe Glyph List for TeX fonts and
+# encodings. We also extend the second field so that it can contain
+# multiple Unicode scalar values, separated by commas, analogous to
+# otftotfm's "% UNICODING" comments.
+###############################################################################
+Delta;2206,0394
+Ifractur;2111
+# FFsmall, FFIsmall, FFLsmall, FIsmall, FLsmall: invalid Unicode
+FFsmall;D804
+FFIsmall;D807
+FFLsmall;D808
+FIsmall;D805
+FLsmall;D806
+# Germandbls: invalid Unicode, used for secondary replacement from EC.enc
+Germandbls;D800
+# Germandblssmall: invalid Unicode
+Germandblssmall;D803
+Ng;014A
+Omega;2126,03A9
+Rfractur;211C
+# SS: invalid Unicode, used for secondary replacement from EC.enc
+SS;D800
+# SSsmall: invalid Unicode
+SSsmall;D803
+# altselector: invalid Unicode
+altselector;D802
+angbracketleft;27E8,2329
+angbracketright;27E9,232A
+arrowbothv;2195
+arrowdblbothv;21D5
+arrowleftbothalf;21BD
+arrowlefttophalf;21BC
+arrownortheast;2197
+arrownorthwest;2196
+arrowrightbothalf;21C1
+arrowrighttophalf;21C0
+arrowsoutheast;2198
+arrowsouthwest;2199
+# ascendercompwordmark: taller cwm, invalid Unicode
+ascendercompwordmark;D80A
+asteriskcentered;2217
+bardbl;2225
+# capitalcompwordmark: taller cwm, invalid Unicode
+capitalcompwordmark;D809
+ceilingleft;2308
+ceilingright;2309
+circlecopyrt;20DD,25CB
+circledivide;2298
+circledot;2299
+circleminus;2296
+coproduct;2A3F
+# cwm: Unicode for ZWNJ, used for secondary replacement from EC.enc
+cwm;200C
+dblbracketleft;27E6
+dblbracketright;27E7
+diamond;2662,2666
+diamondmath;22C4
+# U+0237 is the proposed allocation for dotless j as of Unicode 4.0
+# U+1D6A5 is the mathematical italic version approved in Unicode 5.0
+dotlessj;0237,F6BE,1D6A5
+emptyset;2205,F638
+# emptyslot: invalid Unicode; the user explicitly wants this slot empty
+emptyslot;D801
+epsilon1;03F5
+equivasymptotic;224D
+flat;266D
+floorleft;230A
+floorright;230B
+follows;227B
+followsequal;227D
+greatermuch;226B
+heart;2661,2665
+interrobang;203D
+# interrobangdown: inverted interrobang, invalid Unicode
+interrobangdown;D80B
+intersectionsq;2293
+latticetop;22A4
+lessmuch;226A
+lscript;2113
+natural;266E
+negationslash;0338
+ng;014B
+owner;220B
+pertenthousand;2031
+# TeX encodings such as 'texmital.enc' disagree with Unicode and the Adobe
+# glyph list; in TeX, the "straight" form of phi takes the name "phi",
+# whereas the more-common "loopy" form of phi, \varphi, takes the name "phi1".
+phi;03D5,03C6
+phi1;03C6
+pi1;03D6
+precedesequal;227C
+prime;2032,02B9
+rho1;03F1
+# ringfitted: a ring character centered on the x-width of A, invalid Unicode
+ringfitted;D80D
+sharp;266F
+similarequal;2243
+slurabove;2322
+slurbelow;2323
+star;22C6
+subsetsqequal;2291
+supersetsqequal;2292
+triangle;25B3
+triangleinv;25BD
+triangleleft;25B9
+triangleright;25C3
+turnstileleft;22A2
+turnstileright;22A3
+# twelveudash: 2/3-em dash; invalid Unicode
+twelveudash;D80C
+unionmulti;228E
+unionsq;2294
+vector;20D7
+# visualspace: Unicode for OPEN BOX, used for secondary replacement from EC.enc
+visualspace;2423
+wreathproduct;2240
+# -- Marco Kuhlmann reported annoying glyph neologisms in fontinst encodings
+# Dbar = Dcroat
+Dbar;0110
+# compwordmark = cwm
+compwordmark;200C
+# dbar = dcroat
+dbar;0111
+# rangedash = endash
+rangedash;2013
+# hyphenchar = hyphen
+hyphenchar;002D
+# punctdash = emdash
+punctdash;2014
+# visiblespace = visualspace
+visiblespace;2423
+# -- Operator glyphs in Mathematical Pi LT Std
+archleftdown;293A
+archrightup;293B
+arrowrightcurly;219D
+between;226C
+# bigstar = blackstar
+bigstar;2605
+complement;2201
+# diamond = whitediamond
+diamond;25C7
+difference;224F
+# equaldotleftright = approxequalorimage
+equaldotleftright;2252
+# equaldotrightleft = imageorapproximatelyequal
+equaldotrightleft;2253
+equalorsimilar;2242
+# equalsdots = geometricallyequal
+equalsdots;2251
+equalslantorgreater;2A96
+equalslantorless;2A95
+# followsorcurly = followsequal
+followsorcurly;227D
+geomequivalent;224E
+greaterdbleqlless;2A8C
+# greaterdblequal = greateroverequal
+greaterdblequal;2267
+greaterdot;22D7
+# greaterequalless = greaterequalorless
+greaterequalless;22DB
+greatermuch1;2AA2
+greaterorequalslant;2A7E
+# greaterorsimilar = greaterorequivalent
+greaterorsimilar;2273
+hslash;210F
+lessdbleqlgreater;2A8B
+# lessdblequal = lessoverequal
+lessdblequal;2266
+lessdot;22D6
+# lessequalgreater = lessequalorgreater
+lessequalgreater;22DA
+lessmuch1;2AA1
+lessorequalslant;2A7D
+# lessorsimilar = lessorequivalent
+lessorsimilar;2272
+mapsto1;21A6
+measuredangle;2221
+nand;22BC
+notapproxequal;2249
+notcongruent;2247
+notequivasymptotic;226D
+# notfollows = notsucceeds
+notfollows;2281
+notgreaterdblequal;E08A
+# notgreaterequal = notgreaternorequal
+notgreaterequal;2271
+notgreaterorequalslant;E0B1
+notlessdblequal;E088
+# notlessequal = notlessnorequal
+notlessequal;2270
+notlessorequalslant;E0AF
+notsimilar;2241
+notsimilarequal;2244
+notsubseteql;2288
+notsubsetordbleql;E0BD
+notsuperseteql;2289
+notsupersetordbleql;E0BF
+orunderscore;22BB
+# periodcentered = dotmath
+periodcentered;22C5
+perpcorrespond;2A5E
+# precedesorcurly = precedesequal
+precedesorcurly;227C
+sphericalangle;2222
+subsetdbl;22D0
+subsetdblequal;2AC5
+supersetdbl;22D1
+supersetdblequal;2AC6
+# triangleleft = whiteleftpointingtriangle
+triangleleft;25C1
+# triangleright = whiterightpointingtriangle
+triangleright;25B7
+# -- Double-struck, Fraktur and script glyphs
+zerodoublestruck;1D7D8
+onedoublestruck;1D7D9
+twodoublestruck;1D7DA
+threedoublestruck;1D7DB
+fourdoublestruck;1D7DC
+fivedoublestruck;1D7DD
+sixdoublestruck;1D7DE
+sevendoublestruck;1D7DF
+eightdoublestruck;1D7E0
+ninedoublestruck;1D7E1
+Adoublestruck;1D538
+Bdoublestruck;1D539
+Cdoublestruck;2102
+Ddoublestruck;1D53B
+Edoublestruck;1D53C
+Fdoublestruck;1D53D
+Gdoublestruck;1D53E
+Hdoublestruck;210D
+Idoublestruck;1D540
+Jdoublestruck;1D541
+Kdoublestruck;1D542
+Ldoublestruck;1D543
+Mdoublestruck;1D544
+Ndoublestruck;2115
+Odoublestruck;1D546
+Pdoublestruck;2119
+Qdoublestruck;211A
+Rdoublestruck;211D
+Sdoublestruck;1D54A
+Tdoublestruck;1D54B
+Udoublestruck;1D54C
+Vdoublestruck;1D54D
+Wdoublestruck;1D54E
+Xdoublestruck;1D54F
+Ydoublestruck;1D550
+Zdoublestruck;2124
+adoublestruck;1D552
+bdoublestruck;1D553
+cdoublestruck;1D554
+ddoublestruck;1D555
+edoublestruck;1D556
+fdoublestruck;1D557
+gdoublestruck;1D558
+hdoublestruck;1D559
+idoublestruck;1D55A
+jdoublestruck;1D55B
+kdoublestruck;1D55C
+ldoublestruck;1D55D
+mdoublestruck;1D55E
+ndoublestruck;1D55F
+odoublestruck;1D560
+pdoublestruck;1D561
+qdoublestruck;1D562
+rdoublestruck;1D563
+sdoublestruck;1D564
+tdoublestruck;1D565
+udoublestruck;1D566
+vdoublestruck;1D567
+wdoublestruck;1D568
+xdoublestruck;1D569
+ydoublestruck;1D56A
+zdoublestruck;1D56B
+Afraktur;1D504
+Bfraktur;1D505
+Cfraktur;212D
+Dfraktur;1D507
+Efraktur;1D508
+Ffraktur;1D509
+Gfraktur;1D50A
+Hfraktur;210C
+Jfraktur;1D50D
+Kfraktur;1D50E
+Lfraktur;1D50F
+Mfraktur;1D510
+Nfraktur;1D511
+Ofraktur;1D512
+Pfraktur;1D513
+Qfraktur;1D514
+Sfraktur;1D516
+Tfraktur;1D517
+Ufraktur;1D518
+Vfraktur;1D519
+Wfraktur;1D51A
+Xfraktur;1D51B
+Yfraktur;1D51C
+Zfraktur;2128
+afraktur;1D51E
+bfraktur;1D51F
+cfraktur;1D520
+dfraktur;1D521
+efraktur;1D522
+ffraktur;1D523
+gfraktur;1D524
+hfraktur;1D525
+ifraktur;1D526
+jfraktur;1D527
+kfraktur;1D528
+lfraktur;1D529
+mfraktur;1D52A
+nfraktur;1D52B
+ofraktur;1D52C
+pfraktur;1D52D
+qfraktur;1D52E
+rfraktur;1D52F
+sfraktur;1D530
+tfraktur;1D531
+ufraktur;1D532
+vfraktur;1D533
+wfraktur;1D534
+xfraktur;1D535
+yfraktur;1D536
+zfraktur;1D537
+Ascript;1D49C
+Bscript;212C
+Cscript;1D49E
+Dscript;1D49F
+Escript;2130
+Fscript;2131
+Gscript;1D4A2
+Hscript;210B
+Iscript;2110
+Jscript;1D4A5
+Kscript;1D4A6
+Lscript;2112
+Mscript;2133
+Nscript;1D4A9
+Oscript;1D4AA
+Pscript;1D4AB
+Qscript;1D4AC
+Rscript;211B
+Sscript;1D4AE
+Tscript;1D4AF
+Uscript;1D4B0
+Vscript;1D4B1
+Wscript;1D4B2
+Xscript;1D4B3
+Yscript;1D4B4
+Zscript;1D4B5
+ascript;1D4B6,0251
+bscript;1D4B7
+cscript;1D4B8
+dscript;1D4B9
+escript;212F
+fscript;1D4BB
+gscript;210A,0261
+hscript;1D4BD
+iscript;1D4BE
+jscript;1D4BF
+kscript;1D4C0
+lscript;2113
+mscript;1D4C2
+nscript;1D4C3
+oscript;2134
+pscript;1D4C5
+qscript;1D4C6
+rscript;1D4C7
+sscript;1D4C8
+tscript;1D4C9
+uscript;1D4CA
+vscript;1D4CB
+wscript;1D4CC
+xscript;1D4CD
+yscript;1D4CE
+zscript;1D4CF
+# -- Operator glyphs in STIX
+anticlockwise;21BA
+approxorequal;224A
+arrowbothlong;27F7
+arrowdblbothlong;27FA
+arrowdblleftlong;27F8
+arrowdblrightlong;27F9
+arrowhookleft1;21A9
+arrowhookright1;21AA
+arrowleftdashed;21E0
+arrowleftlong;27F5
+arrowparrleftright;21C6
+arrowparrrightleft;21C4
+arrowrightdashed;21E2
+arrowrightlong;27F6
+arrowtailleft;21A2
+arrowtailright;21A3
+arrowtripleleft;21DA
+arrowtripleright;21DB
+arrowuprightofdown;21F5
+beth;2136
+bonddbl;E0C8
+bowtie;22C8
+bulletdashcircle;22B7
+check;2713
+circleasterisk;229B
+circlecirc;229A
+circledash;229D
+circledashbullet;22B6
+circledR;00AE,24C7
+circledS;24C8
+circleequal;2257
+clockwise;21BB
+clubopen;2667
+colonequal;2254
+composition;2218
+curlyorfollows;22DF
+curlyorprecedes;22DE
+daleth;2138
+dblarrowdown;21CA
+dblarrowheadleft;219E
+dblarrowheadright;21A0
+dblarrowup;21C8
+dblharpoondown;2965
+dblharpoonup;2963
+defines;225C
+diamond1;25C7
+digamma;03DC
+dividemultiply;22C7
+dotplus;2214
+downfall;22CE
+downslope;2572
+emptysetstress;2205
+equalcolon;2255
+Finv;2132
+followsequal1;2AB0
+followsnotapproxeql;2ABA
+followsnotdbleql;2AB6
+followsorapproxeql;2AB8
+followsornotsimilar;22E9
+followsorsimilar;227F
+forces;22A9
+forcesbar;22AA
+fork;22D4
+gimel;2137
+Gmir;2141
+greaternotapproxeql;2A8A
+greaternotequal;2A88
+greaterorapproxeql;2A86
+greaterornotdbleql;2269
+harpoondownleft;21C3
+harpoondownright;21C2
+harpoonleftright;21CC
+harpoonrightleft;21CB
+harpoonupleft;21BF
+harpoonupleftofdown;296E
+harpoonupright;21BE
+harpoonuprightofdown;296F
+hatequal;2259
+integerdivide;2216
+intercal;22BA
+intersectiondbl;22D2
+lessnotapproxeql;2A89
+lessnotequal;2A87
+lessorapproxeql;2A85
+lessornotdbleql;2268
+lozengesolid;29EB
+macronwider;0305
+maltesecross;2720
+mapsto1long;27FC
+multicloseleft;22C9
+multicloseright;22CA
+multimap;22B8
+multiopenleft;22CB
+multiopenright;22CC
+notarrowboth;21AE
+notarrowleft;219A
+notarrowright;219B
+notbar;2224
+notdblarrowboth;21CE
+notdblarrowleft;21CD
+notdblarrowright;21CF
+notexistential;2204
+notforces;22AE
+notforcesextra;22AF
+notsatisfies;22AD
+notsubsetsqequal;22E2
+notsupersetsqequal;22E3
+nottriangeqlleft;22EC
+nottriangeqlright;22ED
+nottriangleleft;22EA
+nottriangleright;22EB
+notturnstile;22AC
+Omegainv;2127
+precedesequal1;2AAF
+precedesnotapproxeql;2AB9
+precedesnotdbleql;2AB5
+precedesorapproxeql;2AB7
+precedesornotsimilar;22E8
+precedesorsimilar;227E
+primereverse;2035
+quadrupledot;20DC
+revasymptequal;22CD
+revsimilar;223D
+ringinequal;2256
+satisfies;22A8
+shiftleft;21B0
+shiftright;21B1
+similararrow;2B47
+spadeopen;2664
+square;25A1
+squaredot;22A1
+squareimage;228F
+squareminus;229F
+squaremultiply;22A0
+squareoriginal;2290
+squareplus;229E
+squaresolid;25A0
+squiggleright;21DD
+subsetnoteql;228A
+subsetornoteql;2ACB
+supersetnoteql;228B
+supersetornoteql;2ACC
+tie;2040
+triangledown;25BF
+triangledownsld;25BE
+triangleleftequal;22B4
+triangleleftsld;25C4,25C2
+trianglerightequal;22B5
+trianglerightsld;25BA,25B8
+trianglesolid;25B4
+triangleup;25B5
+tripledot;20DB
+uniondbl;22D3
+uprise;22CF
+upslope;2571
+vartriangleleft;25C5,25C3,22B2
+vartriangleright;25BB,25B9,22B3
+Yen;00A5

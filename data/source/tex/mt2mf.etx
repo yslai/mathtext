@@ -1,0 +1,304 @@
+% -*- mode: plain-tex -*-
+
+% (c) Copyright 2007 as an unpublished work by Yue Shi Lai. All Rights
+% Reserved.
+%
+% Y. S. LAI PROPRIETARY/CONFIDENTIAL. YOU MAY NOT COPY, MODIFY, ADAPT,
+% OR TRANSLATE THIS FILE EXCEPT EXPRESSLY PERMITTED.
+
+\relax
+
+\documentclass[twocolumn]{article}
+\usepackage{fontdoc}
+\usepackage{times}
+\usepackage[mtpfrak]{mtpro2}
+
+\title{The {\em MathT\i{}me Professional II} math italic encoding
+vector}
+\author{Yue Shi Lai}
+\date{28 July 2007\\Version 1.0}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+This document describes the {\em MathT\i{}me Professional II} math
+fraktur encoding.
+
+\showbranches
+\encoding
+
+\needsfontinstversion{1.917}
+
+\begincomment
+\section{Default values}
+\endcomment
+
+\setstr{codingscheme}{MATHTIME2 MATH FRAKTUR}
+\setstr{encodingname}{MathTime2MathFrakturEncoding}
+
+\setint{italicslant}{0}		% italic slant
+\setint{interword}{0}		% interword space
+\setint{stretchword}{0}		% interword stretch
+\setint{shrinkword}{0}		% interword shrink
+\ifisglyph{x}\then
+   \setint{xheight}{\height{x}}	% x-height
+\Else
+   \setint{xheight}{457}	% x-height
+\Fi
+\setint{quad}{1000}		% quad
+\setint{extraspace}{0}		% extra space after .
+
+\begincomment
+\section{Font dimensions}
+\endcomment
+
+\setfontdimen{1}{italicslant}	% italic slant
+\setfontdimen{2}{interword}	% interword space
+\setfontdimen{3}{stretchword}	% interword stretch
+\setfontdimen{4}{shrinkword}	% interword shrink
+\setfontdimen{5}{xheight}	% x-height
+\setfontdimen{6}{quad}		% quad
+\setfontdimen{7}{extraspace}	% extra space after .
+
+\begincomment
+\section{The encoding}
+There are 63 glyphs in this encoding.
+\endcomment
+
+\nextslot{25}
+\setslot{u1D51C.alt}
+   \comment{The script letter `$\mathfrak{\altY}$'.}
+\endsetslot
+
+\nextslot{56}
+\setslot{u1D536.alt}
+   \comment{The script letter `$\mathfrak{\altx}$'.}
+\endsetslot
+
+\setslot{u1D537.alt}
+   \comment{The script letter `$\mathfrak{\alty}$'.}
+\endsetslot
+
+\nextslot{65}
+\setslot{u1D504}
+   \comment{The script letter `$\mathfrak{A}$'.}
+\endsetslot
+
+\setslot{u1D505}
+   \comment{The script letter `$\mathfrak{B}$'.}
+\endsetslot
+
+\setslot{uni212D}
+   \comment{The script letter `$\mathfrak{C}$'.}
+\endsetslot
+
+\setslot{u1D507}
+   \comment{The script letter `$\mathfrak{D}$'.}
+\endsetslot
+
+\setslot{u1D508}
+   \comment{The script letter `$\mathfrak{E}$'.}
+\endsetslot
+
+\setslot{u1D509}
+   \comment{The script letter `$\mathfrak{F}$'.}
+\endsetslot
+
+\setslot{u1D50A}
+   \comment{The script letter `$\mathfrak{G}$'.}
+\endsetslot
+
+\setslot{uni210C}
+   \comment{The script letter `$\mathfrak{H}$'.}
+\endsetslot
+
+\setslot{uni2111}
+   \comment{The script letter `$\mathfrak{I}$'.}
+\endsetslot
+
+\setslot{u1D50D}
+   \comment{The script letter `$\mathfrak{J}$'.}
+\endsetslot
+
+\setslot{u1D50E}
+   \comment{The script letter `$\mathfrak{K}$'.}
+\endsetslot
+
+\setslot{u1D50F}
+   \comment{The script letter `$\mathfrak{L}$'.}
+\endsetslot
+
+\setslot{u1D510}
+   \comment{The script letter `$\mathfrak{M}$'.}
+\endsetslot
+
+\setslot{u1D511}
+   \comment{The script letter `$\mathfrak{N}$'.}
+\endsetslot
+
+\setslot{u1D512}
+   \comment{The script letter `$\mathfrak{O}$'.}
+\endsetslot
+
+\setslot{u1D513}
+   \comment{The script letter `$\mathfrak{P}$'.}
+\endsetslot
+
+\setslot{u1D514}
+   \comment{The script letter `$\mathfrak{Q}$'.}
+\endsetslot
+
+\setslot{uni211C}
+   \comment{The script letter `$\mathfrak{R}$'.}
+\endsetslot
+
+\setslot{u1D516}
+   \comment{The script letter `$\mathfrak{S}$'.}
+\endsetslot
+
+\setslot{u1D517}
+   \comment{The script letter `$\mathfrak{T}$'.}
+\endsetslot
+
+\setslot{u1D518}
+   \comment{The script letter `$\mathfrak{U}$'.}
+\endsetslot
+
+\setslot{u1D519}
+   \comment{The script letter `$\mathfrak{V}$'.}
+\endsetslot
+
+\setslot{u1D51A}
+   \comment{The script letter `$\mathfrak{W}$'.}
+\endsetslot
+
+\setslot{u1D51B}
+   \comment{The script letter `$\mathfrak{X}$'.}
+\endsetslot
+
+\setslot{u1D51C}
+   \comment{The script letter `$\mathfrak{Y}$'.}
+\endsetslot
+
+\setslot{uni2128}
+   \comment{The script letter `$\mathfrak{Z}$'.}
+\endsetslot
+
+\nextslot{97}
+\setslot{u1D51E}
+   \comment{The script letter `$\mathfrak{a}$'.}
+\endsetslot
+
+\setslot{u1D51F}
+   \comment{The script letter `$\mathfrak{b}$'.}
+\endsetslot
+
+\setslot{u1D520}
+   \comment{The script letter `$\mathfrak{c}$'.}
+\endsetslot
+
+\setslot{u1D521}
+   \comment{The script letter `$\mathfrak{d}$'.}
+\endsetslot
+
+\setslot{u1D522}
+   \comment{The script letter `$\mathfrak{e}$'.}
+\endsetslot
+
+\setslot{u1D523}
+   \comment{The script letter `$\mathfrak{f}$'.}
+\endsetslot
+
+\setslot{u1D524}
+   \comment{The script letter `$\mathfrak{g}$'.}
+\endsetslot
+
+\setslot{u1D525}
+   \comment{The script letter `$\mathfrak{h}$'.}
+\endsetslot
+
+\setslot{u1D526}
+   \comment{The script letter `$\mathfrak{i}$'.}
+\endsetslot
+
+\setslot{u1D527}
+   \comment{The script letter `$\mathfrak{j}$'.}
+\endsetslot
+
+\setslot{u1D528}
+   \comment{The script letter `$\mathfrak{k}$'.}
+\endsetslot
+
+\setslot{u1D529}
+   \comment{The script letter `$\mathfrak{l}$'.}
+\endsetslot
+
+\setslot{u1D52A}
+   \comment{The script letter `$\mathfrak{m}$'.}
+\endsetslot
+
+\setslot{u1D52B}
+   \comment{The script letter `$\mathfrak{n}$'.}
+\endsetslot
+
+\setslot{u1D52C}
+   \comment{The script letter `$\mathfrak{o}$'.}
+\endsetslot
+
+\setslot{u1D52D}
+   \comment{The script letter `$\mathfrak{p}$'.}
+\endsetslot
+
+\setslot{u1D52E}
+   \comment{The script letter `$\mathfrak{q}$'.}
+\endsetslot
+
+\setslot{u1D52F}
+   \comment{The script letter `$\mathfrak{r}$'.}
+\endsetslot
+
+\setslot{u1D530}
+   \comment{The script letter `$\mathfrak{s}$'.}
+\endsetslot
+
+\setslot{u1D531}
+   \comment{The script letter `$\mathfrak{t}$'.}
+\endsetslot
+
+\setslot{u1D532}
+   \comment{The script letter `$\mathfrak{u}$'.}
+\endsetslot
+
+\setslot{u1D533}
+   \comment{The script letter `$\mathfrak{v}$'.}
+\endsetslot
+
+\setslot{u1D534}
+   \comment{The script letter `$\mathfrak{w}$'.}
+\endsetslot
+
+\setslot{u1D535}
+   \comment{The script letter `$\mathfrak{x}$'.}
+\endsetslot
+
+\setslot{u1D536}
+   \comment{The script letter `$\mathfrak{y}$'.}
+\endsetslot
+
+\setslot{u1D537}
+   \comment{The script letter `$\mathfrak{z}$'.}
+\endsetslot
+
+\setslot{u1D526.dotless}
+   \comment{The script dotless letter `$\mathfrak{\imath}$'.}
+\endsetslot
+
+\setslot{u1D527.dotless}
+   \comment{The script dotless letter `$\mathfrak{\jmath}$'.}
+\endsetslot
+
+\endencoding
+
+\end{document}

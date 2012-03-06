@@ -1,0 +1,31 @@
+# Unicode Mapping for TeX/MathTime MT2EXA Operators Encoding
+# Copyright (c) 2008 Yue Shi Lai. All Rights Reserved.
+# Note: The parsing code is responsible to generate implicit aliases
+# of all operator from sequence matching "intop" to "int" (final "op"
+# removed) with the nolimits atom attribute, as defined in plain.tex,
+# fontmath.ltx, and mtpro2.sty.
+# Fields: unicode_scalar_value tex_type force_upright tex_sequence
+-	Op	1	\smallint
+220F	Op	1	\prod
+2210	Op	1	\coprod
+2211	Op	1	\sum
+222B	Op	1	\intop
+222C	Op	1	\iintop
+222D	Op	1	\iiintop
+222E	Op	1	\ointop
+222F	Op	1	\oiintop
+2230	Op	1	\oiiintop
+2231	Op	1	\cwintop
+2232	Op	1	\cwointop
+2233	Op	1	\awointop
+22C0	Op	1	\bigwedge
+22C1	Op	1	\bigvee
+22C2	Op	1	\bigcap
+22C3	Op	1	\bigcup
+2A00	Op	1	\bigodot
+2A01	Op	1	\bigoplus
+2A02	Op	1	\bigotimes
+2A04	Op	1	\biguplus
+2A06	Op	1	\bigsqcup
+2A0D	Op	1	\barintop
+2A0F	Op	1	\slashintop

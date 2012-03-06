@@ -1,0 +1,42 @@
+# TeX/MathTime/lucimatx control sequence alias
+# Copyright (c) 2008 Yue Shi Lai. All Rights Reserved.
+# Fields: let_to let_from
+\Box	\square
+\Doteq	\doteqdot
+\dasharrow	\dashrightarrow
+\defineeq	\defineequal
+\doublecap	\Cap
+\doublecup	\Cup
+\ge	\geq
+\gets	\leftarrow
+\gggtr	\ggg
+\land	\wedge
+\le	\leq
+\llless	\lll
+\lnot	\neg
+\lor	\vee
+\napprox	\notapprox
+\nasymp	\notasymp
+\ncong	\notcong
+\ne	\neq
+\nequiv	\notequiv
+\ngeq	\notgeq
+\ngtr	\notgr
+\nleq	\notleq
+\nless	\notless
+\nprec	\notprec
+\npreceq	\notpreceq
+\nsimeq	\notsimeq
+\nsqsubseteq	\notsqsubseteq
+\nsqsupseteq	\notsqsupseteq
+\nsubset	\notsubset
+\nsubseteq	\notsubseteq
+\nsucc	\notsucc
+\nsucceq	\notsucceq
+\nsupset	\notsupset
+\nsupseteq	\notsupseteq
+\owns	\ni
+\restriction	\upharpoonright
+\smallsetminus	\setdif
+\to	\rightarrow
+\|	\Vert

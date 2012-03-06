@@ -1,0 +1,7 @@
+# Unicode Mapping for composite characters
+# Copyright (c) 2008 Yue Shi Lai. All Rights Reserved.
+# Fields: unicode_scalar_value tex_type force_upright tex_sequence
+2026	Ord	1	\ldots
+22EE	Ord	1	\vdots
+22EF	Ord	1	\cdots
+22F1	Ord	1	\ddots

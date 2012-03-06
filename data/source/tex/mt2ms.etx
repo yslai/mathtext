@@ -1,0 +1,339 @@
+% -*- mode: plain-tex -*-
+
+% (c) Copyright 2007 as an unpublished work by Yue Shi Lai. All Rights
+% Reserved.
+%
+% Y. S. LAI PROPRIETARY/CONFIDENTIAL. YOU MAY NOT COPY, MODIFY, ADAPT,
+% OR TRANSLATE THIS FILE EXCEPT EXPRESSLY PERMITTED.
+
+\relax
+
+\documentclass[twocolumn]{article}
+\usepackage{fontdoc}
+\usepackage{times}
+\usepackage[mtpscr]{mtpro2}
+
+\title{The {\em MathT\i{}me Professional II} math italic encoding
+vector}
+\author{Yue Shi Lai}
+\date{28 July 2007\\Version 1.0}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+This document describes the {\em MathT\i{}me Professional II} math
+script encoding.
+
+\showbranches
+\encoding
+
+\needsfontinstversion{1.917}
+
+\begincomment
+\section{Default values}
+\endcomment
+
+\setstr{codingscheme}{MATHTIME2 MATH SCRIPT}
+\setstr{encodingname}{MathTime2MathScriptEncoding}
+
+\setint{italicslant}{0}		% italic slant
+\setint{interword}{0}		% interword space
+\setint{stretchword}{0}		% interword stretch
+\setint{shrinkword}{0}		% interword shrink
+\ifisglyph{x}\then
+   \setint{xheight}{\height{x}}	% x-height
+\Else
+   \setint{xheight}{457}	% x-height
+\Fi
+\setint{quad}{1000}		% quad
+\setint{extraspace}{0}		% extra space after .
+
+\begincomment
+\section{Font dimensions}
+\endcomment
+
+\setfontdimen{1}{italicslant}	% italic slant
+\setfontdimen{2}{interword}	% interword space
+\setfontdimen{3}{stretchword}	% interword stretch
+\setfontdimen{4}{shrinkword}	% interword shrink
+\setfontdimen{5}{xheight}	% x-height
+\setfontdimen{6}{quad}		% quad
+\setfontdimen{7}{extraspace}	% extra space after .
+
+\begincomment
+\section{The encoding}
+There are 63 glyphs in this encoding.
+\endcomment
+
+\nextslot{3}
+\setslot{u1D49E.alt}
+   \comment{The script letter `$\mathscr{\altC}$'.}
+\endsetslot
+
+\nextslot{7}
+\setslot{u1D4A2.alt}
+   \comment{The script letter `$\mathscr{\altG}$'.}
+\endsetslot
+
+\nextslot{12}
+\setslot{uni2112.alt}
+   \comment{The script letter `$\mathscr{\altL}$'.}
+\endsetslot
+
+\nextslot{17}
+\setslot{u1D4AC.alt}
+   \comment{The script letter `$\mathscr{\altQ}$'.}
+\endsetslot
+
+\nextslot{19}
+\setslot{u1D4AE.alt}
+   \comment{The script letter `$\mathscr{\altS}$'.}
+\endsetslot
+
+\nextslot{25}
+\setslot{u1D4B4.alt}
+   \comment{The script letter `$\mathscr{\altY}$'.}
+\endsetslot
+
+\setslot{u1D4B5.alt}
+   \comment{The script letter `$\mathscr{\altZ}$'.}
+\endsetslot
+
+\nextslot{42}
+\setslot{visiblespace}
+   \comment{A visible space glyph `\texttt{\char`\ }'.}
+\endsetslot
+
+\nextslot{50}
+\setslot{u1D4C7.alt}
+   \comment{The script letter `$\mathscr{\altr}$'.}
+\endsetslot
+
+\nextslot{58}
+\setslot{u1D4CF.alt}
+   \comment{The script letter `$\mathscr{\altz}$'.}
+\endsetslot
+
+\nextslot{65}
+\setslot{u1D49C}
+   \comment{The script letter `$\mathscr{A}$'.}
+\endsetslot
+
+\setslot{uni212C}
+   \comment{The script letter `$\mathscr{B}$'.}
+\endsetslot
+
+\setslot{u1D49E}
+   \comment{The script letter `$\mathscr{C}$'.}
+\endsetslot
+
+\setslot{u1D49F}
+   \comment{The script letter `$\mathscr{D}$'.}
+\endsetslot
+
+\setslot{uni2130}
+   \comment{The script letter `$\mathscr{E}$'.}
+\endsetslot
+
+\setslot{uni2131}
+   \comment{The script letter `$\mathscr{F}$'.}
+\endsetslot
+
+\setslot{u1D4A2}
+   \comment{The script letter `$\mathscr{G}$'.}
+\endsetslot
+
+\setslot{uni210B}
+   \comment{The script letter `$\mathscr{H}$'.}
+\endsetslot
+
+\setslot{uni2110}
+   \comment{The script letter `$\mathscr{I}$'.}
+\endsetslot
+
+\setslot{u1D4A5}
+   \comment{The script letter `$\mathscr{J}$'.}
+\endsetslot
+
+\setslot{u1D4A6}
+   \comment{The script letter `$\mathscr{K}$'.}
+\endsetslot
+
+\setslot{uni2112}
+   \comment{The script letter `$\mathscr{L}$'.}
+\endsetslot
+
+\setslot{uni2133}
+   \comment{The script letter `$\mathscr{M}$'.}
+\endsetslot
+
+\setslot{u1D4A9}
+   \comment{The script letter `$\mathscr{N}$'.}
+\endsetslot
+
+\setslot{u1D4AA}
+   \comment{The script letter `$\mathscr{O}$'.}
+\endsetslot
+
+\setslot{u1D4AB}
+   \comment{The script letter `$\mathscr{P}$'.}
+\endsetslot
+
+\setslot{u1D4AC}
+   \comment{The script letter `$\mathscr{Q}$'.}
+\endsetslot
+
+\setslot{uni211B}
+   \comment{The script letter `$\mathscr{R}$'.}
+\endsetslot
+
+\setslot{u1D4AE}
+   \comment{The script letter `$\mathscr{S}$'.}
+\endsetslot
+
+\setslot{u1D4AF}
+   \comment{The script letter `$\mathscr{T}$'.}
+\endsetslot
+
+\setslot{u1D4B0}
+   \comment{The script letter `$\mathscr{U}$'.}
+\endsetslot
+
+\setslot{u1D4B1}
+   \comment{The script letter `$\mathscr{V}$'.}
+\endsetslot
+
+\setslot{u1D4B2}
+   \comment{The script letter `$\mathscr{W}$'.}
+\endsetslot
+
+\setslot{u1D4B3}
+   \comment{The script letter `$\mathscr{X}$'.}
+\endsetslot
+
+\setslot{u1D4B4}
+   \comment{The script letter `$\mathscr{Y}$'.}
+\endsetslot
+
+\setslot{u1D4B5}
+   \comment{The script letter `$\mathscr{Z}$'.}
+\endsetslot
+
+\nextslot{97}
+\setslot{u1D4B6}
+   \comment{The script letter `$\mathscr{a}$'.}
+\endsetslot
+
+\setslot{u1D4B7}
+   \comment{The script letter `$\mathscr{b}$'.}
+\endsetslot
+
+\setslot{u1D4B8}
+   \comment{The script letter `$\mathscr{c}$'.}
+\endsetslot
+
+\setslot{u1D4B9}
+   \comment{The script letter `$\mathscr{d}$'.}
+\endsetslot
+
+\setslot{uni212F}
+   \comment{The script letter `$\mathscr{e}$'.}
+\endsetslot
+
+\setslot{u1D4BB}
+   \comment{The script letter `$\mathscr{f}$'.}
+\endsetslot
+
+\setslot{uni210A}
+   \comment{The script letter `$\mathscr{g}$'.}
+\endsetslot
+
+\setslot{u1D4BD}
+   \comment{The script letter `$\mathscr{h}$'.}
+\endsetslot
+
+\setslot{u1D4BE}
+   \comment{The script letter `$\mathscr{i}$'.}
+\endsetslot
+
+\setslot{u1D4BF}
+   \comment{The script letter `$\mathscr{j}$'.}
+\endsetslot
+
+\setslot{u1D4C0}
+   \comment{The script letter `$\mathscr{k}$'.}
+\endsetslot
+
+\setslot{uni2113}
+   \comment{The script letter `$\mathscr{l}$'.}
+\endsetslot
+
+\setslot{u1D4C2}
+   \comment{The script letter `$\mathscr{m}$'.}
+\endsetslot
+
+\setslot{u1D4C3}
+   \comment{The script letter `$\mathscr{n}$'.}
+\endsetslot
+
+\setslot{uni2134}
+   \comment{The script letter `$\mathscr{o}$'.}
+\endsetslot
+
+\setslot{u1D4C5}
+   \comment{The script letter `$\mathscr{p}$'.}
+\endsetslot
+
+\setslot{u1D4C6}
+   \comment{The script letter `$\mathscr{q}$'.}
+\endsetslot
+
+\setslot{u1D4C7}
+   \comment{The script letter `$\mathscr{r}$'.}
+\endsetslot
+
+\setslot{u1D4C8}
+   \comment{The script letter `$\mathscr{s}$'.}
+\endsetslot
+
+\setslot{u1D4C9}
+   \comment{The script letter `$\mathscr{t}$'.}
+\endsetslot
+
+\setslot{u1D4CA}
+   \comment{The script letter `$\mathscr{u}$'.}
+\endsetslot
+
+\setslot{u1D4CB}
+   \comment{The script letter `$\mathscr{v}$'.}
+\endsetslot
+
+\setslot{u1D4CC}
+   \comment{The script letter `$\mathscr{w}$'.}
+\endsetslot
+
+\setslot{u1D4CD}
+   \comment{The script letter `$\mathscr{x}$'.}
+\endsetslot
+
+\setslot{u1D4CE}
+   \comment{The script letter `$\mathscr{y}$'.}
+\endsetslot
+
+\setslot{u1D4CF}
+   \comment{The script letter `$\mathscr{z}$'.}
+\endsetslot
+
+\setslot{u1D4BE.dotless}
+   \comment{The script dotless letter `$\mathscr{\imath}$'.}
+\endsetslot
+
+\setslot{u1D4BF.dotless}
+   \comment{The script dotless letter `$\mathscr{\jmath}$'.}
+\endsetslot
+
+\endencoding
+
+\end{document}

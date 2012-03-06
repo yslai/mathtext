@@ -1,0 +1,43 @@
+# -*- mode: python; -*-
+
+# mathtext - A TeX/LaTeX compatible rendering library. Copyright (C)
+# 2008-2012 Yue Shi Lai <ylai@users.sourceforge.net>
+#
+# This library is free software; you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as
+# published by the Free Software Foundation; either version 2.1 of the
+# License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301 USA
+
+import os
+
+Import('env')
+
+libgluonbase_env = env.Clone()
+
+libgluonbase_env.Prepend(CPPPATH = [
+    os.path.join('#', 'src', 'libgluonbase'),
+    os.path.join('#', 'src', 'libmathtext'),
+    os.path.join('#', 'src', 'libjetbase')])
+
+filelist = [
+    'geometry.cc',
+    'screen.cc',
+    'surface.cc', 'surfaceopengl.cc', 'surfacepostscript.cc',
+    'color.cc',
+    ]
+
+if '-ipo' in libgluonbase_env['CXXFLAGS']:
+    libgluonbase_env['LIBRARY_SOURCE'] += map(
+        lambda f: os.path.join('#', 'libgluonbase', f), filelist)
+else:
+    libgluonbase_env.StaticLibrary('gluonbase', filelist)

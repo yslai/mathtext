@@ -1,0 +1,14 @@
+# Unicode Mapping for additional characters in lucimatx
+# Copyright (c) 2008 Yue Shi Lai. All Rights Reserved.
+# Note: \leftsquigarrow is also defined, to be consistent with
+# MathTime Professional II
+# Fields: unicode_scalar_value tex_type force_upright tex_sequence
+21AF	Rel	1	\lightning
+219C	Bin	1	\leadsfrom
+21DC	Rel	1	\leftsquigarrow
+21E1	Rel	1	\dashuparrow
+21E3	Rel	1	\dashdownarrow
+220C	Rel	1	\notni
+225D	Rel	1	\defineequal
+27E6	Rel	1	\ldbrack
+27E7	Rel	1	\rdbrack
