@@ -1,5 +1,3 @@
-// -*- mode: c++; -*-
-
 // mathtext - A TeX/LaTeX compatible rendering library. Copyright (C)
 // 2008-2012 Yue Shi Lai <ylai@users.sourceforge.net>
 //
@@ -18,8 +16,8 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 // 02110-1301 USA
 
-#ifndef MATHTEXT_MATHTEXT_H_
-#define MATHTEXT_MATHTEXT_H_
+#ifndef MATHTEXT_H_
+#define MATHTEXT_H_
 
 #include <vector>
 
@@ -53,8 +51,8 @@ namespace mathtext {
 	 * 1986).
 	 * @see D. E. Knuth, The METAFONTbook (Addision-Wesley, Cambridge,
 	 * MA, 1986).
-	 * @see W. Schmidt, Using the MathTime Professional II fonts with
-	 * LaTeX (2006), unpublished.
+	 * @see B. Beeton, A. Freytag, M. Sargent III, Unicode support for
+	 * mathematics, Unicode Technical Report #25
 	 * @author Yue Shi Lai <ylai@phys.columbia.edu>
 	 * @version 1.0
 	 */
@@ -158,7 +156,7 @@ namespace mathtext {
 			}
 			inline math_symbol_t(std::string code, wchar_t glyph,
 								 const unsigned int family)
-				: _code(code), _family(family), _glyph(glyph),
+				: _code(code), _family(family), _glyph(glyph), 
 				  _type(atom_t::TYPE_UNKNOWN)
 			{
 			}
@@ -446,10 +444,13 @@ namespace mathtext {
 		void tree_view(const atom_t &atom, std::vector<bool> &branch,
 					   const bool final) const;
 		static std::wstring bad_cast(const std::string string);
+		static std::wstring utf8_cast(const std::string string);
 		/////////////////////////////////////////////////////////////
 		static std::vector<std::string>
 		tex_split(const std::string &raw_code,
 				  const char escape_character = '\\');
+		static std::vector<std::string>
+		tex_replace(const std::vector<std::string> &code);
 		field_t build_math_list(const std::vector<std::string> &
 								code_split) const
 		{
@@ -461,16 +462,17 @@ namespace mathtext {
 			: _code(), _math_list(), _render_structure(false)
 		{
 		}
-		math_text_t(const std::string &code)
-			: _code(bad_cast(code)), _render_structure(false)
+		math_text_t(const std::string &code_string)
+			: _code(bad_cast(code_string)), _render_structure(false)
 		{
-			std::vector<std::string> code_split = tex_split(code);
+			std::cerr << __FILE__ << ':' << __LINE__ << ": " << std::endl;
+			std::vector<std::string> code_split = tex_split(code_string);
 			_math_list = build_math_list(code_split);
 		}
-		math_text_t(const char code[])
-			: _code(bad_cast(code)), _render_structure(false)
+		math_text_t(const char code_string[])
+			: _code(bad_cast(code_string)), _render_structure(false)
 		{
-			std::vector<std::string> code_split = tex_split(code);
+			std::vector<std::string> code_split = tex_split(code_string);
 			_math_list = build_math_list(code_split);
 		}
 		inline std::wstring code(void) const
@@ -507,4 +509,4 @@ namespace mathtext {
 
 }
 
-#endif // MATHTEXT_MATHTEXT_H_
+#endif // MATHTEXT_H_

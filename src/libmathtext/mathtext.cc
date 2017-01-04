@@ -16,6 +16,7 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 // 02110-1301 USA
 
+#include <limits.h>
 #include <cmath>
 #include <iostream>
 #include <mathtext/mathtext.h>
@@ -182,7 +183,7 @@ namespace mathtext {
 	spacing(const unsigned int left_type,
 			const unsigned int right_type, const bool script)
 	{
-#include <table/mathspacing.h>
+#include "table/mathspacing.h"
 		// Since we only handle atom types upto Inner, the upper bound
 		// is type <= TYPE_INNER and not type < NTYPE.
 		if(left_type == TYPE_UNKNOWN || left_type > TYPE_INNER ||
@@ -224,11 +225,110 @@ namespace mathtext {
 		std::wstring wstring;
 
 		for(std::string::const_iterator iterator = string.begin();
-			iterator != string.end(); iterator++)
+			iterator != string.end(); iterator++) {
 			wstring.push_back(*iterator);
+		}
 
 		return wstring;
 	}
+
+	std::wstring math_text_t::utf8_cast(const std::string string)
+	{
+		std::wstring wstring;
+
+		for(std::string::const_iterator iterator = string.begin();
+			iterator != string.end();) {
+			wchar_t c;
+
+			// Skip over byte ordering marks
+			if((*iterator & 0xff) == 0xef) {
+				iterator++;
+				if((*iterator & 0xff) == 0xbb) {
+					iterator++;
+					if((*iterator & 0xff) == 0xbf) {
+						iterator++;
+					}
+				}
+			}
+			if((*iterator & 0xf0) == 0xf0) {
+				c = (*iterator & 0x7) << 18;
+				iterator++;
+				if((*iterator & 0xc0) != 0x80) {
+					continue;
+				}
+				c |= (*iterator & 0x3f) << 12;
+				iterator++;
+				if((*iterator & 0xc0) != 0x80) {
+					continue;
+				}
+				c |= (*iterator & 0x3f) << 6;
+				iterator++;
+				if((*iterator & 0xc0) != 0x80) {
+					continue;
+				}
+				c |= (*iterator & 0x3f);
+				iterator++;
+			}
+			else if((*iterator & 0xe0) == 0xe0) {
+				c = (*iterator & 0xf) << 12;
+				iterator++;
+				if((*iterator & 0xc0) != 0x80) {
+					continue;
+				}
+				c |= (*iterator & 0x3f) << 6;
+				iterator++;
+				if((*iterator & 0xc0) != 0x80) {
+					continue;
+				}
+				c |= (*iterator & 0x3f);
+				iterator++;
+			}
+			else if((*iterator & 0xc0) == 0xc0) {
+				c = (*iterator & 0x1f) << 6;
+				iterator++;
+				if((*iterator & 0xc0) != 0x80) {
+					continue;
+				}
+				c |= (*iterator & 0x3f);
+				iterator++;
+			}
+			else if((*iterator & 0x80) == 0x0) {
+				c = (*iterator & 0x7f);
+				iterator++;
+			}
+			else {
+				iterator++;
+				continue;
+			}
+			wstring.push_back(c);
+		}
+
+		return wstring;
+	}
+
+#if 0
+	std::wstring math_text_t::gb_18030_cast(
+		const std::string string)
+	{
+	}
+
+	std::wstring math_text_t::shift_jis_x_0213_cast(
+		const std::string string)
+	{
+	}
+
+	std::wstring math_text_t::euc_jis_x_0213_cast(
+		const std::string string)
+	{
+	}
+
+	std::wstring math_text_t::ks_x_2901_cast(
+		const std::string string)
+	{
+	}
+#endif
+
+	// Apply JIS X 4051:2004
 
 	bool math_text_t::well_formed(void) const
 	{
@@ -237,15 +337,14 @@ namespace mathtext {
 		return true;
 	}
 
-#if 0
 	std::string tex_form(const double x)
 	{
 		std::string retval;
 
-		switch(fpclassify(x)) {
+		switch(std::fpclassify(x)) {
 		default:
 			return retval;
 		}
 	}
-#endif
+
 }

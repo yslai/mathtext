@@ -17,8 +17,8 @@
 // 02110-1301 USA
 
 #include <cmath>
-#include <algorithm>
 #include <iostream>
+#include <algorithm>
 #include <mathtext/mathtext.h>
 
 /////////////////////////////////////////////////////////////////////
@@ -48,16 +48,17 @@ namespace mathtext {
 			RADICAL_STATE_INDEX
 		};
 
+		unsigned int family = default_family;
 		int level = 0;
 		int delimiter_level = 0;
 		std::vector<std::string> buffer;
+#if 1
 		bool superscript = false;
 		bool subscript = false;
 		bool delimiter_right = false;
 		unsigned int radical_state = RADICAL_STATE_NONE;
 		std::vector<std::string> radical_index;
 		bool horizontal_box = false;
-		unsigned int family = default_family;
 
 		for(std::vector<std::string>::const_iterator iterator =
 				str_split.begin();
@@ -97,7 +98,7 @@ namespace mathtext {
 
 				const char **lower;
 
-#include <table/mathfontch.h>
+#include "table/mathfontch.h"
 				lower = std::lower_bound(
 					font_change_control_sequence,
 					font_change_control_sequence + nfont_change,
@@ -112,7 +113,7 @@ namespace mathtext {
 					family = font_change_family[index];
 					continue;
 				}
-#include <table/mathopstd.h>
+#include "table/mathopstd.h"
 				lower = std::lower_bound(
 					operator_control_sequence,
 					operator_control_sequence + noperator,
@@ -222,7 +223,7 @@ namespace mathtext {
 				buffer.clear();
 			}
 			else if(horizontal_box) {
-				box_t box(math_text_t::bad_cast(*iterator));
+				box_t box(math_text_t::utf8_cast(*iterator));
 
 				append(field_t(box), superscript, subscript);
 			}
@@ -296,6 +297,45 @@ namespace mathtext {
 				horizontal_box = false;
 			}
 		}
+#else
+		for(std::vector<std::string>::const_iterator iterator =
+				str_split.begin();
+			iterator != str_split.end(); iterator++) {
+			if((*iterator)[0] == '}') {
+				level--;
+				
+			}
+			else if(*iterator == "\\right") {
+				delimiter_level--;
+			}
+			if((*iterator)[0] == '{') {
+				level++;
+			}
+			else if(*iterator == "\\left") {
+				// Since the actual delimiter follows, it is going to
+				// be appended to the buffer "automatically".
+				delimiter_level++;
+			}
+			else if(level == 0 && delimiter_level == 0) {
+#if 1
+				std::cerr << __FILE__ << ':' << __LINE__
+						  << ": L" << level << ", DL"
+						  << delimiter_level << ", *iterator = "
+						  << *iterator << ", buffer = { ";
+				for(std::vector<std::string>::const_iterator
+						buffer_iterator = buffer.begin();
+					buffer_iterator != buffer.end(); buffer_iterator++) {
+					std::cerr << '"' << *buffer_iterator << "\" ";
+				}
+				std::cerr << '}' << std::endl;
+#endif
+				buffer.clear();
+			}
+			else {
+				buffer.push_back(*iterator);
+			}
+		}
+#endif
 	}
 
 	std::vector<std::string> math_text_t::
@@ -320,10 +360,10 @@ namespace mathtext {
 		size_t end = 1;
 		bool box = false;
 
-		while(code[begin] == ' ') {
+		while (code[begin] == ' ') {
 			begin++;
 		}
-		while(begin < code.size()) {
+		while (begin < code.size()) {
 			end = begin + 1;
 			if(code[begin] == '\\') {
 				if(isalpha(code[end])) {
@@ -335,7 +375,7 @@ namespace mathtext {
 					end++;
 				}
 
-#include <table/mathbracketcs.h>
+#include "table/mathbracketcs.h"
 				const char **lower =
 					std::lower_bound(bracket_control_sequence,
 									 bracket_control_sequence +
@@ -360,8 +400,9 @@ namespace mathtext {
 				code.substr(begin, end - begin);
 
 #if 1
-			if(code_substr == "\\hbox" || code_substr == "\\text")
+			if(code_substr == "\\hbox" || code_substr == "\\text") {
 				box = true;
+			}
 			else if(box) {
 				if(code[begin] == '{') {
 					for(unsigned int level = 1;
@@ -396,6 +437,21 @@ namespace mathtext {
 		}
 
 		return ret;
+	}
+
+	std::vector<std::string> math_text_t::
+	tex_replace(const std::vector<std::string> &/*code*/)
+	{
+#if 0
+		static const size_t ncontrol_max = 256;
+		static const char *table[][ncontrol_max] = {
+			{ "\\%", "\0", "\\root", "\1", "\\of", "\2", NULL },
+			{ "\\sqrt", "[]", "\1", "\\root", "\1", "\\of", "\2", NULL },
+			{ "\\frac", "\2", "{", "\1", "\\over", "\2", "}", NULL }
+		};
+#endif
+
+		return std::vector<std::string>();
 	}
 
 }

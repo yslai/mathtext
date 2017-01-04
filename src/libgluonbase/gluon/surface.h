@@ -213,46 +213,45 @@ namespace gluon {
 		inline virtual void set_point_size(const float size)
 		{
 		}
-		inline virtual void point(const float x, const float y) const
+		inline virtual void point(const float x, const float y)
 		{
 		}
 		inline virtual void set_line_width(const float width)
 		{
 		}
 		inline virtual void line(const float x0, const float y0,
-								 const float x1, const float y1) const
+								 const float x1, const float y1)
 		{
 		}
 		inline virtual void
 		rectangle(const float x, const float y, const float width,
-				  const float height) const
+				  const float height)
 		{
 		}
 		inline virtual void
-		rectangle(const mathtext::bounding_box_t &bounding_box) const
+		rectangle(const mathtext::bounding_box_t &bounding_box)
 		{
 		}
 		inline virtual void
 		filled_rectangle(const float x, const float y,
 						 const float width, const float height)
-			const
 		{
 		}
 		inline virtual void
 		filled_rectangle(const mathtext::bounding_box_t &
-						 bounding_box) const
+						 bounding_box)
 		{
 		}
-		inline virtual void polygon(const polygon_t &p) const
+		inline virtual void polygon(const polygon_t &p)
 		{
 		}
-		inline virtual void filled_polygon(const polygon_t &p) const
+		inline virtual void filled_polygon(const polygon_t &p)
 		{
 		}
 		inline virtual void
 		raster(const float x, const float y, const float width,
 			   const float height, const float density[],
-			   const int nhorizontal, const int nvertical) const
+			   const int nhorizontal, const int nvertical)
 		{
 		}
 		/////////////////////////////////////////////////////////////

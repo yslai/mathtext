@@ -314,18 +314,18 @@ namespace gluon {
 				  basename + "-It.ttf",
 				  basename + "-Bold.ttf",
 				  basename + "-BoldIt.ttf",
-				  dirname + "STIXGeneral.otf",
-				  dirname + "STIXGeneralItalic.otf",
-				  dirname + "STIXGeneralBol.otf",
-				  dirname + "STIXGeneralBolIta.otf",
-				  dirname + "STIXSizOneSymReg.otf",
-				  dirname + "STIXSizOneSymBol.otf",
-				  dirname + "STIXSizTwoSymReg.otf",
-				  dirname + "STIXSizTwoSymBol.otf",
-				  dirname + "STIXSizThreeSymReg.otf",
-				  dirname + "STIXSizThreeSymBol.otf",
-				  dirname + "STIXSizFourSymReg.otf",
-				  dirname + "STIXSizFourSymBol.otf");
+				  dirname + "STIXGeneral-Regular.otf",
+				  dirname + "STIXGeneral-Italic.otf",
+				  dirname + "STIXGeneral-Bold.otf",
+				  dirname + "STIXGeneral-BoldItalic.otf",
+				  dirname + "STIXSizeOneSym-Regular.otf",
+				  dirname + "STIXSizeOneSym-Bold.otf",
+				  dirname + "STIXSizeTwoSym-Regular.otf",
+				  dirname + "STIXSizeTwoSym-Bold.otf",
+				  dirname + "STIXSizeThreeSym-Regular.otf",
+				  dirname + "STIXSizeThreeSym-Bold.otf",
+				  dirname + "STIXSizeFourSym-Regular.otf",
+				  dirname + "STIXSizeFourSym-Bold.otf");
 	}
 
 	void surface_t::
@@ -348,7 +348,8 @@ namespace gluon {
 		text_alignment_transform(x_transformed, y_transformed,
 								 math_text_bounding_box, alignment,
 								 distance);
-		text_raw(x_transformed, y_transformed, math_text);
+		math_text_renderer_t::text(x_transformed, y_transformed,
+								   math_text);
 	}
 
 }

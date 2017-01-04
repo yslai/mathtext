@@ -17,8 +17,8 @@
 // 02110-1301 USA
 
 #include <cmath>
-#include <algorithm>
 #include <iostream>
+#include <algorithm>
 #include <mathtext/mathtext.h>
 
 /////////////////////////////////////////////////////////////////////
@@ -32,18 +32,22 @@ namespace mathtext {
 
 	void math_text_t::math_symbol_t::math_italic_is_upright(void)
 	{
-		if(_family == FAMILY_MATH_ITALIC)
+		if(_family == FAMILY_MATH_ITALIC) {
 			_family = FAMILY_REGULAR;
-		else if(_family == FAMILY_MATH_BOLD_ITALIC)
+		}
+		else if(_family == FAMILY_MATH_BOLD_ITALIC) {
 			_family = FAMILY_BOLD;
+		}
 	}
 
 	void math_text_t::math_symbol_t::math_italic_is_italic(void)
 	{
-		if(_family == FAMILY_MATH_ITALIC)
+		if(_family == FAMILY_MATH_ITALIC) {
 			_family = FAMILY_ITALIC;
-		else if(_family == FAMILY_MATH_BOLD_ITALIC)
+		}
+		else if(_family == FAMILY_MATH_BOLD_ITALIC) {
 			_family = FAMILY_BOLD_ITALIC;
+		}
 	}
 
 	void math_text_t::math_symbol_t::encode_character(void)
@@ -121,7 +125,7 @@ namespace mathtext {
 	void math_text_t::math_symbol_t::encode_control_sequence(void)
 	{
 		// Character encoding for TeX control sequences
-#include <table/mathglyphstd.h>
+#include "table/mathglyphstd.h"
 		const char **lower =
 			std::lower_bound(glyph_control_sequence,
 							 glyph_control_sequence + nglyph,
@@ -141,8 +145,9 @@ namespace mathtext {
 
 	void math_text_t::math_symbol_t::encode_math_blackboard_bold(void)
 	{
-		if(_code.size() != 1)
+		if(_code.size() != 1) {
 			return;
+		}
 
 		if(_code[0] >= 'A' && _code[0] <= 'Z') {
 			_family = FAMILY_STIX_REGULAR;
@@ -172,8 +177,9 @@ namespace mathtext {
 
 	void math_text_t::math_symbol_t::encode_math_script_italic(void)
 	{
-		if(_code.size() != 1)
+		if(_code.size() != 1) {
 			return;
+		}
 
 		if(_code[0] >= 'A' && _code[0] <= 'Z') {
 			_family = FAMILY_STIX_ITALIC;

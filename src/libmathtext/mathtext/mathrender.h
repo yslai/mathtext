@@ -18,18 +18,12 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 // 02110-1301 USA
 
-#ifndef MATHTEXT_MATHTEXTRENDER_H_
-#define MATHTEXT_MATHTEXTRENDER_H_
+#ifndef MATHRENDER_H_
+#define MATHRENDER_H_
 
 #include <string>
 #include <iostream>
 #include <stdint.h>
-#ifdef HAVE_OPENGL
-#include <GL/gl.h>
-#ifdef HAVE_FTGL
-#include <FTGL/FTGLPixmapFont.h>
-#endif // HAVE_FTGL
-#endif // HAVE_OPENGL
 #include <mathtext/geometry.h>
 #include <mathtext/mathtext.h>
 
@@ -53,13 +47,26 @@ namespace mathtext {
 	 * 1986).
 	 * @see D. E. Knuth, The METAFONTbook (Addision-Wesley, Cambridge,
 	 * MA, 1986).
+	 * @see W. Schmidt, The macro package lucimatx (2005),
+	 * unpublished.
 	 * @see W. Schmidt, Using the MathTime Professional II fonts with
 	 * LaTeX (2006), unpublished.
+	 * @see B. Beeton, A. Freytag, M. Sargent III, Unicode support for
+	 * mathematics, Unicode Technical Report #25
 	 * @author Yue Shi Lai <ylai@phys.columbia.edu>
 	 * @version 1.0
 	 */
 	class math_text_renderer_t {
 	public:
+		enum {
+			DIRECTION_LEFT_TO_RIGHT = 0,
+			DIRECTION_RIGHT_TO_LEFT,
+			DIRECTION_TOP_TO_BOTTOM
+		};
+		enum {
+			MATH_STYLE_LATIN = 0,
+			MATH_STYLE_MAGHREB
+		};
 		enum {
 			FAMILY_PLAIN = 0,
 			FAMILY_REGULAR,
@@ -119,14 +126,6 @@ namespace mathtext {
 		/////////////////////////////////////////////////////////////
 		static const float baselineskip_factor;
 		/////////////////////////////////////////////////////////////
-		static const unsigned int default_style =
-#ifdef DEFAULT_STYLE_DISPLAY
-			math_text_t::item_t::STYLE_DISPLAY
-#else // DEFAULT_STYLE_DISPLAY
-			math_text_t::item_t::STYLE_TEXT
-#endif // DEFAULT_STYLE_DISPLAY
-			;
-		/////////////////////////////////////////////////////////////
 		// Token
 		class math_token_t {
 		public:
@@ -141,25 +140,27 @@ namespace mathtext {
 				} _extensible;
 			};
 			float _delimiter_height;
-			inline math_token_t(const bounding_box_t bounding_box,
-								const unsigned int style,
-								const float delimiter_height = 0.0F)
+			inline math_token_t(
+				const bounding_box_t bounding_box,
+				const unsigned int style,
+				const float delimiter_height = 0.0F)
 				: _offset(0, 0), _bounding_box(bounding_box),
 				  _style(style), _delimiter_height(delimiter_height)
 			{
 			}
-			inline math_token_t(const point_t offset,
-								const bounding_box_t bounding_box,
-								const unsigned int style,
-								const float delimiter_height = 0.0F)
+			inline math_token_t(
+				const point_t offset,
+				const bounding_box_t bounding_box,
+				const unsigned int style,
+				const float delimiter_height = 0.0F)
 				: _offset(offset), _bounding_box(bounding_box),
 				  _style(style), _delimiter_height(delimiter_height)
 			{
 			}
-			inline math_token_t(const bounding_box_t bounding_box,
-								const wchar_t glyph,
-								const unsigned int family,
-								const float size)
+			inline math_token_t(
+				const bounding_box_t bounding_box,
+				const wchar_t glyph, const unsigned int family,
+				const float size)
 				: _offset(0, 0), _bounding_box(bounding_box),
 				  _delimiter_height(0.0F)
 			{
@@ -167,11 +168,11 @@ namespace mathtext {
 				_extensible._family = family;
 				_extensible._size = size;
 			}
-			inline math_token_t(const point_t offset,
-								const bounding_box_t bounding_box,
-								const wchar_t glyph,
-								const unsigned int family,
-								const float size)
+			inline math_token_t(
+				const point_t offset,
+				const bounding_box_t bounding_box,
+				const wchar_t glyph, const unsigned int family,
+				const float size)
 				: _offset(offset), _bounding_box(bounding_box),
 				  _delimiter_height(0.0F)
 			{
@@ -217,124 +218,115 @@ namespace mathtext {
 			const;
 		void post_process_atom_type_initial(unsigned int &atom_type)
 			const;
-		void post_process_atom_type_interior(unsigned int &
-											 previous_atom_type,
-											 unsigned int &atom_type)
+		void post_process_atom_type_interior(
+			unsigned int &previous_atom_type,
+			unsigned int &atom_type)
 			const;
-		bool valid_accent(bool &vertical_alignment,
-						  const std::vector<math_text_t::item_t>::
-						  const_iterator &iterator, 
-						  const std::vector<math_text_t::item_t>::
-						  const_iterator &math_list_end) const;
+		bool valid_accent(
+			bool &vertical_alignment,
+			const std::vector<math_text_t::item_t>::const_iterator &
+			iterator, 
+			const std::vector<math_text_t::item_t>::const_iterator &
+			math_list_end) const;
 		float kerning_mu(float amount) const;
-		float
-		math_spacing(unsigned int left_type, unsigned int right_type,
-					 unsigned int style) const;
+		float math_spacing(
+			unsigned int left_type, unsigned int right_type,
+			unsigned int style) const;
 	protected:
-		inline virtual affine_transform_t
-		transform_logical_to_pixel(void) const
-		{
-			return affine_transform_t::identity;
-		}
-		inline virtual affine_transform_t
-		transform_pixel_to_logical(void) const
-		{
-			return affine_transform_t::identity;
-		}
+		virtual affine_transform_t
+		transform_logical_to_pixel(void) const = 0;
+		virtual affine_transform_t
+		transform_pixel_to_logical(void) const = 0;
 		/////////////////////////////////////////////////////////////
 		// Box rendering
-		bounding_box_t
-		math_bounding_box(const math_text_t::box_t &box,
-						  const unsigned int style);
-		void math_text(const point_t origin,
-					   const math_text_t::box_t &box,
-					   const unsigned int style,
-					   const bool render_structure);
+		bounding_box_t math_bounding_box(
+			const math_text_t::box_t &box, const unsigned int style);
+		void math_text(
+			const point_t origin, const math_text_t::box_t &box,
+			const unsigned int style, const bool render_structure);
 		/////////////////////////////////////////////////////////////
 		// Symbol rendering
-		bounding_box_t
-		math_bounding_box(const wchar_t &glyph,
-						  const unsigned int family,
-						  const float size);
-		void
-		math_text(const point_t origin, const wchar_t &glyph,
-				  const unsigned int family, const float size,
-				  const bool render_structure);
-		bounding_box_t
-		math_bounding_box(const math_text_t::math_symbol_t &
-						  math_symbol,
-						  const unsigned int style);
-		void math_text(const point_t origin,
-					   const math_text_t::math_symbol_t &math_symbol,
-					   const unsigned int style,
-					   const bool render_structure);
+		static bool is_wgl_4(const wchar_t c);
+		static bool is_left_to_right(const wchar_t c);
+		static bool is_right_to_left(const wchar_t c);
+		static bool is_top_to_bottom(const wchar_t c);
+		static bool is_cyrillic(const wchar_t c);
+		static bool is_cjk(const wchar_t c);
+		static bool is_cjk_punctuation_open(const wchar_t c);
+		static bool is_cjk_punctuation_closed(const wchar_t c);
+		bounding_box_t math_bounding_box(
+			const wchar_t &glyph, const unsigned int family,
+			const float size);
+		void math_text(
+			const point_t origin, const wchar_t &glyph,
+			const unsigned int family, const float size,
+			const bool render_structure);
+		bounding_box_t math_bounding_box(
+			const math_text_t::math_symbol_t &math_symbol,
+			const unsigned int style);
+		void math_text(
+			const point_t origin,
+			const math_text_t::math_symbol_t &math_symbol,
+			const unsigned int style, const bool render_structure);
 		/////////////////////////////////////////////////////////////
 		// Extensible glyph rendering
-		void
-		large_family(unsigned long &nfamily,
-					 const unsigned int *&family,
-					 const math_text_t::math_symbol_t &math_symbol)
-			const;
-		void
-		extensible_glyph(wchar_t glyph[4], unsigned long &nrepeat,
-						 const math_text_t::math_symbol_t &
-						 math_symbol,
-						 const unsigned int style,
-						 const float height);
-		std::vector<math_token_t>
-		math_tokenize(const math_text_t::math_symbol_t &math_symbol,
-					  const unsigned int style, const float height);
-		bounding_box_t
-		math_bounding_box(const math_text_t::math_symbol_t &
-						  math_symbol,
-						  const unsigned int style,
-						  const float height);
-		void math_text(const point_t origin,
-					   const math_text_t::math_symbol_t &math_symbol,
-					   const unsigned int style, const float height,
-					   const bool render_structure);
+		void large_family(
+			unsigned long &nfamily, const unsigned int *&family,
+			const math_text_t::math_symbol_t &math_symbol) const;
+		void extensible_glyph(
+			wchar_t glyph[4], unsigned long &nrepeat,
+			const math_text_t::math_symbol_t &math_symbol,
+			const unsigned int style, const float height);
+		std::vector<math_token_t> math_tokenize(
+			const math_text_t::math_symbol_t &math_symbol,
+			const unsigned int style, const float height);
+		bounding_box_t math_bounding_box(
+			const math_text_t::math_symbol_t &math_symbol,
+			const unsigned int style, const float height);
+		void math_text(
+			const point_t origin,
+			const math_text_t::math_symbol_t &math_symbol,
+			const unsigned int style, const float height,
+			const bool render_structure);
 		/////////////////////////////////////////////////////////////
 		// Math list rendering
-		std::vector<math_token_t>
-		math_tokenize(const std::vector<math_text_t::item_t>::
-					  const_iterator &math_list_begin,
-					  const std::vector<math_text_t::item_t>::
-					  const_iterator &math_list_end,
-					  unsigned int style);
-		bounding_box_t
-		math_bounding_box(const std::vector<math_text_t::item_t>::
-						  const_iterator &math_list_begin,
-						  const std::vector<math_text_t::item_t>::
-						  const_iterator &math_list_end,
-						  unsigned int style);
-		void math_text(const point_t origin,
-					   const std::vector<math_text_t::item_t>::
-					   const_iterator &math_list_begin,
-					   const std::vector<math_text_t::item_t>::
-					   const_iterator &math_list_end,
-					   const unsigned int style,
-					   const bool render_structure);
+		std::vector<math_token_t> math_tokenize(
+			const std::vector<math_text_t::item_t>::const_iterator &
+			math_list_begin,
+			const std::vector<math_text_t::item_t>::const_iterator &
+			math_list_end,
+			unsigned int style);
+		bounding_box_t math_bounding_box(
+			const std::vector<math_text_t::item_t>::const_iterator &
+			math_list_begin,
+			const std::vector<math_text_t::item_t>::const_iterator &
+			math_list_end,
+			unsigned int style);
+		void math_text(
+			const point_t origin,
+			const std::vector<math_text_t::item_t>::const_iterator &
+			math_list_begin,
+			const std::vector<math_text_t::item_t>::const_iterator &
+			math_list_end,
+			const unsigned int style, const bool render_structure);
 		/////////////////////////////////////////////////////////////
 		// Field rendering
-		bounding_box_t
-		math_bounding_box(const math_text_t::field_t &field,
-					 const unsigned int style);
-		void math_text(const point_t origin,
-					   const math_text_t::field_t &field,
-					   const unsigned int style,
-					   const bool render_structure);
+		bounding_box_t math_bounding_box(
+			const math_text_t::field_t &field,
+			const unsigned int style);
+		void math_text(
+			const point_t origin, const math_text_t::field_t &field,
+			const unsigned int style, const bool render_structure);
 		/////////////////////////////////////////////////////////////
 		// Atom rendering
-		std::vector<math_token_t>
-		math_tokenize(const math_text_t::atom_t &atom,
-					  unsigned int style);
-		bounding_box_t
-		math_bounding_box(const math_text_t::atom_t &atom,
-						  const unsigned int style);
-		void math_text(const point_t origin,
-					   const math_text_t::atom_t &atom,
-					   const unsigned int style,
-					   const bool render_structure);
+		std::vector<math_token_t> math_tokenize(
+			const math_text_t::atom_t &atom, unsigned int style);
+		bounding_box_t math_bounding_box(
+			const math_text_t::atom_t &atom,
+			const unsigned int style);
+		void math_text(
+			const point_t origin, const math_text_t::atom_t &atom,
+			const unsigned int style, const bool render_structure);
 		/////////////////////////////////////////////////////////////
 	public:
 		/////////////////////////////////////////////////////////////
@@ -347,60 +339,42 @@ namespace mathtext {
 		}
 		/////////////////////////////////////////////////////////////
 		// Virtual functions
-		inline virtual float font_size(void) const
-		{
-			return 0.0F;
-		}
-		inline virtual void point(const float x, const float y) const
-		{
-		}
-		inline virtual void
-		filled_rectangle(const bounding_box_t &bounding_box) const
-		{
-		}
-		inline virtual void
-		rectangle(const bounding_box_t &bounding_box) const
-		{
-		}
-		inline virtual void
-		set_font_size(const float size, const unsigned int family)
-		{
-		}
-		inline virtual void set_font_size(const float size)
-		{
-		}
-		inline virtual void
-		reset_font_size(const unsigned int family)
-		{
-		}
-		inline virtual bounding_box_t
-		bounding_box(const std::wstring string,
-					 const unsigned int family = FAMILY_PLAIN)
-		{
-			return bounding_box_t(0, 0, 0, 0, 0, 0);
-		}
-		inline virtual void
-		text_raw(const float x, const float y,
-				 const std::wstring string,
-				 const unsigned int family = FAMILY_PLAIN)
-		{
-		}
-		inline virtual void
-		text_with_bounding_box(const float x, const float y,
-							   const std::wstring string,
-							   const unsigned int family =
-							   FAMILY_PLAIN)
-		{
-		}
+		virtual float font_size(
+			const unsigned int family = FAMILY_PLAIN) const = 0;
+		virtual void set_font_size(
+			const float size, const unsigned int family) = 0;
+		virtual void set_font_size(const float size) = 0;
+		virtual void reset_font_size(
+			const unsigned int family) = 0;
+		virtual void point(const float x, const float y) = 0;
+		virtual void filled_rectangle(
+			const bounding_box_t &bounding_box) = 0;
+		virtual void rectangle(
+			const bounding_box_t &bounding_box) = 0;
+		virtual bounding_box_t bounding_box(
+			const std::wstring string,
+			const unsigned int family = FAMILY_PLAIN) = 0;
+		virtual void text_raw(
+			const float x, const float y, const std::wstring string,
+			const unsigned int family = FAMILY_PLAIN) = 0;
+		virtual void text_with_bounding_box(
+			const float x, const float y, const std::wstring string,
+			const unsigned int family = FAMILY_PLAIN) = 0;
 		/////////////////////////////////////////////////////////////
 		// Interface
-		bounding_box_t bounding_box(const math_text_t &math_text);
-		void text_raw(const float x, const float y,
-					  const math_text_t &math_text);
+		bounding_box_t bounding_box(
+			const math_text_t &math_text,
+			const bool display_style = false);
+		void text(
+			const float x, const float y,
+			const math_text_t &math_text,
+			const bool display_style = false);
 		/////////////////////////////////////////////////////////////
-		inline float default_axis_height(void) const
+		inline float default_axis_height(
+			const bool display_style = false) const
 		{
-			return axis_height * style_size(default_style);
+			return axis_height * style_size(
+				math_text_t::item_t::STYLE_TEXT);
 		}
 		/////////////////////////////////////////////////////////////
 	};
@@ -410,4 +384,4 @@ namespace mathtext {
 
 }
 
-#endif // MATHTEXT_MATHTEXTRENDER_H_
+#endif // MATHRENDER_H_

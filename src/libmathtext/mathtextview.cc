@@ -99,7 +99,7 @@ namespace mathtext {
 			break;
 		default:
 			tree_view_prefix(branch, true);
-			std::cerr << "<field?/>" << std::endl;
+			std::cerr << "<err_field/>" << std::endl;
 		}
 	}
 
@@ -136,7 +136,7 @@ namespace mathtext {
 			break;
 		default:
 			tree_view_prefix(branch, final);
-			std::cerr << "<item?/>" << std::endl;
+			std::cerr << "<err_item/>" << std::endl;
 		}
 	}
 
@@ -187,7 +187,7 @@ namespace mathtext {
 			std::cerr << "Vcent";
 			break;
 		default:
-			std::cerr << "?" << atom._type;
+			std::cerr << "??" << atom._type;
 			break;
 		}
 		std::cerr << "</type>" << std::endl;

@@ -21,11 +21,15 @@
 #ifndef MATHTEXT_GEOMETRY_H_
 #define MATHTEXT_GEOMETRY_H_
 
+#include <cmath>
 #include <vector>
 #include <algorithm>
 
 namespace mathtext {
 
+	/**
+	 * 2D point (and vector)
+	 */
 	class point_t {
 	private:
 		float _x[2];
@@ -38,10 +42,10 @@ namespace mathtext {
 			_x[0] = point._x[0];
 			_x[1] = point._x[1];
 		}
-		inline point_t(const float x, const float y)
+		inline point_t(const float x0, const float y0)
 		{
-			_x[0] = x;
-			_x[1] = y;
+			_x[0] = x0;
+			_x[1] = y0;
 		}
 		inline const float *x(void) const
 		{
@@ -90,6 +94,13 @@ namespace mathtext {
 		inline point_t operator/(const float scale) const
 		{
 			return point_t(_x[0] / scale, _x[1] / scale);
+		}
+		inline point_t operator*=(const float scale)
+		{
+			_x[0] *= scale;
+			_x[1] *= scale;
+
+			return *this;
 		}
 		inline float dot(const point_t &point) const
 		{
@@ -152,6 +163,7 @@ namespace mathtext {
 		float _a[6];
 	public:
 		static const affine_transform_t identity;
+		static const affine_transform_t flip_y;
 		static affine_transform_t
 		translate(const float tx, const float ty);
 		static affine_transform_t

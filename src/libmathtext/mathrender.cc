@@ -18,16 +18,134 @@
 
 #include <cmath>
 #include <algorithm>
+#include <sstream>
 #include <mathtext/mathrender.h>
 
 /////////////////////////////////////////////////////////////////////
 
 namespace mathtext {
 
+	point_t::operator std::string(void) const
+	{
+		std::stringstream stream;
+
+		stream << '(' << _x[0] << ", " << _x[1] << ')';
+
+		return stream.str();
+	}
+
+	const affine_transform_t affine_transform_t::identity =
+		affine_transform_t(1.0F, 0.0F, 0.0F, 1.0F, 0.0F, 0.0F);
+	const affine_transform_t affine_transform_t::flip_y =
+		affine_transform_t(1.0F, 0.0F, 0.0F, -1.0F, 0.0F, 0.0F);
+
+	affine_transform_t affine_transform_t::
+	translate(const float tx, const float ty)
+	{
+		return affine_transform_t(1.0F, 0.0F, 0.0F, 1.0F, tx, ty);
+	}
+
+	affine_transform_t affine_transform_t::
+	scale(const float sx, const float sy)
+	{
+		return affine_transform_t(sx, 0.0F, 0.0F, sy, 0.0F, 0.0F);
+	}
+
+	affine_transform_t affine_transform_t::rotate(const float angle)
+	{
+		float sin_angle;
+		float cos_angle;
+
+		sin_angle = sin(angle);
+		cos_angle = cos(angle);
+
+		return affine_transform_t(cos_angle, sin_angle,
+								  -sin_angle, cos_angle, 0, 0);
+	}
+
+	affine_transform_t::operator std::string(void) const
+	{
+		std::stringstream stream;
+
+		stream << '(' << _a[0] << ", " << _a[1] << ", 0)" << std::endl;
+		stream << '(' << _a[2] << ", " << _a[3] << ", 0)" << std::endl;
+		stream << '(' << _a[4] << ", " << _a[5] << ", 1)";
+
+		return stream.str();
+	}
+
 #ifdef __INTEL_COMPILER
 #pragma warning(push)
 #pragma warning(disable: 869)
 #endif // __INTEL_COMPILER
+
+	bool math_text_renderer_t::is_cyrillic(const wchar_t c)
+	{
+		return c >= L'\u0400' && c <= L'\u052f';
+	}
+
+	bool math_text_renderer_t::is_cjk(const wchar_t c)
+	{
+		return
+			// Acceleration when most characters are below the CJK
+			// Radicals Supplement
+			c >= L'\u2e80' &&
+			(// CJK Radicals Supplement ... Yi Radicals
+			 (/* c >= L'\u2e80' && */ c <= L'\ua4cf') ||
+			 // Modifier Tone Letters
+			 (c >= L'\ua700' && c <= L'\ua71f') ||
+			 // Hangul Syllables
+			 (c >= L'\uac00' && c <= L'\ud7af') ||
+			 // CJK Compatibility Ideographs
+			 (c >= L'\uf900' && c <= L'\ufaff') ||
+			 // Vertical Forms
+			 (c >= L'\ufe10' && c <= L'\ufe1f') ||
+			 // CJK Compatibility Forms
+			 (c >= L'\ufe30' && c <= L'\ufe4f') ||
+			 // Halfwidth and Fullwidth Forms
+			 (c >= L'\uff00' && c <= L'\uffef') ||
+			 // CJK Unified Ideographs, Extension B
+			 (c >= L'\U00020000' && c <= L'\U0002a6df') ||
+			 // CJK Unified Ideographs, Extension C
+			 (c >= L'\U0002a700' && c <= L'\U0002b73f') ||
+			 // CJK Compatibility Ideographs
+			 (c >= L'\U0002f800' && c <= L'\U0002fa1f'));
+	}
+
+#if 0
+	bool math_text_renderer_t::is_wgl_4(const wchar_t c)
+	{
+		return true;
+	}
+#endif
+
+	// @see http://www.w3.org/International/questions/qa-scripts
+	// @see http://www.unicode.org/reports/tr9/tr9-21.html
+	bool math_text_renderer_t::is_right_to_left(const wchar_t c)
+	{
+		return
+			(// Hebrew ... N'Ko
+			 (c >= L'\u0590' && c <= L'\u07ff') ||
+			 // Tifinagh
+			 (c >= L'\u2d30' && c <= L'\u2d7f') ||
+			 // Hebrew Presentation Forms ... Arabic Presentation
+			 // Forms A
+			 (c >= L'\ufb1d' && c <= L'\ufdff') ||
+			 // Arabic Presentation Forms B
+			 (c >= L'\ufb1d' && c <= L'\ufb4f'));
+	}
+
+#if 0
+	bool math_text_renderer_t::is_cjk_punctuation_open(const wchar_t c)
+	{
+		return false;
+	}
+
+	bool math_text_renderer_t::is_cjk_punctuation_closed(const wchar_t c)
+	{
+		return false;
+	}
+#endif
 
 	bounding_box_t math_text_renderer_t::
 	math_bounding_box(const math_text_t::box_t &box,
@@ -49,6 +167,9 @@ namespace mathtext {
 			  const unsigned int style,
 			  const bool render_structure)
 	{
+		if (render_structure) {
+			// Nothing
+		}
 		set_font_size(style_size(style), FAMILY_REGULAR);
 		text_raw(origin[0], origin[1], box._string, FAMILY_REGULAR);
 		reset_font_size(FAMILY_REGULAR);
@@ -81,11 +202,13 @@ namespace mathtext {
 
 		const std::wstring string = std::wstring(1, glyph);
 
-		if(render_structure)
+		if(render_structure) {
 			text_with_bounding_box(origin[0], origin[1], string,
 								   family);
-		else
+		}
+		else {
 			text_raw(origin[0], origin[1], string, family);
+		}
 		reset_font_size(family);
 	}
 
@@ -466,28 +589,38 @@ namespace mathtext {
 	}
 
 	bounding_box_t math_text_renderer_t::
-	bounding_box(const math_text_t &math_text)
+	bounding_box(const math_text_t &text, const bool display_style)
 	{
-		if(!math_text.well_formed())
-			bounding_box(L"*** invalid: " + math_text.code());
+		if(!text.well_formed())
+			bounding_box(L"*** invalid: " + text.code());
 
-		return math_bounding_box(math_text._math_list._math_list,
-								 default_style);
+		const unsigned int initial_style = display_style ?
+			math_text_t::item_t::STYLE_DISPLAY :
+			math_text_t::item_t::STYLE_TEXT;
+
+		return math_bounding_box(text._math_list._math_list,
+								 initial_style);
 	}
 
 	void math_text_renderer_t::
-	text_raw(const float x, const float y,
-			 const math_text_t &text)
+	text(const float x, const float y, const math_text_t &text,
+		 const bool display_style)
 	{
-		if(!text.well_formed())
+		if(!text.well_formed()) {
 			text_raw(x, y, L"*** invalid: " + text.code());
+		}
+
+		const unsigned int initial_style = display_style ?
+			math_text_t::item_t::STYLE_DISPLAY :
+			math_text_t::item_t::STYLE_TEXT;
+
 		if(text._render_structure) {
 			point(x, y);
 			rectangle(point_t(x, y) + math_bounding_box(
-				text._math_list._math_list, default_style));
+				text._math_list._math_list, initial_style));
 		}
 		math_text(point_t(x, y), text._math_list._math_list,
-				  default_style, text._render_structure);
+				  initial_style, text._render_structure);
 	}
 
 }

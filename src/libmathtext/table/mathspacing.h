@@ -16,7 +16,6 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 // 02110-1301 USA
 
-#include <climits>
 // See also Knuth (1986), p. 170.
 static const int nvr = INT_MIN;
 static const int spacing_table[64] = {

@@ -346,6 +346,10 @@ namespace mathtext {
 				denominator_bounding_box,
 				next_denominator_style(style)));
 			if(thickness > 0) {
+#if 0
+				const float constrained_thickness =
+					std::max(1.0F, thickness);
+#endif
 				const float left =
 					std::min(numerator_bounding_box.left(),
 							 denominator_bounding_box.left());
@@ -576,12 +580,25 @@ namespace mathtext {
 			current_x += bounding_box_surd.advance();
 
 			const float constrained_thickness =
-				std::max(1.0F, style_radical_rule_thickness);
+#if 0
+				// Pixel height constraint
+				std::max(1.0F, style_radical_rule_thickness)
+#else
+				style_radical_rule_thickness
+#endif
+				;
+			static const float surd_rule_correction_x = -1.5F;
+			static const float surd_rule_correction_y = -0.5F;
+
 			const point_t origin_rule =
 				point_t(current_x, radicand_ascent_clearance);
 			const bounding_box_t bounding_box_rule =
-				bounding_box_t(0, 0,
+				bounding_box_t(surd_rule_correction_x *
+							   constrained_thickness,
+							   surd_rule_correction_y *
+							   constrained_thickness,
 							   bounding_box_radicand.advance(),
+							   (surd_rule_correction_y + 1.0F) *
 							   constrained_thickness,
 							   0, 0);
 

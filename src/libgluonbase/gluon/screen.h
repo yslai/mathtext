@@ -27,6 +27,10 @@
 #endif // HAVE_OPENGL
 #ifdef HAVE_LCMS
 #include <lcms.h>
+#else // HAVE_LCMS
+#ifdef HAVE_LCMS2
+#include <lcms2.h>
+#endif // HAVE_LCMS2
 #endif // HAVE_LCMS
 #include <gluon/rect.h>
 #include <gluon/surface.h>

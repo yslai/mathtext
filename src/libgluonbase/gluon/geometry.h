@@ -21,6 +21,7 @@
 #ifndef GLUON_GEOMETRY_H_
 #define GLUON_GEOMETRY_H_
 
+#include <cmath>
 #include <vector>
 #include <algorithm>
 #include <mathtext/geometry.h>

@@ -252,12 +252,18 @@ namespace mathtext {
 				 unsigned int style) const
 	{
 		const unsigned int left_type_modified =
-			left_type <= math_text_t::atom_t::TYPE_INNER ?
-			left_type : static_cast<unsigned int>(
+			left_type <=
+			static_cast<unsigned int>(
+				math_text_t::atom_t::TYPE_INNER) ?
+			left_type :
+			static_cast<unsigned int>(
 				math_text_t::atom_t::TYPE_ORD);
 		const unsigned int right_type_modified =
-			right_type <= math_text_t::atom_t::TYPE_INNER ?
-			right_type : static_cast<unsigned int>(
+			right_type <=
+			static_cast<unsigned int>(
+				math_text_t::atom_t::TYPE_INNER) ?
+			right_type :
+			static_cast<unsigned int>(
 				math_text_t::atom_t::TYPE_ORD);
 		const unsigned int space = math_text_t::atom_t::
 			spacing(left_type_modified, right_type_modified,
@@ -277,14 +283,17 @@ namespace mathtext {
 	unsigned int math_text_renderer_t::
 	math_family(const math_text_t::math_symbol_t &math_symbol) const
 	{
-		// Use the text font for Latin, Greek and the minus sign, and
-		// STIX for everything else.
+		// Use the text font for Latin, Greek, Cyrillic and the minus
+		// sign, and STIX for everything else.
 		if(math_symbol._glyph <= L'\u017e' ||
 		   (math_symbol._glyph >= L'\u0384' &&
 			math_symbol._glyph <= L'\u03ce') ||
-		   math_symbol._glyph == L'\u2212')
+		   (math_symbol._glyph >= L'\u0400' &&
+			math_symbol._glyph <= L'\u052f') ||
+		   math_symbol._glyph == L'\u2212') {
 			return math_symbol._family;
-		else
+		}
+		else {
 			switch(math_symbol._family) {
 			case FAMILY_REGULAR:
 				return FAMILY_STIX_REGULAR;
@@ -294,18 +303,34 @@ namespace mathtext {
 				return FAMILY_STIX_BOLD;
 			case FAMILY_BOLD_ITALIC:
 				return FAMILY_STIX_BOLD_ITALIC;
+			case FAMILY_STIX_REGULAR:
+			case FAMILY_STIX_ITALIC:
+			case FAMILY_STIX_BOLD:
+			case FAMILY_STIX_BOLD_ITALIC:
+			case FAMILY_STIX_SIZE_1_REGULAR:
+			case FAMILY_STIX_SIZE_1_BOLD:
+			case FAMILY_STIX_SIZE_2_REGULAR:
+			case FAMILY_STIX_SIZE_2_BOLD:
+			case FAMILY_STIX_SIZE_3_REGULAR:
+			case FAMILY_STIX_SIZE_3_BOLD:
+			case FAMILY_STIX_SIZE_4_REGULAR:
+			case FAMILY_STIX_SIZE_4_BOLD:
+			case FAMILY_STIX_SIZE_5_REGULAR:
+				return math_symbol._family;
 			default:
 				return FAMILY_STIX_REGULAR;
 			}
+		}
 	}
 
 	void math_text_renderer_t::
 	large_family(unsigned long &nfamily, const unsigned int *&family,
 				 const math_text_t::math_symbol_t &math_symbol) const
 	{
-		static const unsigned long nlarge_family = 4;
+		static const unsigned long nlarge_family = 5;
 		static const unsigned int
 			large_family_regular[nlarge_family] = {
+			FAMILY_STIX_REGULAR,
 			FAMILY_STIX_SIZE_1_REGULAR,
 			FAMILY_STIX_SIZE_2_REGULAR,
 			FAMILY_STIX_SIZE_3_REGULAR,
@@ -313,6 +338,7 @@ namespace mathtext {
 		};
 		static const unsigned int
 			large_family_bold[nlarge_family] = {
+			FAMILY_STIX_BOLD,
 			FAMILY_STIX_SIZE_1_BOLD,
 			FAMILY_STIX_SIZE_2_BOLD,
 			FAMILY_STIX_SIZE_3_BOLD,
@@ -450,6 +476,6 @@ namespace mathtext {
 	}
 
 	// Font parameters
-#include <table/mathfontparam.h>
+#include "table/mathfontparam.h"
 
 }

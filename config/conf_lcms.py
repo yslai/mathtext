@@ -19,20 +19,25 @@
 import os
 
 def config(configuration, search_path = []):
-    for path_lcms in [None] + search_path:
-        header_lcms = os.path.join('lcms.h')
-        if path_lcms != None:
-            header_lcms = os.path.join(path_lcms, 'include', header)
-        if configuration.CheckCHeader([header_lcms]):
-            configuration.env.Append(CPPDEFINES = ['HAVE_LCMS'])
-            configuration.env.SetDefault(LCMS_LIBS = ['lcms'])
-            if configuration.env['ARCH'] == 'x86_64':
-                lib_directory = 'lib64'
-            else:
-                lib_directory = 'lib'
+    for lcms_version in '2', '':
+        for path_lcms in [None] + search_path:
+            header_lcms = os.path.join('lcms' + lcms_version + '.h')
             if path_lcms != None:
-                configuration.env.Append(
-                    CPPPATH = [os.path.join(path_lcms, 'include')],
-                    LIBPATH = [os.path.join(path_lcms,
-                                            lib_directory)])
-            break
+                header_lcms = os.path.join(
+                    path_lcms, 'include', header)
+            if configuration.CheckCHeader([header_lcms]):
+                configuration.env.Append(CPPDEFINES = [
+                    'HAVE_LCMS' + lcms_version])
+                configuration.env.SetDefault(LCMS_LIBS = [
+                    'lcms' + lcms_version])
+                if configuration.env['ARCH'] == 'x86_64':
+                    lib_directory = 'lib64'
+                else:
+                    lib_directory = 'lib'
+                if path_lcms != None:
+                    configuration.env.Append(
+                        CPPPATH = [
+                            os.path.join(path_lcms, 'include')],
+                        LIBPATH = [
+                            os.path.join(path_lcms, lib_directory)])
+                break
