@@ -194,7 +194,7 @@ namespace mathtext {
 						const value_t display_value,
 						const value_t otherwise_value) const
 		{
-			switch(style) {
+			switch (style) {
 			case math_text_t::item_t::STYLE_DISPLAY:
 			case math_text_t::item_t::STYLE_DISPLAY_PRIME:
 				return display_value;

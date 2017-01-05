@@ -202,7 +202,7 @@ namespace mathtext {
 
 		const std::wstring string = std::wstring(1, glyph);
 
-		if(render_structure) {
+		if (render_structure) {
 			text_with_bounding_box(origin[0], origin[1], string,
 								   family);
 		}
@@ -242,7 +242,7 @@ namespace mathtext {
 		std::vector<math_token_t> token =
 			math_tokenize(math_symbol, style, height);
 
-		if(token.empty())
+		if (token.empty())
 			return bounding_box_t(0, 0, 0, 0, 0, 0);
 
 		std::vector<math_token_t>::const_iterator iterator =
@@ -250,7 +250,7 @@ namespace mathtext {
 		bounding_box_t ret = iterator->_offset +
 			iterator->_bounding_box;
 
-		for(; iterator != token.end(); iterator++)
+		for (; iterator != token.end(); iterator++)
 			ret = ret.merge(iterator->_offset +
 							iterator->_bounding_box);
 
@@ -266,7 +266,7 @@ namespace mathtext {
 		std::vector<math_token_t> token =
 			math_tokenize(math_symbol, style, height);
 
-		for(std::vector<math_token_t>::const_iterator iterator =
+		for (std::vector<math_token_t>::const_iterator iterator =
 				token.begin();
 			iterator != token.end(); iterator++)
 			math_text(origin +
@@ -290,7 +290,7 @@ namespace mathtext {
 		std::vector<math_token_t> token =
 			math_tokenize(math_list_begin, math_list_end, style);
 
-		if(token.empty())
+		if (token.empty())
 			return bounding_box_t(0, 0, 0, 0, 0, 0);
 
 		std::vector<math_token_t>::const_iterator iterator =
@@ -298,7 +298,7 @@ namespace mathtext {
 		bounding_box_t ret = iterator->_offset +
 			iterator->_bounding_box;
 
-		for(; iterator != token.end(); iterator++)
+		for (; iterator != token.end(); iterator++)
 			ret = ret.merge(iterator->_offset +
 							iterator->_bounding_box);
 
@@ -314,7 +314,7 @@ namespace mathtext {
 			  const unsigned int style,
 			  const bool render_structure)
 	{
-		if(render_structure) {
+		if (render_structure) {
 			point(origin[0], origin[1]);
 			rectangle(origin +
 					  math_bounding_box(math_list_begin,
@@ -327,7 +327,7 @@ namespace mathtext {
 			math_list_end_interior = math_list_end;
 		bool delimiter = false;
 
-		if(math_list_begin->_type ==
+		if (math_list_begin->_type ==
 		   math_text_t::item_t::TYPE_BOUNDARY &&
 		   (math_list_end - 1)->_type ==
 		   math_text_t::item_t::TYPE_BOUNDARY) {
@@ -341,7 +341,7 @@ namespace mathtext {
 		std::vector<math_token_t>::const_iterator token_iterator =
 			token.begin();
 
-		if(delimiter) {
+		if (delimiter) {
 			math_text(origin +
 					  transform_pixel_to_logical().linear() *
 					  token_iterator->_offset,
@@ -358,7 +358,7 @@ namespace mathtext {
 			std::find(math_list_begin_interior,
 					  math_list_end_interior, fraction_item);
 
-		if(fraction_iterator != math_list_end_interior) {
+		if (fraction_iterator != math_list_end_interior) {
 			const float thickness = fraction_iterator->_length *
 				default_rule_thickness * style_size(style);
 
@@ -369,7 +369,7 @@ namespace mathtext {
 					  token_iterator->_style,
 					  render_structure);
 			token_iterator++;
-			if(thickness > 0) {
+			if (thickness > 0) {
 				filled_rectangle(
 					origin +
 					transform_pixel_to_logical().linear() *
@@ -387,12 +387,12 @@ namespace mathtext {
 		}
 		else
 			// Incrementally process a math list
-			for(std::vector<math_text_t::item_t>::const_iterator
+			for (std::vector<math_text_t::item_t>::const_iterator
 					iterator = math_list_begin_interior;
 				iterator != math_list_end_interior; iterator++) {
-			switch(iterator->_type) {
+			switch (iterator->_type) {
 			case math_text_t::item_t::TYPE_ATOM:
-				if(render_structure)
+				if (render_structure)
 					rectangle(origin +
 							  transform_pixel_to_logical().linear() *
 							  (token_iterator->_offset +
@@ -409,7 +409,7 @@ namespace mathtext {
 			// math_text_t::item_t::TYPE_KERN can be ignored
 		}
 
-		if(delimiter)
+		if (delimiter)
 			math_text(origin +
 					  transform_pixel_to_logical().linear() *
 					  token_iterator->_offset,
@@ -424,7 +424,7 @@ namespace mathtext {
 	math_bounding_box(const math_text_t::field_t &field,
 					  const unsigned int style)
 	{
-		switch(field._type) {
+		switch (field._type) {
 		case math_text_t::field_t::TYPE_MATH_SYMBOL:
 			return math_bounding_box(field._math_symbol, style);
 			break;
@@ -445,7 +445,7 @@ namespace mathtext {
 			  const math_text_t::field_t &field,
 			  const unsigned int style, const bool render_structure)
 	{
-		switch(field._type) {
+		switch (field._type) {
 		case math_text_t::field_t::TYPE_MATH_SYMBOL:
 			math_text(origin, field._math_symbol, style,
 					  render_structure);
@@ -471,7 +471,7 @@ namespace mathtext {
 		std::vector<math_token_t> token =
 			math_tokenize(atom, style);
 
-		if(token.empty())
+		if (token.empty())
 			return bounding_box_t(0, 0, 0, 0, 0, 0);
 
 		std::vector<math_token_t>::const_iterator iterator =
@@ -479,7 +479,7 @@ namespace mathtext {
 		bounding_box_t ret = iterator->_offset +
 			iterator->_bounding_box;
 
-		for(; iterator != token.end(); iterator++)
+		for (; iterator != token.end(); iterator++)
 			ret = ret.merge(iterator->_offset +
 							iterator->_bounding_box);
 
@@ -495,7 +495,7 @@ namespace mathtext {
 		const float x = origin[0];
 		const float y = origin[1];
 
-		if(render_structure) {
+		if (render_structure) {
 			point(x, y);
 			rectangle(point_t(x, y) +
 					  math_bounding_box(atom, style));
@@ -509,8 +509,8 @@ namespace mathtext {
 		bounding_box_t nucleus_bounding_box;
 
 		// Rule 11
-		if(atom._type == math_text_t::atom_t::TYPE_RAD) {
-			if(!atom._index.empty()) {
+		if (atom._type == math_text_t::atom_t::TYPE_RAD) {
+			if (!atom._index.empty()) {
 				math_text(origin +
 						  transform_pixel_to_logical().linear() *
 						  token_iterator->_offset,
@@ -538,7 +538,7 @@ namespace mathtext {
 			// Skip the clearance token, too
 			token_iterator += 2;
 		}
-		if(atom._type == math_text_t::atom_t::TYPE_OP &&
+		if (atom._type == math_text_t::atom_t::TYPE_OP &&
 		   atom._nucleus._type ==
 		   math_text_t::field_t::TYPE_MATH_SYMBOL)
 			math_text(origin +
@@ -556,12 +556,12 @@ namespace mathtext {
 					  atom._nucleus, token_iterator->_style,
 					  render_structure);
 
-		if(atom._superscript.empty() && atom._subscript.empty())
+		if (atom._superscript.empty() && atom._subscript.empty())
 			return;
 
 		token_iterator++;
 
-		if(atom._superscript.empty()) {
+		if (atom._superscript.empty()) {
 			math_text(origin +
 					  transform_pixel_to_logical().linear() *
 					  token_iterator->_offset,
@@ -569,7 +569,7 @@ namespace mathtext {
 					  render_structure);
 			return;
 		}
-		if(atom._subscript.empty()) {
+		if (atom._subscript.empty()) {
 			math_text(origin +
 					  transform_pixel_to_logical().linear() *
 					  token_iterator->_offset,
@@ -591,7 +591,7 @@ namespace mathtext {
 	bounding_box_t math_text_renderer_t::
 	bounding_box(const math_text_t &text, const bool display_style)
 	{
-		if(!text.well_formed())
+		if (!text.well_formed())
 			bounding_box(L"*** invalid: " + text.code());
 
 		const unsigned int initial_style = display_style ?
@@ -606,7 +606,7 @@ namespace mathtext {
 	text(const float x, const float y, const math_text_t &text,
 		 const bool display_style)
 	{
-		if(!text.well_formed()) {
+		if (!text.well_formed()) {
 			text_raw(x, y, L"*** invalid: " + text.code());
 		}
 
@@ -614,7 +614,7 @@ namespace mathtext {
 			math_text_t::item_t::STYLE_DISPLAY :
 			math_text_t::item_t::STYLE_TEXT;
 
-		if(text._render_structure) {
+		if (text._render_structure) {
 			point(x, y);
 			rectangle(point_t(x, y) + math_bounding_box(
 				text._math_list._math_list, initial_style));

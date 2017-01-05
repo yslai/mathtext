@@ -50,7 +50,7 @@ namespace gluon {
 		  _screen_rect(0, 0, width, height)
 	{
 		// Initialize SDL
-		if(SDL_Init(SDL_INIT_VIDEO) != 0) {
+		if (SDL_Init(SDL_INIT_VIDEO) != 0) {
 			std::cerr << __FILE__ << ':' << __LINE__
 					  << ": error: unable to initialize SDL: "
 					  << SDL_GetError() << std::endl;
@@ -60,23 +60,23 @@ namespace gluon {
 		// Create a set of reasonable video mode flags
 		std::vector<Uint32> flag;
 
-		if(fullscreen)
+		if (fullscreen)
 			flag.push_back(SDL_OPENGL | SDL_FULLSCREEN);
 		flag.push_back(SDL_OPENGL);
 
 		// Try to initialize the video mode using the set of flags
-		for(std::vector<Uint32>::const_iterator iterator =
+		for (std::vector<Uint32>::const_iterator iterator =
 				flag.begin(); iterator != flag.end(); iterator++) {
 			_sdl_surface =
 				SDL_SetVideoMode(_screen_rect.width(),
 								 _screen_rect.height(),
 								 _depth, *iterator);
-			if(_sdl_surface)
+			if (_sdl_surface)
 				_sdl_fullscreen =
 					((*iterator & SDL_FULLSCREEN) != 0);
 				break;
 		}
-		if(_sdl_surface == NULL) {
+		if (_sdl_surface == NULL) {
 			std::cerr << __FILE__ << ':' << __LINE__
 					  << ": error: unable to set video mode: "
 					  << SDL_GetError() << std::endl;
@@ -106,7 +106,7 @@ namespace gluon {
 
 	screen_t::~screen_t()
 	{
-		if(_sdl_surface) {
+		if (_sdl_surface) {
 			SDL_FreeSurface(_sdl_surface);
 			// This will prevent ~opengl_surface_t() to perform a
 			// duplicate deallocation.
@@ -127,9 +127,9 @@ namespace gluon {
 
 	void screen_t::check_interrupt(void)
 	{
-		if(!poll_event())
+		if (!poll_event())
 			return;
-		if(_event.type == SDL_KEYDOWN &&
+		if (_event.type == SDL_KEYDOWN &&
 		   is_interrupt(_event.key.keysym)) {
 			SDL_Quit();
 			exit(0);
@@ -138,15 +138,15 @@ namespace gluon {
 
 	void screen_t::pause(void)
 	{
-		while(true) {
-			while(poll_event()) {
-				switch(_event.type) {
+		while (true) {
+			while (poll_event()) {
+				switch (_event.type) {
 				case SDL_VIDEORESIZE:
 					_sdl_surface =
 						SDL_SetVideoMode(_event.resize.w,
 										 _event.resize.h, _depth,
 										 SDL_OPENGL | SDL_RESIZABLE);
-					if(_sdl_surface) {
+					if (_sdl_surface) {
 						_screen_rect.w = _sdl_surface->w;
 						_screen_rect.h = _sdl_surface->h;
 						reshape();
@@ -158,17 +158,17 @@ namespace gluon {
 					flush();
 					break;
 				case SDL_KEYDOWN:
-					if(is_interrupt(_event.key.keysym)) {
+					if (is_interrupt(_event.key.keysym)) {
 						SDL_Quit();
 						exit(0);
 					}
-					if(_event.key.keysym.sym == SDLK_RETURN ||
+					if (_event.key.keysym.sym == SDLK_RETURN ||
 					   _event.key.keysym.sym == SDLK_SPACE ||
 					   _event.key.keysym.sym == SDLK_KP_ENTER)
 						return;
 					break;
 				case SDL_MOUSEBUTTONDOWN:
-					if(event().button.button == SDL_BUTTON_LEFT)
+					if (event().button.button == SDL_BUTTON_LEFT)
 						return;
 					break;
 				case SDL_QUIT:

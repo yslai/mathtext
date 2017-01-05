@@ -64,7 +64,7 @@ namespace gluon {
 
 			_dash_pattern =
 				dash_pattern_t(std::vector<float>(), zero);
-			if(_miter_limit < _line_width)
+			if (_miter_limit < _line_width)
 				_miter_limit = 10 * _line_width;
 
 			//I(_miter_limit >= 1.0);

@@ -29,7 +29,7 @@ namespace {
 	{
 		std::wstring wstring;
 
-		for(std::string::const_iterator iterator = string.begin();
+		for (std::string::const_iterator iterator = string.begin();
 			iterator != string.end(); iterator++) {
 			wstring.push_back(*iterator);
 		}

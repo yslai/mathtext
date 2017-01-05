@@ -28,21 +28,23 @@ namespace gluon {
 #ifdef HAVE_OPENGL
 	void opengl_surface_t::generate_display_list(void)
 	{
-		if(_display_list == 0)
+		if (_display_list == 0) {
 			delete_display_list();
+		}
 		_display_list = glGenLists(NDISPLAY_LIST);
 	}
 
 	void opengl_surface_t::delete_display_list(void)
 	{
-		if(_display_list != 0)
+		if (_display_list != 0) {
 			glDeleteLists(_display_list, NDISPLAY_LIST);
+		}
 	}
 
 	void opengl_surface_t::begin_coordinate_matrix(void)
 	{
 		glPushMatrix();
-		if(_coordinate_matrix) {
+		if (_coordinate_matrix) {
 			glTranslatef(static_cast<GLfloat>(_rect.left()),
 						 static_cast<GLfloat>(_rect.bottom()),
 						 0.0F);
@@ -61,9 +63,10 @@ namespace gluon {
 	{
 		std::fill(_font, _font + NFAMILY,
 				  reinterpret_cast<FTFont *>(NULL));
-		if(!master)
+		if (!master) {
 			// The master must delay generating the display list.
 			generate_display_list();
+		}
 	}
 
 	opengl_surface_t::opengl_surface_t(opengl_surface_t &surface)
@@ -78,11 +81,12 @@ namespace gluon {
 
 	opengl_surface_t::~opengl_surface_t(void)
 	{
-		for(unsigned int family = 0; family < NFAMILY; family++)
-			if(_font[family] != NULL) {
+		for (unsigned int family = 0; family < NFAMILY; family++) {
+			if (_font[family] != NULL) {
 				delete _font[family];
 				_font[family] = NULL;
 			}
+		}
 	}
 
 	opengl_surface_t &opengl_surface_t::
@@ -157,11 +161,13 @@ namespace gluon {
 		glCallList(_display_list + DISPLAY_LIST_SCISSORED);
 		unscissor();
 		end_coordinate_matrix();
-		for(std::vector<surface_t *>::iterator iterator =
+		for (std::vector<surface_t *>::iterator iterator =
 				_subsurface.begin();
-			iterator != _subsurface.end(); iterator++)
-			if(*iterator != NULL)
+			 iterator != _subsurface.end(); iterator++) {
+			if (*iterator != NULL) {
 				(*iterator)->update();
+			}
+		}
 		glCallList(_display_list + DISPLAY_LIST_UNSCISSORED);
 	}
 
@@ -271,21 +277,25 @@ namespace gluon {
 
 	void opengl_surface_t::polygon(const polygon_t &p) const
 	{
-		if(p.empty())
+		if (p.empty()) {
 			return;
+		}
 		glBegin(GL_LINE_LOOP);
-		for(unsigned long i = 0; i < p.size(); i++)
+		for (unsigned long i = 0; i < p.size(); i++) {
 			glVertex2f(p[i][0], p[i][1]);
+		}
 		glEnd();
 	}
 
 	void opengl_surface_t::filled_polygon(const polygon_t &p) const
 	{
-		if(p.empty())
+		if (p.empty()) {
 			return;
+		}
 		glBegin(GL_POLYGON);
-		for(unsigned long i = 0; i < p.size(); i++)
+		for (unsigned long i = 0; i < p.size(); i++) {
 			glVertex2f(p[i][0], p[i][1]);
+		}
 		glEnd();
 	}
 
@@ -313,7 +323,7 @@ namespace gluon {
 	text_raw(const float x, const float y, const std::wstring string,
 			 const unsigned int family)
 	{
-		if(family >= NFAMILY || _font[family] == NULL) {
+		if (family >= NFAMILY || _font[family] == NULL) {
 			std::cerr << __FILE__ << ':' << __LINE__
 					  << ": error: font not initialized"
 					  << std::endl;
@@ -333,8 +343,9 @@ namespace gluon {
 	open_font_overwrite(const std::string &filename,
 						const unsigned int family)
 	{
-		if(_font[family] != NULL)
+		if (_font[family] != NULL) {
 			delete _font[family];
+		}
 #ifdef FTGL_BITMAP_FONT
 		_font[family] = new FTGLBitmapFont(filename.c_str());
 #else // FTGL_BITMAP_FONT
@@ -348,37 +359,43 @@ namespace gluon {
 	open_font_default(const std::string &filename,
 					  const unsigned int family)
 	{
-		if(_font[family] == NULL)
+		if (_font[family] == NULL) {
 			open_font_overwrite(filename, family);
+		}
 	}
 
 	void opengl_surface_t::
 	set_font_size(const float size, const unsigned int family)
 	{
-		if(_font[family] != NULL)
+		if (_font[family] != NULL) {
 			_font[family]->FaceSize(size);
+		}
 	}
 
 	void opengl_surface_t::set_font_size(const float size)
 	{
 		_font_size = size;
-		for(unsigned int family = 0; family < NFAMILY; family++)
-			if(_font[family] != NULL)
+		for (unsigned int family = 0; family < NFAMILY; family++) {
+			if (_font[family] != NULL) {
 				_font[family]->FaceSize(size);
+			}
+		}
 	}
 
 	void opengl_surface_t::reset_font_size(const unsigned int family)
 	{
-		if(family < NFAMILY && _font[family] != NULL)
+		if (family < NFAMILY && _font[family] != NULL) {
 			_font[family]->FaceSize(_font_size);
+		}
 	}
 
 	mathtext::bounding_box_t opengl_surface_t::
 	bounding_box(const std::wstring string,
 				 const unsigned int family)
 	{
-		if(family >= NFAMILY || _font[family] == NULL)
+		if (family >= NFAMILY || _font[family] == NULL) {
 			return mathtext::bounding_box_t(0, 0, 0, 0, 0, 0);
+		}
 
 		float lower_left_near_x;
 		float lower_left_near_y;
@@ -408,10 +425,12 @@ namespace gluon {
 
 	float opengl_surface_t::font_size(const unsigned int family) const
 	{
-		if(_font[family] != NULL)
+		if (_font[family] != NULL) {
 			return _font[family]->FaceSize();
-		else
+		}
+		else {
 			return 0.0F;
+		}
 	}
 #endif // HAVE_OPENGL
 

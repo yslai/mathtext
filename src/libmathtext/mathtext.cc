@@ -31,7 +31,7 @@ namespace mathtext {
 	{
 		const unsigned long size = _math_list.size();
 
-		if(size < 2)
+		if (size < 2)
 			return;
 
 		std::vector<item_t>::reverse_iterator last =
@@ -39,7 +39,7 @@ namespace mathtext {
 		std::vector<item_t>::reverse_iterator second_last =
 			last + 1;
 
-		if(last->_type == item_t::TYPE_ATOM &&
+		if (last->_type == item_t::TYPE_ATOM &&
 		   second_last->_type == item_t::TYPE_ATOM &&
 		   second_last->_atom._type == atom_t::TYPE_ACC &&
 		   !(last->_atom._superscript.empty() &&
@@ -74,14 +74,14 @@ namespace mathtext {
 	append(const field_t &field, const bool superscript,
 		   const bool subscript)
 	{
-		if((superscript || subscript) && _math_list.empty())
+		if ((superscript || subscript) && _math_list.empty())
 			_math_list.push_back(item_t(field_t()));
 
-		if(superscript) {
+		if (superscript) {
 			_math_list.back()._atom._superscript = field;
 			transform_script();
 		}
-		else if(subscript) {
+		else if (subscript) {
 			_math_list.back()._atom._subscript = field;
 			transform_script();
 		}
@@ -102,15 +102,15 @@ namespace mathtext {
 	append(const unsigned int type, const math_symbol_t &math_symbol,
 		   const bool superscript, const bool subscript)
 	{
-		if((superscript || subscript) && _math_list.empty())
+		if ((superscript || subscript) && _math_list.empty())
 			_math_list.push_back(item_t(field_t()));
 
-		if(superscript) {
+		if (superscript) {
 			_math_list.back()._atom._superscript =
 				field_t(math_symbol);
 			transform_script();
 		}
-		else if(subscript) {
+		else if (subscript) {
 			_math_list.back()._atom._subscript =
 				field_t(math_symbol);
 			transform_script();
@@ -149,11 +149,11 @@ namespace mathtext {
 
 	bool math_text_t::field_t::generalized_fraction(void) const
 	{
-		if(_type == TYPE_MATH_LIST)
-			for(std::vector<item_t>::const_iterator iterator =
+		if (_type == TYPE_MATH_LIST)
+			for (std::vector<item_t>::const_iterator iterator =
 					_math_list.begin();
 				iterator != _math_list.end(); iterator++)
-				if(iterator->_type ==
+				if (iterator->_type ==
 				   item_t::TYPE_GENERALIZED_FRACTION)
 					return true;
 		return false;
@@ -163,9 +163,9 @@ namespace mathtext {
 	{
 		// Only nucleus affects the atom type (Knuth, The TeXbook,
 		// 1986, p. 171)
-		if(_nucleus._type == field_t::TYPE_MATH_SYMBOL)
+		if (_nucleus._type == field_t::TYPE_MATH_SYMBOL)
 			_type = _nucleus._math_symbol._type;
-		else if(_nucleus.generalized_fraction())
+		else if (_nucleus.generalized_fraction())
 			_type = atom_t::TYPE_INNER;
 		else
 			// FIXME: Does TeX flatten compound expressions before
@@ -186,7 +186,7 @@ namespace mathtext {
 #include "table/mathspacing.h"
 		// Since we only handle atom types upto Inner, the upper bound
 		// is type <= TYPE_INNER and not type < NTYPE.
-		if(left_type == TYPE_UNKNOWN || left_type > TYPE_INNER ||
+		if (left_type == TYPE_UNKNOWN || left_type > TYPE_INNER ||
 		   right_type == TYPE_UNKNOWN || right_type > TYPE_INNER) {
 			// Invalid
 			return 0;
@@ -196,14 +196,14 @@ namespace mathtext {
 			(right_type - TYPE_ORD);
 		int space = spacing_table[index];
 
-		if(space == nvr) {
+		if (space == nvr) {
 			// Invalid
 			return 0;
 		}
 		// Interpret the \nonscript sign, which denotes spaces that
 		// should be ignored within the script (and scriptscript)
 		// style.
-		if(space < 0)
+		if (space < 0)
 			space = script ? 0 : -space;
 
 		return space;
@@ -211,7 +211,7 @@ namespace mathtext {
 
 	bool math_text_t::item_t::operator==(const item_t &item) const
 	{
-		switch(_type) {
+		switch (_type) {
 		case TYPE_GENERALIZED_FRACTION:
 			return item._type == TYPE_GENERALIZED_FRACTION;
 			break;
@@ -224,7 +224,7 @@ namespace mathtext {
 	{
 		std::wstring wstring;
 
-		for(std::string::const_iterator iterator = string.begin();
+		for (std::string::const_iterator iterator = string.begin();
 			iterator != string.end(); iterator++) {
 			wstring.push_back(*iterator);
 		}
@@ -236,63 +236,63 @@ namespace mathtext {
 	{
 		std::wstring wstring;
 
-		for(std::string::const_iterator iterator = string.begin();
+		for (std::string::const_iterator iterator = string.begin();
 			iterator != string.end();) {
 			wchar_t c;
 
 			// Skip over byte ordering marks
-			if((*iterator & 0xff) == 0xef) {
+			if ((*iterator & 0xff) == 0xef) {
 				iterator++;
-				if((*iterator & 0xff) == 0xbb) {
+				if ((*iterator & 0xff) == 0xbb) {
 					iterator++;
-					if((*iterator & 0xff) == 0xbf) {
+					if ((*iterator & 0xff) == 0xbf) {
 						iterator++;
 					}
 				}
 			}
-			if((*iterator & 0xf0) == 0xf0) {
+			if ((*iterator & 0xf0) == 0xf0) {
 				c = (*iterator & 0x7) << 18;
 				iterator++;
-				if((*iterator & 0xc0) != 0x80) {
+				if ((*iterator & 0xc0) != 0x80) {
 					continue;
 				}
 				c |= (*iterator & 0x3f) << 12;
 				iterator++;
-				if((*iterator & 0xc0) != 0x80) {
+				if ((*iterator & 0xc0) != 0x80) {
 					continue;
 				}
 				c |= (*iterator & 0x3f) << 6;
 				iterator++;
-				if((*iterator & 0xc0) != 0x80) {
+				if ((*iterator & 0xc0) != 0x80) {
 					continue;
 				}
 				c |= (*iterator & 0x3f);
 				iterator++;
 			}
-			else if((*iterator & 0xe0) == 0xe0) {
+			else if ((*iterator & 0xe0) == 0xe0) {
 				c = (*iterator & 0xf) << 12;
 				iterator++;
-				if((*iterator & 0xc0) != 0x80) {
+				if ((*iterator & 0xc0) != 0x80) {
 					continue;
 				}
 				c |= (*iterator & 0x3f) << 6;
 				iterator++;
-				if((*iterator & 0xc0) != 0x80) {
+				if ((*iterator & 0xc0) != 0x80) {
 					continue;
 				}
 				c |= (*iterator & 0x3f);
 				iterator++;
 			}
-			else if((*iterator & 0xc0) == 0xc0) {
+			else if ((*iterator & 0xc0) == 0xc0) {
 				c = (*iterator & 0x1f) << 6;
 				iterator++;
-				if((*iterator & 0xc0) != 0x80) {
+				if ((*iterator & 0xc0) != 0x80) {
 					continue;
 				}
 				c |= (*iterator & 0x3f);
 				iterator++;
 			}
-			else if((*iterator & 0x80) == 0x0) {
+			else if ((*iterator & 0x80) == 0x0) {
 				c = (*iterator & 0x7f);
 				iterator++;
 			}
@@ -332,7 +332,7 @@ namespace mathtext {
 
 	bool math_text_t::well_formed(void) const
 	{
-		if(_math_list._type != field_t::TYPE_MATH_LIST)
+		if (_math_list._type != field_t::TYPE_MATH_LIST)
 			return false;
 		return true;
 	}
@@ -341,7 +341,7 @@ namespace mathtext {
 	{
 		std::string retval;
 
-		switch(std::fpclassify(x)) {
+		switch (std::fpclassify(x)) {
 		default:
 			return retval;
 		}

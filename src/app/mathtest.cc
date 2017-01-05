@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 {
 	const char *string = "\\prod_{j\\ge0} \\left(\\sum_{k\\ge0} a_{jk}z^k\\right) = \\sum_{n\\ge0} z^n \\left(\\sum_{k_0,k_1,\\ldots\\ge0\\atop k_0+k_1+\\cdots=n} a_{0k_0}a_{1k_1} \\cdots \\right)";
 
-	if(argc > 1) {
+	if (argc > 1) {
 		string = argv[1];
 	}
 

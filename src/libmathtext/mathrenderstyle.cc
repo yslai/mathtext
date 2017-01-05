@@ -36,7 +36,7 @@ namespace mathtext {
 			script_ratio, script_ratio, 1.0F, 1.0F, 1.0F, 1.0F
 		};
 
-		if(style == math_text_t::item_t::STYLE_UNKNOWN ||
+		if (style == math_text_t::item_t::STYLE_UNKNOWN ||
 		   style >= math_text_t::item_t::NSTYLE)
 			return font_size();
 
@@ -46,7 +46,7 @@ namespace mathtext {
 	bool math_text_renderer_t::
 	is_display_style(const unsigned int style) const
 	{
-		switch(style) {
+		switch (style) {
 		case math_text_t::item_t::STYLE_DISPLAY:
 		case math_text_t::item_t::STYLE_DISPLAY_PRIME:
 			return true;
@@ -58,7 +58,7 @@ namespace mathtext {
 	bool math_text_renderer_t::
 	is_script_style(const unsigned int style) const
 	{
-		switch(style) {
+		switch (style) {
 		case math_text_t::item_t::STYLE_SCRIPT:
 		case math_text_t::item_t::STYLE_SCRIPT_PRIME:
 		case math_text_t::item_t::STYLE_SCRIPT_SCRIPT:
@@ -72,7 +72,7 @@ namespace mathtext {
 	unsigned int math_text_renderer_t::
 	prime_style(const unsigned int style) const
 	{
-		switch(style) {
+		switch (style) {
 		case math_text_t::item_t::STYLE_DISPLAY:
 			return math_text_t::item_t::STYLE_DISPLAY_PRIME;
 		case math_text_t::item_t::STYLE_TEXT:
@@ -89,7 +89,7 @@ namespace mathtext {
 	bool math_text_renderer_t::
 	is_prime_style(const unsigned int style) const
 	{
-		switch(style) {
+		switch (style) {
 		case math_text_t::item_t::STYLE_DISPLAY_PRIME:
 		case math_text_t::item_t::STYLE_TEXT_PRIME:
 		case math_text_t::item_t::STYLE_SCRIPT_PRIME:
@@ -105,7 +105,7 @@ namespace mathtext {
 	unsigned int math_text_renderer_t::
 	next_superscript_style(const unsigned int style) const
 	{
-		switch(style) {
+		switch (style) {
 		case math_text_t::item_t::STYLE_DISPLAY:
 		case math_text_t::item_t::STYLE_TEXT:
 			return math_text_t::item_t::STYLE_SCRIPT;
@@ -132,7 +132,7 @@ namespace mathtext {
 	unsigned int math_text_renderer_t::
 	next_numerator_style(const unsigned int style) const
 	{
-		switch(style) {
+		switch (style) {
 		case math_text_t::item_t::STYLE_DISPLAY:
 			return math_text_t::item_t::STYLE_TEXT;
 		case math_text_t::item_t::STYLE_DISPLAY_PRIME:
@@ -180,7 +180,7 @@ namespace mathtext {
 	post_process_atom_type_initial(unsigned int &atom_type) const
 	{
 		// Rule 5, initial atom
-		if(atom_type == math_text_t::atom_t::TYPE_BIN)
+		if (atom_type == math_text_t::atom_t::TYPE_BIN)
 			atom_type = math_text_t::atom_t::TYPE_ORD;
 	}
 
@@ -190,8 +190,8 @@ namespace mathtext {
 									unsigned int &atom_type) const
 	{
 		// Rule 5, interior/final atom
-		if(atom_type == math_text_t::atom_t::TYPE_BIN)
-			switch(previous_atom_type) {
+		if (atom_type == math_text_t::atom_t::TYPE_BIN)
+			switch (previous_atom_type) {
 			case math_text_t::atom_t::TYPE_BIN:
 			case math_text_t::atom_t::TYPE_OP:
 			case math_text_t::atom_t::TYPE_REL:
@@ -201,8 +201,8 @@ namespace mathtext {
 				break;
 			}
 		// Rule 6
-		else if(previous_atom_type == math_text_t::atom_t::TYPE_BIN)
-			switch(atom_type) {
+		else if (previous_atom_type == math_text_t::atom_t::TYPE_BIN)
+			switch (atom_type) {
 			case math_text_t::atom_t::TYPE_REL:
 			case math_text_t::atom_t::TYPE_CLOSE:
 			case math_text_t::atom_t::TYPE_PUNCT:
@@ -219,7 +219,7 @@ namespace mathtext {
 				 const_iterator &math_list_end)
 		const
 	{
-		if(iterator->_atom._type == math_text_t::atom_t::TYPE_ACC) {
+		if (iterator->_atom._type == math_text_t::atom_t::TYPE_ACC) {
 			std::vector<math_text_t::item_t>::const_iterator
 				iterator_next = iterator + 1;
 
@@ -228,7 +228,7 @@ namespace mathtext {
 				iterator_next->_type ==
 				math_text_t::item_t::TYPE_ATOM;
 		}
-		else if(iterator->_atom.is_combining_diacritical()) {
+		else if (iterator->_atom.is_combining_diacritical()) {
 			std::vector<math_text_t::item_t>::const_iterator
 				iterator_next = iterator + 1;
 
@@ -270,7 +270,7 @@ namespace mathtext {
 					is_script_style(style));
 		float mu_skip;
 
-		switch(space) {
+		switch (space) {
 		case 1:		mu_skip = thin_mu_skip; break;
 		case 2:		mu_skip = med_mu_skip; break;
 		case 3:		mu_skip = thick_mu_skip; break;
@@ -285,7 +285,7 @@ namespace mathtext {
 	{
 		// Use the text font for Latin, Greek, Cyrillic and the minus
 		// sign, and STIX for everything else.
-		if(math_symbol._glyph <= L'\u017e' ||
+		if (math_symbol._glyph <= L'\u017e' ||
 		   (math_symbol._glyph >= L'\u0384' &&
 			math_symbol._glyph <= L'\u03ce') ||
 		   (math_symbol._glyph >= L'\u0400' &&
@@ -294,7 +294,7 @@ namespace mathtext {
 			return math_symbol._family;
 		}
 		else {
-			switch(math_symbol._family) {
+			switch (math_symbol._family) {
 			case FAMILY_REGULAR:
 				return FAMILY_STIX_REGULAR;
 			case FAMILY_ITALIC:
@@ -364,7 +364,7 @@ namespace mathtext {
 			NGLYPH
 		};
 
-		switch(math_symbol._glyph) {
+		switch (math_symbol._glyph) {
 		case L'(':
 			glyph[GLYPH_TOP] = L'\u239b';
 			glyph[GLYPH_MIDDLE] = L'\0';
@@ -440,13 +440,13 @@ namespace mathtext {
 			FAMILY_STIX_REGULAR : FAMILY_STIX_SIZE_1_REGULAR;
 		const float size = style_size(style);
 
-		if(glyph[GLYPH_REPEATABLE] != L'\0') {
+		if (glyph[GLYPH_REPEATABLE] != L'\0') {
 			bounding_box_t bounding_box_sum(0, 0, 0, 0, 0, 0);
 			float current_y = 0;
 
-			for(unsigned long i = GLYPH_TOP; i <= GLYPH_BOTTOM;
+			for (unsigned long i = GLYPH_TOP; i <= GLYPH_BOTTOM;
 				i++) {
-				if(glyph[i] != L'\0') {
+				if (glyph[i] != L'\0') {
 					bounding_box_t glyph_bounding_box =
 						math_bounding_box(glyph[i], family, size);
 

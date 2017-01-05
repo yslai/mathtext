@@ -32,7 +32,7 @@ namespace mathtext {
 	math_tokenize(const math_text_t::math_symbol_t &math_symbol,
 				  const unsigned int style, const float height)
 	{
-		if(math_symbol._glyph == L'.')
+		if (math_symbol._glyph == L'.')
 			return std::vector<math_text_renderer_t::math_token_t>();
 
 		enum {
@@ -47,7 +47,7 @@ namespace mathtext {
 		const bounding_box_t normal_bounding_box =
 			math_bounding_box(math_symbol._glyph, family, size);
 
-		if(normal_bounding_box.height() >= height) {
+		if (normal_bounding_box.height() >= height) {
 			const math_token_t token(normal_bounding_box,
 									 math_symbol._glyph, family,
 									 size);
@@ -61,12 +61,12 @@ namespace mathtext {
 		large_family(nmath_symbol_large_family,
 					 math_symbol_large_family, math_symbol);
 
-		for(unsigned int i = 0; i < nmath_symbol_large_family; i++) {
+		for (unsigned int i = 0; i < nmath_symbol_large_family; i++) {
 			const bounding_box_t large_bounding_box =
 				math_bounding_box(math_symbol._glyph,
 								  math_symbol_large_family[i], size);
 
-			if(large_bounding_box.height() >= height) {
+			if (large_bounding_box.height() >= height) {
 				const math_token_t token(large_bounding_box,
 										 math_symbol._glyph,
 										 math_symbol_large_family[i],
@@ -84,7 +84,7 @@ namespace mathtext {
 
 		extensible_glyph(glyph, nrepeat, math_symbol, style, height);
 
-		if(glyph[GLYPH_BOTTOM] != L'\0' &&
+		if (glyph[GLYPH_BOTTOM] != L'\0' &&
 		   glyph[GLYPH_REPEATABLE] != L'\0') {
 			static const unsigned int extensible_family =
 				math_symbol._glyph == L'|' ? FAMILY_STIX_REGULAR :
@@ -100,7 +100,7 @@ namespace mathtext {
 			float current_y = 0;
 
 			current_y += bounding_box_bottom.ascent();
-			for(unsigned long i = 0; i < nrepeat; i++) {
+			for (unsigned long i = 0; i < nrepeat; i++) {
 				const bounding_box_t bounding_box_repeatable =
 					math_bounding_box(glyph[GLYPH_REPEATABLE],
 									  extensible_family, size);
@@ -112,7 +112,7 @@ namespace mathtext {
 					size));
 				current_y += bounding_box_repeatable.ascent();
 			}
-			if(glyph[GLYPH_MIDDLE] != L'\0') {
+			if (glyph[GLYPH_MIDDLE] != L'\0') {
 				const bounding_box_t bounding_box_middle =
 					math_bounding_box(glyph[GLYPH_MIDDLE],
 									  extensible_family, size);
@@ -122,7 +122,7 @@ namespace mathtext {
 					point_t(0, current_y), bounding_box_middle,
 					glyph[GLYPH_MIDDLE], extensible_family, size));
 				current_y += bounding_box_middle.ascent();
-				for(unsigned long i = 0; i < nrepeat; i++) {
+				for (unsigned long i = 0; i < nrepeat; i++) {
 					const bounding_box_t bounding_box_repeatable =
 						math_bounding_box(glyph[GLYPH_REPEATABLE],
 										  extensible_family, size);
@@ -188,7 +188,7 @@ namespace mathtext {
 		bounding_box_t bounding_box_delimiter_left(0, 0, 0, 0, 0, 0);
 		bounding_box_t bounding_box_delimiter_right(0, 0, 0, 0, 0, 0);
 
-		if(math_list_begin->_type ==
+		if (math_list_begin->_type ==
 		   math_text_t::item_t::TYPE_BOUNDARY &&
 		   (math_list_end - 1)->_type ==
 		   math_text_t::item_t::TYPE_BOUNDARY) {
@@ -206,7 +206,7 @@ namespace mathtext {
 						 style_axis_height);
 
 			delimiter_height = extension * 0.002F * delimiter_factor;
-			if(generalized_fraction)
+			if (generalized_fraction)
 				// Rule 15e
 				delimiter_height = std::max(delimiter_height,
 					if_else_display(style, delim_1, delim_2) * size);
@@ -223,7 +223,7 @@ namespace mathtext {
 
 		std::vector<math_token_t> token_list;
 
-		if(delimiter) {
+		if (delimiter) {
 			// Standard advance mode
 
 			// post_process_atom_type_initial(atom_type) is not
@@ -244,7 +244,7 @@ namespace mathtext {
 			previous_atom_type = math_list_begin->_atom._type;
 		}
 
-		if(generalized_fraction) {
+		if (generalized_fraction) {
 			// Rule 15a, 15b
 			const float thickness = fraction_iterator->_length *
 				default_rule_thickness * size;
@@ -265,7 +265,7 @@ namespace mathtext {
 			float shift_up;
 			float shift_down;
 
-			if(thickness <= 0) {
+			if (thickness <= 0) {
 				// Rule 15c (\atop)
 				const float min_clearance =
 					if_else_display(style, 7.0F, 3.0F) *
@@ -276,7 +276,7 @@ namespace mathtext {
 					(denominator_bounding_box.ascent() -
 					 min_shift_down);
 
-				if(actual_clearance < min_clearance) {
+				if (actual_clearance < min_clearance) {
 					const float difference = 0.5F *
 						(min_clearance - actual_clearance);
 
@@ -301,7 +301,7 @@ namespace mathtext {
 					(denominator_bounding_box.ascent() -
 					 min_shift_down);
 
-				if(actual_numerator_clearance <
+				if (actual_numerator_clearance <
 				   min_bar_clearance) {
 					const float difference =
 						(min_bar_clearance -
@@ -311,7 +311,7 @@ namespace mathtext {
 				}
 				else
 					shift_up = min_shift_up;
-				if(actual_denominator_clearance <
+				if (actual_denominator_clearance <
 				   min_bar_clearance) {
 					const float difference =
 						(min_bar_clearance -
@@ -329,7 +329,7 @@ namespace mathtext {
 			float horizontal_shift_numerator;
 			float horizontal_shift_denominator;
 
-			if(horizontal_center_difference > 0) {
+			if (horizontal_center_difference > 0) {
 				horizontal_shift_numerator = 0;
 				horizontal_shift_denominator =
 					horizontal_center_difference;
@@ -345,7 +345,7 @@ namespace mathtext {
 						-shift_down),
 				denominator_bounding_box,
 				next_denominator_style(style)));
-			if(thickness > 0) {
+			if (thickness > 0) {
 #if 0
 				const float constrained_thickness =
 					std::max(1.0F, thickness);
@@ -382,7 +382,7 @@ namespace mathtext {
 		}
 		else
 			// Incrementally process a math list
-			for(std::vector<math_text_t::item_t>::const_iterator
+			for (std::vector<math_text_t::item_t>::const_iterator
 					iterator = math_list_begin_interior;
 				iterator != math_list_end_interior; iterator++) {
 				unsigned int atom_type;
@@ -392,7 +392,7 @@ namespace mathtext {
 				bool accent;
 				bool vertical_alignment;
 
-				switch(iterator->_type) {
+				switch (iterator->_type) {
 				case math_text_t::item_t::TYPE_ATOM:
 					atom_type = iterator->_atom._type;
 					item_bounding_box =
@@ -400,7 +400,7 @@ namespace mathtext {
 										  current_style);
 					accent = valid_accent(vertical_alignment,
 										  iterator, math_list_end);
-					if(accent) {
+					if (accent) {
 						// Accent advance mode
 						const std::vector<math_text_t::item_t>::
 							const_iterator iterator_next =
@@ -431,7 +431,7 @@ namespace mathtext {
 					}
 					else {
 						// Standard advance mode
-						if(iterator == math_list_begin)
+						if (iterator == math_list_begin)
 							post_process_atom_type_initial(atom_type);
 						else {
 							post_process_atom_type_interior(
@@ -462,7 +462,7 @@ namespace mathtext {
 			}
 
 		// Rule 19 (again)
-		if(delimiter) {
+		if (delimiter) {
 			unsigned int atom_type =
 				(math_list_end - 1)->_atom._type;
 			// Standard advance mode
@@ -501,7 +501,7 @@ namespace mathtext {
 		float nucleus_shift_up = 0;
 
 		// Rule 11
-		if(atom._type == math_text_t::atom_t::TYPE_RAD) {
+		if (atom._type == math_text_t::atom_t::TYPE_RAD) {
 			float style_radical_rule_thickness =
 				default_rule_thickness * size;
 			const float min_clearance =
@@ -531,7 +531,7 @@ namespace mathtext {
 						bounding_box_radicand.height()) :
 				min_clearance;
 
-			if(!atom._index.empty()) {
+			if (!atom._index.empty()) {
 				// The positive space of 5 mu to the index is hard
 				// wired in plain.tex
 				current_x += (5.0F / 18.0F) * size;
@@ -627,14 +627,14 @@ namespace mathtext {
 				prime_style(style)));
 			current_x += bounding_box_radicand.advance();
 		}
-		else if(atom._type == math_text_t::atom_t::TYPE_OP) {
+		else if (atom._type == math_text_t::atom_t::TYPE_OP) {
 			const bool limits =
 				atom._limits == math_text_t::atom_t::LIMITS_LIMITS ||
 				(atom._limits ==
 				 math_text_t::atom_t::LIMITS_DISPLAYLIMITS &&
 				 is_display_style(style));
 
-			if(atom._nucleus._type ==
+			if (atom._nucleus._type ==
 			   math_text_t::field_t::TYPE_MATH_SYMBOL) {
 				// Rule 13
 				nucleus_bounding_box = math_bounding_box(
@@ -645,7 +645,7 @@ namespace mathtext {
 				nucleus_shift_up =
 					axis_height * size -
 					nucleus_bounding_box.vertical_center();
-				if(limits && atom._subscript.empty())
+				if (limits && atom._subscript.empty())
 					nucleus_bounding_box.advance() +=
 						nucleus_bounding_box.italic_correction();
 			}
@@ -653,7 +653,7 @@ namespace mathtext {
 				nucleus_bounding_box =
 					math_bounding_box(atom._nucleus, style);
 
-			if(limits && !(atom._superscript.empty() &&
+			if (limits && !(atom._superscript.empty() &&
 						   atom._subscript.empty())) {
 				// Rule 13a
 				const unsigned int superscript_style =
@@ -661,7 +661,7 @@ namespace mathtext {
 				const unsigned int subscript_style =
 					next_subscript_style(style);
 
-				if(atom._superscript.empty()) {
+				if (atom._superscript.empty()) {
 					const bounding_box_t subscript_bounding_box =
 						math_bounding_box(atom._subscript,
 										  subscript_style);
@@ -679,7 +679,7 @@ namespace mathtext {
 						subscript_bounding_box.ascent() -
 						nucleus_shift_up;
 
-					if(shift_right >= 0) {
+					if (shift_right >= 0) {
 						token_list.push_back(math_token_t(
 							point_t(0, nucleus_shift_up),
 							nucleus_bounding_box, style));
@@ -700,7 +700,7 @@ namespace mathtext {
 					}
 					return token_list;
 				}
-				if(atom._subscript.empty()) {
+				if (atom._subscript.empty()) {
 					const bounding_box_t superscript_bounding_box =
 						math_bounding_box(atom._superscript,
 										  superscript_style);
@@ -718,7 +718,7 @@ namespace mathtext {
 						superscript_bounding_box.descent() +
 						nucleus_shift_up;
 
-					if(shift_right >= 0) {
+					if (shift_right >= 0) {
 						token_list.push_back(math_token_t(
 							point_t(0, nucleus_shift_up),
 							nucleus_bounding_box, style));
@@ -808,7 +808,7 @@ namespace mathtext {
 			current_x += nucleus_bounding_box.advance();
 		}
 
-		if(atom._superscript.empty() && atom._subscript.empty())
+		if (atom._superscript.empty() && atom._subscript.empty())
 			return token_list;
 
 		const float current_x_italic_corrected = current_x +
@@ -827,7 +827,7 @@ namespace mathtext {
 			subscript_size * sub_drop;
 
 		// Rule 18b
-		if(atom._superscript.empty()) {
+		if (atom._superscript.empty()) {
 			const bounding_box_t subscript_bounding_box =
 				math_bounding_box(atom._subscript, subscript_style);
 			const float shift_down =
@@ -851,7 +851,7 @@ namespace mathtext {
 					 superscript_bounding_box.descent() +
 					 0.2F * x_height(superscript_style));
 		// Rule 18d
-		if(atom._subscript.empty()) {
+		if (atom._subscript.empty()) {
 			token_list.push_back(math_token_t(
 				point_t(current_x_italic_corrected,
 						nucleus_shift_up + shift_up),
@@ -866,7 +866,7 @@ namespace mathtext {
 		const bounding_box_t subscript_bounding_box =
 			math_bounding_box(atom._subscript, subscript_style);
 
-		if((shift_up - superscript_bounding_box.descent()) -
+		if ((shift_up - superscript_bounding_box.descent()) -
 		   (subscript_bounding_box.ascent() - shift_down) <
 		   4.0F * default_rule_thickness *
 		   nucleus_size) {
@@ -878,7 +878,7 @@ namespace mathtext {
 				0.8F * x_height(superscript_style) -
 				(shift_up - superscript_bounding_box.descent());
 
-			if(superscript_adjustment > 0) {
+			if (superscript_adjustment > 0) {
 				shift_up += superscript_adjustment;
 				shift_down -= superscript_adjustment;
 			}

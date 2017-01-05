@@ -30,14 +30,14 @@ namespace mathtext {
 	tree_view_prefix(const std::vector<bool> &branch,
 					 const bool final) const
 	{
-		if(branch.size() > 0) {
+		if (branch.size() > 0) {
 			std::cerr << ' ';
-			for(std::vector<bool>::const_iterator iterator =
+			for (std::vector<bool>::const_iterator iterator =
 					branch.begin();
 				iterator != branch.end(); iterator++) {
-				if(*iterator) {
-					if(iterator + 1 == branch.end()) {
-						if(final)
+				if (*iterator) {
+					if (iterator + 1 == branch.end()) {
+						if (final)
 							std::cerr << "\342\224\224\342\224\200 ";
 						else
 							std::cerr << "\342\224\234\342\224\200 ";
@@ -46,7 +46,7 @@ namespace mathtext {
 						std::cerr << "\342\224\202   ";
 				}
 				else
-					if(iterator + 1 == branch.end())
+					if (iterator + 1 == branch.end())
 						std::cerr << "   ";
 					else
 						std::cerr << "    ";
@@ -58,7 +58,7 @@ namespace mathtext {
 								std::vector<bool> &branch,
 								const bool final) const
 	{
-		switch(field._type) {
+		switch (field._type) {
 		case field_t::TYPE_MATH_SYMBOL:
 			tree_view_prefix(branch, true);
 			std::cerr << "<math_symbol code=\""
@@ -72,7 +72,7 @@ namespace mathtext {
 			std::cerr << "<box/>" << std::endl;
 			break;
 		case field_t::TYPE_MATH_LIST:
-			if(field._math_list.empty()) {
+			if (field._math_list.empty()) {
 				tree_view_prefix(branch, true);
 				std::cerr << "<empty/>" << std::endl;
 			}
@@ -83,7 +83,7 @@ namespace mathtext {
 				std::vector<bool> branch_copy = branch;
 
 				branch_copy.back() = !final;
-				for(std::vector<item_t>::const_iterator iterator =
+				for (std::vector<item_t>::const_iterator iterator =
 						field._math_list.begin();
 					iterator != field._math_list.end(); iterator++) {
 					branch_copy.back() = !final;
@@ -109,7 +109,7 @@ namespace mathtext {
 	{
 		std::vector<bool> branch_copy = branch;
 
-		switch(item._type) {
+		switch (item._type) {
 		case item_t::TYPE_ATOM:
 			tree_view_prefix(branch, final);
 			std::cerr << "<atom>" << std::endl;
@@ -146,7 +146,7 @@ namespace mathtext {
 	{
 		tree_view_prefix(branch, false);
 		std::cerr << "<type>";
-		switch(atom._type) {
+		switch (atom._type) {
 		case atom_t::TYPE_ORD:
 			std::cerr << "Ord";
 			break;
@@ -194,7 +194,7 @@ namespace mathtext {
 
 		std::vector<bool> branch_copy = branch;
 
-		if(!atom._nucleus.empty()) {
+		if (!atom._nucleus.empty()) {
 			const bool way_final = atom._superscript.empty() &&
 				atom._subscript.empty();
 
@@ -207,7 +207,7 @@ namespace mathtext {
 			tree_view_prefix(branch_copy, way_final);
 			std::cerr << "</nucleus>" << std::endl;
 		}
-		if(!atom._superscript.empty()) {
+		if (!atom._superscript.empty()) {
 			const bool way_final = atom._subscript.empty();
 
 			tree_view_prefix(branch, way_final);
@@ -219,7 +219,7 @@ namespace mathtext {
 			tree_view_prefix(branch_copy, way_final);
 			std::cerr << "</superscript>" << std::endl;
 		}
-		if(!atom._subscript.empty()) {
+		if (!atom._subscript.empty()) {
 			tree_view_prefix(branch, true);
 			std::cerr << "<subscript>" << std::endl;
 			branch_copy.back() = false;

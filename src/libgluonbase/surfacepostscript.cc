@@ -64,7 +64,7 @@ namespace gluon {
 
 	void postscript_surface_t::close_output_file(void)
 	{
-		if(_fp != NULL) {
+		if (_fp != NULL) {
 			fclose(_fp);
 			_fp = NULL;
 		}
@@ -101,25 +101,25 @@ namespace gluon {
 	{
 		FILE *fp = fopen(filename.c_str(), "r");
 
-		if(fp == NULL)
+		if (fp == NULL)
 			return;
-		if(fseek(fp, 0L, SEEK_END) == -1) {
+		if (fseek(fp, 0L, SEEK_END) == -1) {
 			perror("fseek");
 			return;
 		}
 
 		const long length = ftell(fp);
 
-		if(length == -1) {
+		if (length == -1) {
 			perror("ftell");
 			return;
 		}
 		font_data.resize(length);
-		if(fseek(fp, 0L, SEEK_SET) == -1) {
+		if (fseek(fp, 0L, SEEK_SET) == -1) {
 			perror("fseek");
 			return;
 		}
-		if(fread(&font_data[0], sizeof(FT_Byte), length, fp) !=
+		if (fread(&font_data[0], sizeof(FT_Byte), length, fp) !=
 		   static_cast<size_t>(length)) {
 			perror("fread");
 			return;
@@ -156,7 +156,7 @@ namespace gluon {
 
 		memcpy(&offset_table, &font_data[0],
 			   sizeof(struct otf_offset_table_s));
-		if(strncmp(offset_table.sfnt_version, "OTTO", 4) != 0)
+		if (strncmp(offset_table.sfnt_version, "OTTO", 4) != 0)
 			// Not a OpenType CFF/Type 2 font
 			return false;
 #ifdef LITTLE_ENDIAN
@@ -169,7 +169,7 @@ namespace gluon {
 		cff_offset = 0;
 		cff_length = 0;
 
-		for(unsigned short i = 0; i < offset_table.num_tables; i++) {
+		for (unsigned short i = 0; i < offset_table.num_tables; i++) {
 			struct otf_table_directory_s {
 				char tag[4];
 				unsigned int check_sum;
@@ -185,23 +185,23 @@ namespace gluon {
 			table_directory.offset = bswap_32(table_directory.offset);
 			table_directory.length = bswap_32(table_directory.length);
 #endif // LITTLE_ENDIAN
-			if(strncmp(table_directory.tag, "name", 4) == 0) {
+			if (strncmp(table_directory.tag, "name", 4) == 0) {
 				name_offset = table_directory.offset;
 				//name_length = table_directory.length;
 			}
-			else if(strncmp(table_directory.tag, "CFF ", 4) == 0) {
+			else if (strncmp(table_directory.tag, "CFF ", 4) == 0) {
 				cff_offset = table_directory.offset;
 				cff_length = table_directory.length;
 			}
 		}
 
-		if(name_offset == 0) {
+		if (name_offset == 0) {
 			std::cerr << __FILE__ << ':' << __LINE__
 					  << ": invalid font file (no name table)"
 					  << std::endl;
 			return false;
 		}
-		else if(cff_offset == 0) {
+		else if (cff_offset == 0) {
 			std::cerr << __FILE__ << ':' << __LINE__
 					  << "invalid font file (no CFF)" << std::endl;
 			return false;
@@ -226,7 +226,7 @@ namespace gluon {
 			bswap_16(naming_table_header.string_offset);
 #endif // LITTLE_ENDIAN
 
-		for(unsigned short i = 0; i < naming_table_header.count;
+		for (unsigned short i = 0; i < naming_table_header.count;
 			i++) {
 			struct otf_name_record_s {
 				unsigned short platform_id;
@@ -254,7 +254,7 @@ namespace gluon {
 			// to obtain an ASCII PostScript name, while the Windows
 			// platform uses a UTF-16 string that would require
 			// conversion.
-			if(name_record.platform_id == 1 &&
+			if (name_record.platform_id == 1 &&
 			   name_record.encoding_id == 0 &&
 			   name_record.name_id == 6) {
 #ifdef LITTLE_ENDIAN
@@ -288,19 +288,19 @@ namespace gluon {
 		unsigned int column = 0;
 		unsigned int line = 0;
 
-		for(size_t i = 0; i < length - 3; i += 4) {
+		for (size_t i = 0; i < length - 3; i += 4) {
 			unsigned int b = reinterpret_cast<
 				const unsigned int *>(buffer)[i >> 2];
 
-			if(b == 0) {
+			if (b == 0) {
 				column++;
-				if(column == width - 1) {
+				if (column == width - 1) {
 					line++;
 					column = 0;
 				}
 			}
 			else {
-				if(column + 5 >= width) {
+				if (column + 5 >= width) {
 					column += 5 - width;
 					line++;
 				}
@@ -308,7 +308,7 @@ namespace gluon {
 					column += 5;
 			}
 		}
-		if(column + (length & 3) + 3 >= width)
+		if (column + (length & 3) + 3 >= width)
 			line++;
 
 		return line;
@@ -325,14 +325,14 @@ namespace gluon {
 		const int width = 64;
 		int column = 0;
 
-		for(size_t i = 0; i < length - 3; i += 4) {
+		for (size_t i = 0; i < length - 3; i += 4) {
 			unsigned int dword = reinterpret_cast<
 				const unsigned int *>(buffer)[i >> 2];
 
-			if(dword == 0) {
+			if (dword == 0) {
 				ascii.append(1, 'z');
 				column++;
-				if(column == width - 1) {
+				if (column == width - 1) {
 					ascii.append(1, '\n');
 					column = 0;
 				}
@@ -353,10 +353,10 @@ namespace gluon {
 				str[1] = static_cast<char>(dword % 85 + '!');
 				dword /= 85;
 				str[0] = static_cast<char>(dword % 85 + '!');
-				for(int j = 0; j < 5; j++) {
+				for (int j = 0; j < 5; j++) {
 					ascii.append(1, str[j]);
 					column++;
-					if(column == width) {
+					if (column == width) {
 						ascii.append(1, '\n');
 						column = 0;
 					}
@@ -366,7 +366,7 @@ namespace gluon {
 
 		int k = length & 3;
 
-		if(k > 0) {
+		if (k > 0) {
 			unsigned int dword = 0;
 
 			memcpy(&dword, buffer + (length & ~3), k);
@@ -385,17 +385,17 @@ namespace gluon {
 			str[1] = static_cast<char>(dword % 85 + '!');
 			dword /= 85;
 			str[0] = static_cast<char>(dword % 85 + '!');
-			for(int j = 0; j < k + 1; j++) {
+			for (int j = 0; j < k + 1; j++) {
 				ascii.append(1, str[j]);
 				column++;
-				if(column == width) {
+				if (column == width) {
 					ascii.append(1, '\n');
 					column = 0;
 				}
 			}
 
 		}
-		if(column > width - 2)
+		if (column > width - 2)
 			ascii.append(1, '\n');
 		ascii.append("~>");
 	}
@@ -414,7 +414,7 @@ namespace gluon {
 		unsigned int cff_offset;
 		unsigned int cff_length;
 
-		if(!parse_otf_cff_header(font_name, cff_offset, cff_length,
+		if (!parse_otf_cff_header(font_name, cff_offset, cff_length,
 								 font_data))
 			return std::string();
 
@@ -451,7 +451,7 @@ namespace gluon {
 	open_font_overwrite(const std::string &filename,
 						const unsigned int family)
 	{
-		if(_font[family] != NULL)
+		if (_font[family] != NULL)
 			FT_Done_Face(_font[family]);
 		read_font_data(_font_data[family], filename);
 
@@ -466,19 +466,19 @@ namespace gluon {
 
 		std::string embedded_str;
 
-		if(_fp != NULL)
+		if (_fp != NULL)
 			 embedded_str =
 				 font_embed_type_2(_font_name[family],
 								   _font_data[family]);
 
-		if(_master) {
+		if (_master) {
 			bool embed_success = false;
 
-			if(!embedded_str.empty()) {
+			if (!embedded_str.empty()) {
 				fputs(embedded_str.c_str(), _fp);
 				embed_success = true;
 			}
-			if(!embed_success) {
+			if (!embed_success) {
 				std::cerr << __FILE__ << ':' << __LINE__
 						  << ": error: could not embed font `"
 						  << filename << '\'' << std::endl;
@@ -490,7 +490,7 @@ namespace gluon {
 	open_font_default(const std::string &filename,
 					  const unsigned int family)
 	{
-		if(_font[family] == NULL)
+		if (_font[family] == NULL)
 			open_font_overwrite(filename, family);
 	}
 #endif // defined(HAVE_FREETYPE2) || defined(HAVE_FTGL)
@@ -504,7 +504,7 @@ namespace gluon {
 		std::fill(_font, _font + NFAMILY,
 				  reinterpret_cast<FT_Face>(NULL));
 #endif // defined(HAVE_FREETYPE2) || defined(HAVE_FTGL)
-		if(master) {
+		if (master) {
 			open_output_file();
 			write_dsc_preamble();
 		}
@@ -541,13 +541,13 @@ namespace gluon {
 	postscript_surface_t::~postscript_surface_t(void)
 	{
 #if defined(HAVE_FREETYPE2) || defined(HAVE_FTGL)
-		for(unsigned int family = 0; family < NFAMILY; family++)
-			if(_font[family] != NULL) {
+		for (unsigned int family = 0; family < NFAMILY; family++)
+			if (_font[family] != NULL) {
 				FT_Done_Face(_font[family]);
 				_font[family] = NULL;
 			}
 #endif // defined(HAVE_FREETYPE2) || defined(HAVE_FTGL)
-		if(_master) {
+		if (_master) {
 			write_dsc_trailer();
 			close_output_file();
 		}
@@ -614,7 +614,7 @@ namespace gluon {
 	void postscript_surface_t::
 	point(const float x, const float y) const
 	{
-		if(_current_point_size != 0) {
+		if (_current_point_size != 0) {
 			const point_t transformed = _transform_logical_to_pixel *
 				point_t(x, y);
 
@@ -772,8 +772,8 @@ namespace gluon {
 #pragma warning(push)
 #pragma warning(disable: 810)
 #endif // __INTEL_COMPILER
-		for(unsigned long i = 0; i < npixel; i++)
-			for(unsigned long j = 0; j < 3; j++)
+		for (unsigned long i = 0; i < npixel; i++)
+			for (unsigned long j = 0; j < 3; j++)
 				buffer[i * 3 + j] = density[(i << 2) + j] < 0 ? 0U :
 					density[(i << 2) + j] < (255.0 / 256.0) ?
 					static_cast<uint8_t>(
@@ -798,7 +798,7 @@ namespace gluon {
 	mathtext::bounding_box_t postscript_surface_t::
 	bounding_box(const std::wstring string, const unsigned int family)
 	{
-		if(string.empty() || _font[family] == NULL ||
+		if (string.empty() || _font[family] == NULL ||
 		   _font[family]->units_per_EM == 0)
 			return mathtext::bounding_box_t(0, 0, 0, 0, 0, 0);
 
@@ -820,7 +820,7 @@ namespace gluon {
 
 		float current_x = metrics.horiAdvance;
 
-		for(; iterator != string.end(); iterator++) {
+		for (; iterator != string.end(); iterator++) {
 			metrics = freetype_metrics(*iterator, family);
 			const mathtext::bounding_box_t glyph_bounding_box =
 				mathtext::point_t(0, current_x) +
@@ -841,13 +841,13 @@ namespace gluon {
 	text_raw(const float x, const float y, const std::wstring string,
 			 const unsigned int family)
 	{
-		if(family >= NFAMILY || _font[family] == NULL) {
+		if (family >= NFAMILY || _font[family] == NULL) {
 			std::cerr << __FILE__ << ':' << __LINE__
 					  << ": error: font not initialized"
 					  << std::endl;
 			return;
 		}
-		if(_current_font_size[family] <= 0)
+		if (_current_font_size[family] <= 0)
 			return;
 		// FIXME: Check if reloading/rescaling the font is necessary
 
@@ -860,14 +860,14 @@ namespace gluon {
 
 #include <table/adobeglyph.h>
 
-		for(std::wstring::const_reverse_iterator iterator =
+		for (std::wstring::const_reverse_iterator iterator =
 				string.rbegin();
 			iterator != string.rend(); iterator++) {
 			const wchar_t *lower =
 				std::lower_bound(adobe_glyph_ucs,
 								 adobe_glyph_ucs + nadobe_glyph,
 								 *iterator);
-			if(lower < adobe_glyph_ucs + nadobe_glyph &&
+			if (lower < adobe_glyph_ucs + nadobe_glyph &&
 			   *lower == *iterator) {
 				const unsigned long index =
 					lower - adobe_glyph_ucs;
@@ -878,7 +878,7 @@ namespace gluon {
 				fprintf(_fp, "/uni%04X ", *iterator);
 		}
 		// FIXME: extract 8-bit segment and use "show"
-		if(string.size() == 1U)
+		if (string.size() == 1U)
 			fprintf(_fp, "glyphshow\n");
 		else
 			fprintf(_fp, "%lu {glyphshow} repeat\n",

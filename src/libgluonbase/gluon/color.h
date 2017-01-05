@@ -91,7 +91,7 @@ namespace gluon {
 			_color[0] = c0;
 			_color[1] = c1;
 			_color[2] = c2;
-			if(_color_space == COLOR_SPACE_DISPLAY_RGB) {
+			if (_color_space == COLOR_SPACE_DISPLAY_RGB) {
 				_display_color[0] = c0;
 				_display_color[1] = c1;
 				_display_color[2] = c2;

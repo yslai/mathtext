@@ -27,10 +27,10 @@ namespace gluon {
 
 	void surface_t::delete_subsurface(void)
 	{
-		for(std::vector<surface_t *>::iterator iterator =
+		for (std::vector<surface_t *>::iterator iterator =
 				_subsurface.begin();
 			iterator != _subsurface.end(); iterator++)
-			if(*iterator != NULL) {
+			if (*iterator != NULL) {
 				delete *iterator;
 				*iterator = NULL;
 			}
@@ -38,11 +38,11 @@ namespace gluon {
 
 	bool surface_t::delete_supersurface(void)
 	{
-		for(std::vector<surface_t *>::iterator iterator =
+		for (std::vector<surface_t *>::iterator iterator =
 				_supersurface->_subsurface.begin();
 			iterator != _supersurface->_subsurface.end();
 			iterator++)
-			if(*iterator == this) {
+			if (*iterator == this) {
 				*iterator = NULL;
 				return true;
 			}
@@ -59,7 +59,7 @@ namespace gluon {
 	{
 		mathtext::point_t displacement(0, 0);
 
-		switch(alignment) {
+		switch (alignment) {
 		case ALIGN_LOWER_LEFT:
 			displacement[0] -= bounding_box.left();
 			displacement[1] -= bounding_box.bottom();
@@ -120,7 +120,7 @@ namespace gluon {
 	surface_t::~surface_t(void)
 	{
 		delete_subsurface();
-		if(!_master)
+		if (!_master)
 			delete_supersurface();
 	}
 
@@ -153,7 +153,7 @@ namespace gluon {
 			bounding_box(string, family);
 
 		rectangle(mathtext::point_t(x, y) + string_bounding_box);
-		if(string_bounding_box.descent() > 0)
+		if (string_bounding_box.descent() > 0)
 			line(x + string_bounding_box.left(), y,
 				 x + string_bounding_box.right(), y);
 		if (string_bounding_box.italic_correction() > 0 &&

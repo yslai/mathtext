@@ -63,13 +63,13 @@ namespace mathtext {
 		const int width = 64;
 		int column = 0;
 
-		for(size_t i = 0; i < length; i++) {
+		for (size_t i = 0; i < length; i++) {
 			char str[3];
 
 			snprintf(str, 3, "%02hhX", buffer[i]);
 			ascii.append(str, 2);
 			column += 2;
-			if(column >= width) {
+			if (column >= width) {
 				ascii.append(1, '\n');
 				column = 0;
 			}
@@ -152,7 +152,7 @@ namespace mathtext {
 					for (size_t j = 0; j < 5; j++) {
 						ascii.append(1, str[j]);
 						column++;
-						if(column == width) {
+						if (column == width) {
 							ascii.append(1, '\n');
 							column = 0;
 						}
@@ -163,7 +163,7 @@ namespace mathtext {
 
 		int k = length & 3;
 
-		if(k > 0) {
+		if (k > 0) {
 			unsigned int dword = 0;
 
 			memcpy(&dword, buffer + (length & ~3), k);
@@ -182,17 +182,17 @@ namespace mathtext {
 			str[1] = static_cast<char>(dword % 85 + '!');
 			dword /= 85;
 			str[0] = static_cast<char>(dword % 85 + '!');
-			for(int j = 0; j < k + 1; j++) {
+			for (int j = 0; j < k + 1; j++) {
 				ascii.append(1, str[j]);
 				column++;
-				if(column == width) {
+				if (column == width) {
 					ascii.append(1, '\n');
 					column = 0;
 				}
 			}
 
 		}
-		if(column > width - 2)
+		if (column > width - 2)
 			ascii.append(1, '\n');
 		ascii.append("~>");
 	}
@@ -218,7 +218,7 @@ namespace mathtext {
 		std::string ret;
 
 		memcpy(magic_number, &font_data[0], 2);
-		if(magic_number[0] == '\200') {
+		if (magic_number[0] == '\200') {
 			// IBM PC format printer font binary
 
 			// FIXME: Maybe the real name can be parsed out of the
@@ -242,12 +242,12 @@ namespace mathtext {
 					   segment_header.length);
 				offset += segment_header.length;
 
-				switch(segment_header.type) {
+				switch (segment_header.type) {
 				case TYPE_ASCII:
 					// Simple CR -> LF conversion
 					for (int i = 0;
 						 i < (int)(segment_header.length) - 1; i++) {
-						if(buffer[i] == '\r' &&
+						if (buffer[i] == '\r' &&
 						   buffer[i + 1] != '\n') {
 							buffer[i] = '\n';
 						}
@@ -271,7 +271,7 @@ namespace mathtext {
 
 			return ret;
 		}
-		else if(strncmp(magic_number, "%!", 2) == 0) {
+		else if (strncmp(magic_number, "%!", 2) == 0) {
 			// Printer font ASCII
 			fprintf(stderr, "%s:%d: Printer font ASCII is not "
 					"implemented\n", __FILE__, __LINE__);

@@ -88,19 +88,19 @@ namespace gluon {
 		{
 			rect_t scissored_rect = rect;
 
-			if(scissored_rect._left < _left) {
+			if (scissored_rect._left < _left) {
 				scissored_rect._width +=
 					scissored_rect._left - _left;
 				scissored_rect._left = _left;
 			}
-			if(scissored_rect._bottom < _bottom) {
+			if (scissored_rect._bottom < _bottom) {
 				scissored_rect._height +=
 					scissored_rect._bottom - _bottom;
 				scissored_rect._bottom = _bottom;
 			}
-			if(scissored_rect._width > _width)
+			if (scissored_rect._width > _width)
 				scissored_rect._width = _width;
-			if(scissored_rect._height > _height)
+			if (scissored_rect._height > _height)
 				scissored_rect._height = _height;
 
 			return scissored_rect;
@@ -174,17 +174,17 @@ namespace gluon {
 		{
 			screen_rect_t scissored_rect = rect;
 
-			if(scissored_rect.x < x) {
+			if (scissored_rect.x < x) {
 				scissored_rect.w += scissored_rect.x - x;
 				scissored_rect.x = x;
 			}
-			if(scissored_rect.y < y) {
+			if (scissored_rect.y < y) {
 				scissored_rect.h += scissored_rect.y - y;
 				scissored_rect.y = y;
 			}
-			if(scissored_rect.w > w)
+			if (scissored_rect.w > w)
 				scissored_rect.w = w;
-			if(scissored_rect.h > h)
+			if (scissored_rect.h > h)
 				scissored_rect.h = h;
 
 			return scissored_rect;

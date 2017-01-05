@@ -36,10 +36,10 @@ namespace gluon {
 	void color_t::set_profile(cmsHPROFILE display_profile,
 							  unsigned int intent)
 	{
-		if(display_profile == NULL)
+		if (display_profile == NULL)
 			return;
 		_lab_profile = cmsCreateLabProfile(NULL);
-		if(_lab_profile != NULL) {
+		if (_lab_profile != NULL) {
 			_lab_to_display_transform =
 				cmsCreateTransform(_lab_profile, TYPE_Lab_DBL,
 								   display_profile, TYPE_RGB_DBL,
@@ -50,7 +50,7 @@ namespace gluon {
 								   intent, 0);
 		}
 		_srgb_profile = cmsCreate_sRGBProfile();
-		if(_srgb_profile != NULL) {
+		if (_srgb_profile != NULL) {
 			_srgb_to_display_transform =
 				cmsCreateTransform(_srgb_profile, TYPE_RGB_DBL,
 								   display_profile, TYPE_RGB_DBL,
@@ -70,7 +70,7 @@ namespace gluon {
 	void color_t::transform(void)
 	{
 #ifdef HAVE_LCMS
-		if(_color_space == COLOR_SPACE_LAB &&
+		if (_color_space == COLOR_SPACE_LAB &&
 		   _lab_to_display_transform != NULL) {
 			double buffer_from[NCOLOR_MAX];
 
@@ -87,7 +87,7 @@ namespace gluon {
 			_display_color[2] = buffer_to[2];
 			return;
 		}
-		else if(_color_space == COLOR_SPACE_RGB &&
+		else if (_color_space == COLOR_SPACE_RGB &&
 				_srgb_to_display_transform != NULL) {
 			double buffer_from[NCOLOR_MAX];
 
@@ -105,7 +105,7 @@ namespace gluon {
 			return;
 		}
 #endif // HAVE_LCMS
-		if(_color_space == COLOR_SPACE_RGB) {
+		if (_color_space == COLOR_SPACE_RGB) {
 			_display_color[0] = _color[0];
 			_display_color[1] = _color[1];
 			_display_color[2] = _color[2];

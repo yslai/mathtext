@@ -377,7 +377,7 @@ namespace mathtext {
 			ret._lower_left[1] =
 				std::min(_lower_left[1],
 						 bounding_box._lower_left[1]);
-			if(bounding_box._upper_right[0] > _upper_right[0]) {
+			if (bounding_box._upper_right[0] > _upper_right[0]) {
 				ret._upper_right[0] = bounding_box._upper_right[0];
 				ret._italic_correction =
 					bounding_box._italic_correction;

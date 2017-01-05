@@ -32,32 +32,32 @@ namespace mathtext {
 
 	void math_text_t::math_symbol_t::math_italic_is_upright(void)
 	{
-		if(_family == FAMILY_MATH_ITALIC) {
+		if (_family == FAMILY_MATH_ITALIC) {
 			_family = FAMILY_REGULAR;
 		}
-		else if(_family == FAMILY_MATH_BOLD_ITALIC) {
+		else if (_family == FAMILY_MATH_BOLD_ITALIC) {
 			_family = FAMILY_BOLD;
 		}
 	}
 
 	void math_text_t::math_symbol_t::math_italic_is_italic(void)
 	{
-		if(_family == FAMILY_MATH_ITALIC) {
+		if (_family == FAMILY_MATH_ITALIC) {
 			_family = FAMILY_ITALIC;
 		}
-		else if(_family == FAMILY_MATH_BOLD_ITALIC) {
+		else if (_family == FAMILY_MATH_BOLD_ITALIC) {
 			_family = FAMILY_BOLD_ITALIC;
 		}
 	}
 
 	void math_text_t::math_symbol_t::encode_character(void)
 	{
-		if(_code.size() != 1)
+		if (_code.size() != 1)
 			return;
 
 		// Character encoding for plain characters (not a TeX control
 		// sequence)
-		switch(_code[0]) {
+		switch (_code[0]) {
 		case '|':
 		case '/':
 		case '.':
@@ -109,12 +109,12 @@ namespace mathtext {
 			_type = atom_t::TYPE_PUNCT;
 			break;
 		default:
-			if((_code[0] >= 'A' && _code[0] <= 'Z') ||
+			if ((_code[0] >= 'A' && _code[0] <= 'Z') ||
 			   (_code[0] >= 'a' && _code[0] <= 'z')) {
 				_glyph = _code[0];
 				_type = atom_t::TYPE_ORD;
 			}
-			else if(_code[0] >= '0' && _code[0] <= '9') {
+			else if (_code[0] >= '0' && _code[0] <= '9') {
 				math_italic_is_upright();
 				_glyph = _code[0];
 				_type = atom_t::TYPE_ORD;
@@ -131,12 +131,12 @@ namespace mathtext {
 							 glyph_control_sequence + nglyph,
 							 _code);
 
-		if(lower < glyph_control_sequence + nglyph &&
+		if (lower < glyph_control_sequence + nglyph &&
 		   *lower == _code) {
 			const unsigned long index =
 				lower - glyph_control_sequence;
 
-			if(glyph_upright[index])
+			if (glyph_upright[index])
 				math_italic_is_upright();
 			_glyph = glyph_code_point[index];
 			_type = glyph_type[index];
@@ -145,13 +145,13 @@ namespace mathtext {
 
 	void math_text_t::math_symbol_t::encode_math_blackboard_bold(void)
 	{
-		if(_code.size() != 1) {
+		if (_code.size() != 1) {
 			return;
 		}
 
-		if(_code[0] >= 'A' && _code[0] <= 'Z') {
+		if (_code[0] >= 'A' && _code[0] <= 'Z') {
 			_family = FAMILY_STIX_REGULAR;
-			switch(_code[0]) {
+			switch (_code[0]) {
 			case 'C':	_glyph = L'\u2102'; break;
 			case 'H':	_glyph = L'\u210d'; break;
 			case 'N':	_glyph = L'\u2115'; break;
@@ -163,12 +163,12 @@ namespace mathtext {
 			}
 			_type = atom_t::TYPE_ORD;
 		}
-		else if(_code[0] >= 'a' && _code[0] <= 'z') {
+		else if (_code[0] >= 'a' && _code[0] <= 'z') {
 			_family = FAMILY_STIX_REGULAR;
 			_glyph = L'\U0001d552' + (_code[0] - 'a');
 			_type = atom_t::TYPE_ORD;
 		}
-		else if(_code[0] >= '0' && _code[0] <= '9') {
+		else if (_code[0] >= '0' && _code[0] <= '9') {
 			_family = FAMILY_STIX_REGULAR;
 			_glyph = L'\U0001d7d8' + (_code[0] - '0');
 			_type = atom_t::TYPE_ORD;
@@ -177,13 +177,13 @@ namespace mathtext {
 
 	void math_text_t::math_symbol_t::encode_math_script_italic(void)
 	{
-		if(_code.size() != 1) {
+		if (_code.size() != 1) {
 			return;
 		}
 
-		if(_code[0] >= 'A' && _code[0] <= 'Z') {
+		if (_code[0] >= 'A' && _code[0] <= 'Z') {
 			_family = FAMILY_STIX_ITALIC;
-			switch(_code[0]) {
+			switch (_code[0]) {
 			case 'H':	_glyph = L'\u210b'; break;
 			case 'I':	_glyph = L'\u2110'; break;
 			case 'L':	_glyph = L'\u2112'; break;
@@ -197,9 +197,9 @@ namespace mathtext {
 			}
 			_type = atom_t::TYPE_ORD;
 		}
-		else if(_code[0] >= 'a' && _code[0] <= 'z') {
+		else if (_code[0] >= 'a' && _code[0] <= 'z') {
 			_family = FAMILY_STIX_ITALIC;
-			switch(_code[0]) {
+			switch (_code[0]) {
 			case 'g':	_glyph = L'\u210a'; break;
 			case 'l':	_glyph = L'\u2113'; break;
 			case 'e':	_glyph = L'\u212f'; break;
@@ -212,15 +212,15 @@ namespace mathtext {
 
 	void math_text_t::math_symbol_t::encode_math_script_bold_italic(void)
 	{
-		if(_code.size() != 1)
+		if (_code.size() != 1)
 			return;
 
-		if(_code[0] >= 'A' && _code[0] <= 'Z') {
+		if (_code[0] >= 'A' && _code[0] <= 'Z') {
 			_family = FAMILY_STIX_BOLD_ITALIC;
 			_glyph = L'\U0001d49c' + (_code[0] - 'A');
 			_type = atom_t::TYPE_ORD;
 		}
-		else if(_code[0] >= 'a' && _code[0] <= 'z') {
+		else if (_code[0] >= 'a' && _code[0] <= 'z') {
 			_family = FAMILY_STIX_BOLD_ITALIC;
 			_glyph = L'\U0001d4b6' + (_code[0] - 'a');
 			_type = atom_t::TYPE_ORD;
@@ -229,12 +229,12 @@ namespace mathtext {
 
 	void math_text_t::math_symbol_t::encode_math_fraktur_regular(void)
 	{
-		if(_code.size() != 1)
+		if (_code.size() != 1)
 			return;
 
-		if(_code[0] >= 'A' && _code[0] <= 'Z') {
+		if (_code[0] >= 'A' && _code[0] <= 'Z') {
 			_family = FAMILY_STIX_REGULAR;
-			switch(_code[0]) {
+			switch (_code[0]) {
 			case 'H':	_glyph = L'\u210c'; break;
 			case 'I':	_glyph = L'\u2111'; break;
 			case 'R':	_glyph = L'\u211c'; break;
@@ -244,7 +244,7 @@ namespace mathtext {
 			}
 			_type = atom_t::TYPE_ORD;
 		}
-		else if(_code[0] >= 'a' && _code[0] <= 'z') {
+		else if (_code[0] >= 'a' && _code[0] <= 'z') {
 			_family = FAMILY_STIX_REGULAR;
 			_glyph = L'\U0001d51e' + (_code[0] - 'a');
 			_type = atom_t::TYPE_ORD;
@@ -253,15 +253,15 @@ namespace mathtext {
 
 	void math_text_t::math_symbol_t::encode_math_fraktur_bold(void)
 	{
-		if(_code.size() != 1)
+		if (_code.size() != 1)
 			return;
 
-		if(_code[0] >= 'A' && _code[0] <= 'Z') {
+		if (_code[0] >= 'A' && _code[0] <= 'Z') {
 			_family = FAMILY_STIX_BOLD;
 			_glyph = L'\U0001d56c' + (_code[0] - 'A');
 			_type = atom_t::TYPE_ORD;
 		}
-		else if(_code[0] >= 'a' && _code[0] <= 'z') {
+		else if (_code[0] >= 'a' && _code[0] <= 'z') {
 			_family = FAMILY_STIX_BOLD;
 			_glyph = L'\U0001d586' + (_code[0] - 'a');
 			_type = atom_t::TYPE_ORD;
@@ -271,20 +271,20 @@ namespace mathtext {
 	void math_text_t::math_symbol_t::
 	encode_math_sans_serif_regular(void)
 	{
-		if(_code.size() != 1)
+		if (_code.size() != 1)
 			return;
 
-		if(_code[0] >= 'A' && _code[0] <= 'Z') {
+		if (_code[0] >= 'A' && _code[0] <= 'Z') {
 			_family = FAMILY_STIX_REGULAR;
 			_glyph = L'\U0001d5a0' + (_code[0] - 'A');
 			_type = atom_t::TYPE_ORD;
 		}
-		else if(_code[0] >= 'a' && _code[0] <= 'z') {
+		else if (_code[0] >= 'a' && _code[0] <= 'z') {
 			_family = FAMILY_STIX_REGULAR;
 			_glyph = L'\U0001d5ba' + (_code[0] - 'a');
 			_type = atom_t::TYPE_ORD;
 		}
-		else if(_code[0] >= '0' && _code[0] <= '9') {
+		else if (_code[0] >= '0' && _code[0] <= '9') {
 			_family = FAMILY_STIX_REGULAR;
 			_glyph = L'\U0001d7e2' + (_code[0] - '0');
 			_type = atom_t::TYPE_ORD;
@@ -294,15 +294,15 @@ namespace mathtext {
 	void math_text_t::math_symbol_t::
 	encode_math_sans_serif_italic(void)
 	{
-		if(_code.size() != 1)
+		if (_code.size() != 1)
 			return;
 
-		if(_code[0] >= 'A' && _code[0] <= 'Z') {
+		if (_code[0] >= 'A' && _code[0] <= 'Z') {
 			_family = FAMILY_STIX_ITALIC;
 			_glyph = L'\U0001d608' + (_code[0] - 'A');
 			_type = atom_t::TYPE_ORD;
 		}
-		else if(_code[0] >= 'a' && _code[0] <= 'z') {
+		else if (_code[0] >= 'a' && _code[0] <= 'z') {
 			_family = FAMILY_STIX_ITALIC;
 			_glyph = L'\U0001d622' + (_code[0] - 'a');
 			_type = atom_t::TYPE_ORD;
@@ -312,20 +312,20 @@ namespace mathtext {
 	void math_text_t::math_symbol_t::
 	encode_math_sans_serif_bold(void)
 	{
-		if(_code.size() != 1)
+		if (_code.size() != 1)
 			return;
 
-		if(_code[0] >= 'A' && _code[0] <= 'Z') {
+		if (_code[0] >= 'A' && _code[0] <= 'Z') {
 			_family = FAMILY_STIX_BOLD;
 			_glyph = L'\U0001d5d4' + (_code[0] - 'A');
 			_type = atom_t::TYPE_ORD;
 		}
-		else if(_code[0] >= 'a' && _code[0] <= 'z') {
+		else if (_code[0] >= 'a' && _code[0] <= 'z') {
 			_family = FAMILY_STIX_BOLD;
 			_glyph = L'\U0001d5ee' + (_code[0] - 'a');
 			_type = atom_t::TYPE_ORD;
 		}
-		else if(_code[0] >= '0' && _code[0] <= '9') {
+		else if (_code[0] >= '0' && _code[0] <= '9') {
 			_family = FAMILY_STIX_BOLD;
 			_glyph = L'\U0001d7ec' + (_code[0] - '0');
 			_type = atom_t::TYPE_ORD;
@@ -335,15 +335,15 @@ namespace mathtext {
 	void math_text_t::math_symbol_t::
 	encode_math_sans_serif_bold_italic(void)
 	{
-		if(_code.size() != 1)
+		if (_code.size() != 1)
 			return;
 
-		if(_code[0] >= 'A' && _code[0] <= 'Z') {
+		if (_code[0] >= 'A' && _code[0] <= 'Z') {
 			_family = FAMILY_STIX_BOLD_ITALIC;
 			_glyph = L'\U0001d63c' + (_code[0] - 'A');
 			_type = atom_t::TYPE_ORD;
 		}
-		else if(_code[0] >= 'a' && _code[0] <= 'z') {
+		else if (_code[0] >= 'a' && _code[0] <= 'z') {
 			_family = FAMILY_STIX_BOLD_ITALIC;
 			_glyph = L'\U0001d656' + (_code[0] - 'a');
 			_type = atom_t::TYPE_ORD;
@@ -352,7 +352,7 @@ namespace mathtext {
 
 	void math_text_t::math_symbol_t::encode_math_alpha(void)
 	{
-		switch(_family) {
+		switch (_family) {
 		case FAMILY_MATH_BLACKBOARD_BOLD:
 			encode_math_blackboard_bold();
 			break;
@@ -389,7 +389,7 @@ namespace mathtext {
 		encode_control_sequence();
 		encode_math_alpha();
 		math_italic_is_italic();
-		if(_family > FAMILY_STIX_SIZE_5_REGULAR) {
+		if (_family > FAMILY_STIX_SIZE_5_REGULAR) {
 			std::cerr << __FILE__ << ':' << __LINE__
 					  << ": error: encoding results in a "
 				"nonphysical font family" << std::endl;
@@ -398,7 +398,7 @@ namespace mathtext {
 
 	bool math_text_t::math_symbol_t::bold(void) const
 	{
-		switch(_family) {
+		switch (_family) {
 		case FAMILY_BOLD:
 		case FAMILY_BOLD_ITALIC:
 		case FAMILY_STIX_BOLD:

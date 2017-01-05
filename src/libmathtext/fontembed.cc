@@ -301,7 +301,7 @@ namespace mathtext {
 		const uint8_t *table_tail =
 			reinterpret_cast<const uint8_t *>(&(table[nword]));
 
-		switch(table_data.size() & 3U) {
+		switch (table_data.size() & 3U) {
 		case 3:	sum += table_tail[2] << 8;
 		case 2:	sum += table_tail[1] << 16;
 		case 1:	sum += table_tail[0] << 24; break;
@@ -943,7 +943,7 @@ namespace mathtext {
 
 			int priority;
 
-			switch(encoding_subtable_common.format) {
+			switch (encoding_subtable_common.format) {
 				/////////////////////////////////////////////////////
 				// 8 and 16 bit mappings
 				// Priority range 1, 3..5 (2 reserved for format 13)
