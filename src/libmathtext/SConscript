@@ -31,7 +31,9 @@ libmathtext_env.Prepend(CPPPATH = [
 filelist = [
     'geometry.cc',
     'mathrender.cc', 'mathrenderstyle.cc', 'mathrendertoken.cc',
-    'mathtext.cc', 'mathtextencode.cc', 'mathtextparse.cc', 'mathtextview.cc'
+    'mathtext.cc', 'mathtextencode.cc', 'mathtextparse.cc',
+    'mathtextview.cc',
+    'fontembed.cc', 'fontembedps.cc', 'fontembedpdf.cc'
     ]
 
 if '-ipo' in libmathtext_env['CXXFLAGS']:

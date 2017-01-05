@@ -23,6 +23,7 @@
 #include <byteswap.h>
 #include <sys/time.h>
 #include <gluon/screen.h>
+#include <mathtext/fontembed.h>
 
 /////////////////////////////////////////////////////////////////////
 
@@ -35,7 +36,7 @@ namespace gluon {
 
 	void postscript_surface_t::write_dsc_preamble(void) const
 	{
-		const std::string creator = "libgluon";
+		static const std::string creator = "libgluon";
 
 		fputs("%!PS-Adobe-3.0 EPSF-3.0\n", _fp);
 		fprintf(_fp, "%%%%BoundingBox: %.0f %.0f %.0f %.0f\n",
@@ -126,327 +127,6 @@ namespace gluon {
 		}
 	}
 
-	bool postscript_surface_t::
-	parse_otf_cff_header(std::string &font_name,
-						 unsigned int &cff_offset,
-						 unsigned int &cff_length,
-						 const std::vector<FT_Byte> font_data) const
-	{
-		// References:
-		//
-		// Adobe Systems, Inc., PostScript language Document
-		// Structuring Convention specification (Adobe Systems, Inc.,
-		// San Jose, CA, 1992), version 3.0, section 5.1.
-		//
-		// Adobe Systems, Inc., PostScript language reference manual
-		// (Addison-Wesley, Reading, MA, 1999), 3rd edition, section
-		// 5.8.1.
-		//
-		// Adobe Systems, Inc. and Microsoft Corp., OpenType
-		// specification (2002), version 1.4.
-
-		// OpenType file structure
-		struct otf_offset_table_s {
-			char sfnt_version[4];
-			unsigned short num_tables;
-			unsigned short search_range;
-			unsigned short entry_selector;
-			unsigned short range_shift;
-		} offset_table;
-
-		memcpy(&offset_table, &font_data[0],
-			   sizeof(struct otf_offset_table_s));
-		if (strncmp(offset_table.sfnt_version, "OTTO", 4) != 0)
-			// Not a OpenType CFF/Type 2 font
-			return false;
-#ifdef LITTLE_ENDIAN
-		offset_table.num_tables = bswap_16(offset_table.num_tables);
-#endif // LITTLE_ENDIAN
-
-		unsigned int name_offset = 0;
-		//unsigned int name_length = 0;
-
-		cff_offset = 0;
-		cff_length = 0;
-
-		for (unsigned short i = 0; i < offset_table.num_tables; i++) {
-			struct otf_table_directory_s {
-				char tag[4];
-				unsigned int check_sum;
-				unsigned int offset;
-				unsigned int length;
-			} table_directory;
-
-			memcpy(&table_directory,
-				   &font_data[sizeof(struct otf_offset_table_s) + i *
-							  sizeof(struct otf_table_directory_s)],
-				   sizeof(struct otf_table_directory_s));
-#ifdef LITTLE_ENDIAN
-			table_directory.offset = bswap_32(table_directory.offset);
-			table_directory.length = bswap_32(table_directory.length);
-#endif // LITTLE_ENDIAN
-			if (strncmp(table_directory.tag, "name", 4) == 0) {
-				name_offset = table_directory.offset;
-				//name_length = table_directory.length;
-			}
-			else if (strncmp(table_directory.tag, "CFF ", 4) == 0) {
-				cff_offset = table_directory.offset;
-				cff_length = table_directory.length;
-			}
-		}
-
-		if (name_offset == 0) {
-			std::cerr << __FILE__ << ':' << __LINE__
-					  << ": invalid font file (no name table)"
-					  << std::endl;
-			return false;
-		}
-		else if (cff_offset == 0) {
-			std::cerr << __FILE__ << ':' << __LINE__
-					  << "invalid font file (no CFF)" << std::endl;
-			return false;
-		}
-
-		// name
-
-		struct otf_naming_table_header_s {
-			unsigned short format;
-			unsigned short count;
-			unsigned short string_offset;
-		} naming_table_header;
-
-		memcpy(&naming_table_header, &font_data[name_offset],
-			   sizeof(struct otf_naming_table_header_s));
-#ifdef LITTLE_ENDIAN
-		naming_table_header.format =
-			bswap_16(naming_table_header.format);
-		naming_table_header.count =
-			bswap_16(naming_table_header.count);
-		naming_table_header.string_offset =
-			bswap_16(naming_table_header.string_offset);
-#endif // LITTLE_ENDIAN
-
-		for (unsigned short i = 0; i < naming_table_header.count;
-			i++) {
-			struct otf_name_record_s {
-				unsigned short platform_id;
-				unsigned short encoding_id;
-				unsigned short language_id;
-				unsigned short name_id;
-				unsigned short length;
-				unsigned short offset;
-			} name_record;
-			const size_t base_offset = name_offset +
-				sizeof(struct otf_naming_table_header_s);
-
-			memcpy(&name_record,
-				   &font_data[base_offset + i *
-							  sizeof(struct otf_name_record_s)],
-				   sizeof(struct otf_name_record_s));
-#ifdef LITTLE_ENDIAN
-			name_record.platform_id =
-				bswap_16(name_record.platform_id);
-			name_record.encoding_id =
-				bswap_16(name_record.encoding_id);
-			name_record.name_id = bswap_16(name_record.name_id);
-#endif // LITTLE_ENDIAN
-			// The font name in Mac OS Roman encoding is good enough
-			// to obtain an ASCII PostScript name, while the Windows
-			// platform uses a UTF-16 string that would require
-			// conversion.
-			if (name_record.platform_id == 1 &&
-			   name_record.encoding_id == 0 &&
-			   name_record.name_id == 6) {
-#ifdef LITTLE_ENDIAN
-				name_record.length = bswap_16(name_record.length);
-				name_record.offset = bswap_16(name_record.offset);
-#endif // LITTLE_ENDIAN
-
-				char *buffer = new char[name_record.length + 1];
-
-				memcpy(buffer,
-					   &font_data[name_offset +
-								  naming_table_header.string_offset +
-								  name_record.offset],
-					   name_record.length);
-				buffer[name_record.length] = '\0';
-				font_name = buffer;
-
-				delete [] buffer;
-			}
-		}
-
-		return true;
-	}
-#endif // defined(HAVE_FREETYPE2) || defined(HAVE_FTGL)
-
-	unsigned int postscript_surface_t::
-	ascii85_line_count(const uint8_t *buffer, const size_t length)
-		const
-	{
-		const unsigned int width = 64;
-		unsigned int column = 0;
-		unsigned int line = 0;
-
-		for (size_t i = 0; i < length - 3; i += 4) {
-			unsigned int b = reinterpret_cast<
-				const unsigned int *>(buffer)[i >> 2];
-
-			if (b == 0) {
-				column++;
-				if (column == width - 1) {
-					line++;
-					column = 0;
-				}
-			}
-			else {
-				if (column + 5 >= width) {
-					column += 5 - width;
-					line++;
-				}
-				else
-					column += 5;
-			}
-		}
-		if (column + (length & 3) + 3 >= width)
-			line++;
-
-		return line;
-	}
-
-#ifdef __INTEL_COMPILER
-#pragma warning(push)
-#pragma warning(disable: 810)
-#endif // __INTEL_COMPILER
-	void postscript_surface_t::
-	append_ascii85(std::string &ascii, const uint8_t *buffer,
-				   const size_t length) const
-	{
-		const int width = 64;
-		int column = 0;
-
-		for (size_t i = 0; i < length - 3; i += 4) {
-			unsigned int dword = reinterpret_cast<
-				const unsigned int *>(buffer)[i >> 2];
-
-			if (dword == 0) {
-				ascii.append(1, 'z');
-				column++;
-				if (column == width - 1) {
-					ascii.append(1, '\n');
-					column = 0;
-				}
-			}
-			else {
-#ifdef LITTLE_ENDIAN
-				dword = bswap_32(dword);
-#endif // LITTLE_ENDIAN
-
-				char str[5];
-
-				str[4] = static_cast<char>(dword % 85 + '!');
-				dword /= 85;
-				str[3] = static_cast<char>(dword % 85 + '!');
-				dword /= 85;
-				str[2] = static_cast<char>(dword % 85 + '!');
-				dword /= 85;
-				str[1] = static_cast<char>(dword % 85 + '!');
-				dword /= 85;
-				str[0] = static_cast<char>(dword % 85 + '!');
-				for (int j = 0; j < 5; j++) {
-					ascii.append(1, str[j]);
-					column++;
-					if (column == width) {
-						ascii.append(1, '\n');
-						column = 0;
-					}
-				}
-			}
-		}
-
-		int k = length & 3;
-
-		if (k > 0) {
-			unsigned int dword = 0;
-
-			memcpy(&dword, buffer + (length & ~3), k);
-#ifdef LITTLE_ENDIAN
-			dword = bswap_32(dword);
-#endif // LITTLE_ENDIAN
-
-			char str[5];
-
-			str[4] = static_cast<char>(dword % 85 + '!');
-			dword /= 85;
-			str[3] = static_cast<char>(dword % 85 + '!');
-			dword /= 85;
-			str[2] = static_cast<char>(dword % 85 + '!');
-			dword /= 85;
-			str[1] = static_cast<char>(dword % 85 + '!');
-			dword /= 85;
-			str[0] = static_cast<char>(dword % 85 + '!');
-			for (int j = 0; j < k + 1; j++) {
-				ascii.append(1, str[j]);
-				column++;
-				if (column == width) {
-					ascii.append(1, '\n');
-					column = 0;
-				}
-			}
-
-		}
-		if (column > width - 2)
-			ascii.append(1, '\n');
-		ascii.append("~>");
-	}
-#ifdef __INTEL_COMPILER
-#pragma warning(pop)
-#endif // __INTEL_COMPILER
-
-#if defined(HAVE_FREETYPE2) || defined(HAVE_FTGL)
-	std::string postscript_surface_t::
-	font_embed_type_2(std::string &font_name,
-					  const std::vector<FT_Byte> &font_data) const
-	{
-		// Embed an OpenType CFF (Type 2) file in ASCII85 encoding
-		// with the PostScript syntax
-
-		unsigned int cff_offset;
-		unsigned int cff_length;
-
-		if (!parse_otf_cff_header(font_name, cff_offset, cff_length,
-								 font_data))
-			return std::string();
-
-		std::vector<FT_Byte> cff;
-
-		cff.resize(cff_length + 10);
-		memcpy(&cff[0], "StartData\r", 10);
-		memcpy(&cff[10], &font_data[cff_offset], cff_length);
-
-		char linebuf[BUFSIZ];
-		std::string ret;
-
-		snprintf(linebuf, BUFSIZ, "%%%%BeginResource: FontSet (%s)\n",
-				 font_name.c_str());
-		ret.append(linebuf);
-		ret.append("%%VMusage: 0 0\n");
-		ret.append("/FontSetInit /ProcSet findresource begin\n");
-		snprintf(linebuf, BUFSIZ, "%%%%BeginData: %u ASCII Lines\n",
-				 ascii85_line_count(&cff[0], cff_length) + 2);
-		ret.append(linebuf);
-		snprintf(linebuf, BUFSIZ,
-				 "/%s %u currentfile /ASCII85Decode filter cvx exec\n",
-				 font_name.c_str(), cff_length);
-		ret.append(linebuf);
-		append_ascii85(ret, &cff[0], cff_length + 10);
-		ret.append(1, '\n');
-		ret.append("%%EndData\n");
-		ret.append("%%EndResource\n");
-
-		return ret;
-	}
-
 	void postscript_surface_t::
 	open_font_overwrite(const std::string &filename,
 						const unsigned int family)
@@ -466,10 +146,12 @@ namespace gluon {
 
 		std::string embedded_str;
 
-		if (_fp != NULL)
+		if (_fp != NULL) {
 			 embedded_str =
+				 mathtext::font_embed_postscript_t::
 				 font_embed_type_2(_font_name[family],
 								   _font_data[family]);
+		}
 
 		if (_master) {
 			bool embed_success = false;
