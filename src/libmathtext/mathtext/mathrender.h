@@ -23,7 +23,7 @@
 
 #include <string>
 #include <iostream>
-#include <stdint.h>
+#include <cstdint>
 #include <mathtext/geometry.h>
 #include <mathtext/mathtext.h>
 
@@ -373,6 +373,7 @@ namespace mathtext {
 		inline float default_axis_height(
 			const bool display_style = false) const
 		{
+         (void)display_style;
 			return axis_height * style_size(
 				math_text_t::item_t::STYLE_TEXT);
 		}

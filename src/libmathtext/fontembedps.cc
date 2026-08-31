@@ -20,7 +20,19 @@
 #include <algorithm>
 #include <cstring>
 #include <cstdio>
+#ifdef WIN32
+#define snprintf _snprintf
+#endif
+#if defined(__APPLE__)
+#include <libkern/OSByteOrder.h>
+#define bswap_16 OSSwapInt16
+#define bswap_32 OSSwapInt32
+#elif defined(_WIN32)
+#define bswap_16(x) _byteswap_ushort(x)
+#define bswap_32(x) _byteswap_ulong(x)
+#else
 #include <byteswap.h>
+#endif
 
 // References:
 //
@@ -237,6 +249,7 @@ namespace mathtext {
             segment_header.length =
             bswap_32(segment_header.length);
 #endif // LITTLE_ENDIAN
+            const char *match = "/FontName";
             char *buffer = new char[segment_header.length];
             char *fname;
 
@@ -258,9 +271,8 @@ namespace mathtext {
                      buffer[segment_header.length - 1] = '\n';
                   }
                   ret.append(buffer, segment_header.length);
-
-                  fname = (char*)memmem(buffer, segment_header.length,
-                                        "/FontName", 9);
+                  fname = std::search(buffer, buffer+segment_header.length,
+                                      match, match+9);
                   if (fname) {
                      fname += 9;
                      while (fname < buffer + segment_header.length &&

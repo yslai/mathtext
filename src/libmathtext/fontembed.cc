@@ -21,7 +21,19 @@
 #include <cstring>
 #include <cstdio>
 #include <cmath>
+#ifdef WIN32
+#define snprintf _snprintf
+#endif
+#if defined(__APPLE__)
+#include <libkern/OSByteOrder.h>
+#define bswap_16 OSSwapInt16
+#define bswap_32 OSSwapInt32
+#elif defined(_WIN32)
+#define bswap_16(x) _byteswap_ushort(x)
+#define bswap_32(x) _byteswap_ulong(x)
+#else
 #include <byteswap.h>
+#endif
 
 // References:
 //
@@ -548,7 +560,7 @@ namespace mathtext {
 	{
 		std::vector<uint8_t> font_data;
 
-		if (fp == NULL) {
+		if (fp == nullptr) {
 			return font_data;
 		}
 		if (fseek(fp, 0L, SEEK_SET) == -1) {
@@ -589,7 +601,7 @@ namespace mathtext {
 		FILE *fp = fopen(filename.c_str(), "r");
 		std::vector<uint8_t> font_data;
 
-		if (fp == NULL) {
+		if (fp == nullptr) {
 			perror("fopen");
 			return font_data;
 		}
@@ -618,7 +630,7 @@ namespace mathtext {
 				  sizeof(struct ttf_table_directory_s) <=
 				  font_data.size())) {
 				ERROR_ACCESS("table directory");
-				continue;
+				break;
 			}
 			memcpy(&table_directory,
 				   &font_data[offset_table_size + i *
@@ -633,7 +645,7 @@ namespace mathtext {
 			if (!(table_directory.offset + table_directory.length <=
 				  font_data.size())) {
 				ERROR_ACCESS("table directory");
-				continue;
+				break;
 			}
 			table[std::string(table_directory.tag,
 							  table_directory.tag + 4)] =

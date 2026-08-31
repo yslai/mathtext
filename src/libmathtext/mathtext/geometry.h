@@ -32,7 +32,7 @@ namespace mathtext {
 	 */
 	class point_t {
 	private:
-		float _x[2];
+		float _x[2]{};
 	public:
 		inline point_t(void)
 		{
@@ -253,8 +253,8 @@ namespace mathtext {
 	private:
 		point_t _lower_left;
 		point_t _upper_right;
-		float _advance;
-		float _italic_correction;
+		float _advance{0.};
+		float _italic_correction{0.};
 	public:
 		inline bounding_box_t(void)
 		{
