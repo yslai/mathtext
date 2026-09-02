@@ -32,15 +32,10 @@ namespace mathtext {
 	 */
 	class point_t {
 	private:
-		float _x[2];
+		float _x[2]{};
 	public:
 		inline point_t(void)
 		{
-		}
-		inline point_t(const point_t &point)
-		{
-			_x[0] = point._x[0];
-			_x[1] = point._x[1];
 		}
 		inline point_t(const float x0, const float y0)
 		{
@@ -73,14 +68,14 @@ namespace mathtext {
 			return point_t(_x[0] - point._x[0],
 						   _x[1] - point._x[1]);
 		}
-		inline point_t operator+=(const point_t &point)
+		inline point_t& operator+=(const point_t &point)
 		{
 			_x[0] += point._x[0];
 			_x[1] += point._x[1];
 
 			return *this;
 		}
-		inline point_t operator-=(const point_t &point)
+		inline point_t& operator-=(const point_t &point)
 		{
 			_x[0] -= point._x[0];
 			_x[1] -= point._x[1];
@@ -95,7 +90,7 @@ namespace mathtext {
 		{
 			return point_t(_x[0] / scale, _x[1] / scale);
 		}
-		inline point_t operator*=(const float scale)
+		inline point_t& operator*=(const float scale)
 		{
 			_x[0] *= scale;
 			_x[1] *= scale;
@@ -253,8 +248,8 @@ namespace mathtext {
 	private:
 		point_t _lower_left;
 		point_t _upper_right;
-		float _advance;
-		float _italic_correction;
+		float _advance{0.};
+		float _italic_correction{0.};
 	public:
 		inline bounding_box_t(void)
 		{
