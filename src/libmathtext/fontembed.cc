@@ -548,8 +548,8 @@ namespace mathtext {
 			reinterpret_cast<const uint8_t *>(&(table[nword]));
 
 		switch(table_data.size() & 3U) {
-		case 3:   sum += table_tail[2] << 8;
-		case 2:   sum += table_tail[1] << 16;
+		case 3:   sum += table_tail[2] << 8;  /* fall through */
+		case 2:   sum += table_tail[1] << 16; /* fall through */
 		case 1:   sum += table_tail[0] << 24; break;
 		}
 
