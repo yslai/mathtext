@@ -71,10 +71,11 @@ namespace gluon {
 				SDL_SetVideoMode(_screen_rect.width(),
 								 _screen_rect.height(),
 								 _depth, *iterator);
-			if (_sdl_surface)
+			if (_sdl_surface) {
 				_sdl_fullscreen =
 					((*iterator & SDL_FULLSCREEN) != 0);
 				break;
+			}
 		}
 		if (_sdl_surface == NULL) {
 			std::cerr << __FILE__ << ':' << __LINE__
