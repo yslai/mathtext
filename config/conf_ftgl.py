@@ -22,7 +22,7 @@ def config(configuration, search_path = []):
     configuration.env.Append(
         CPPPATH = os.path.join('/usr', 'include', 'freetype2'))
     for path_ftgl in [None] + search_path:
-        header_ftgl = os.path.join('FTGL', 'FTGL.h')
+        header_ftgl = os.path.join('FTGL', 'ftgl.h')
         if path_ftgl != None:
             header_ftgl = os.path.join(path_ftgl, 'include', header)
         if configuration.CheckCHeader([header_ftgl]):

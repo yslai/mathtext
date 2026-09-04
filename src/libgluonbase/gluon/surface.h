@@ -31,8 +31,7 @@
 #ifdef HAVE_OPENGL
 #include <GL/gl.h>
 #ifdef HAVE_FTGL
-#include <FTGL/FTGLBitmapFont.h>
-#include <FTGL/FTGLPixmapFont.h>
+#include <FTGL/ftgl.h>
 #endif // HAVE_FTGL
 #endif // HAVE_OPENGL
 
