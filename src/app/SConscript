@@ -39,7 +39,7 @@ app_env.Append(LIBPATH = [
 
 for key in ['BOOST_LIBS', 'SDL_LIBS', 'OPENGL_LIBS', 'FTGL_LIBS',
             'LCMS_LIBS', 'JPEG_LIBS', 'READLINE_LIBS']:
-    if app_env.has_key(key):
+    if key in app_env:
         app_env.Append(LIBS = app_env[key])
 
 library_source = []

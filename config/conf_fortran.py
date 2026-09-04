@@ -41,7 +41,7 @@ def config_fortran_link(configuration):
         stdin = subprocess.PIPE, stdout = subprocess.PIPE,
         stderr = subprocess.PIPE, close_fds = True)
     child.stdout.read()
-    content = re.compile('[ \t\n]+').split(child.stderr.read())
+    content = re.compile('[ \t\n]+').split(child.stderr.read().decode())
     for f in filename_source, filename_target:
         if os.path.exists(f):
             os.remove(f)
@@ -69,8 +69,8 @@ def config_fortran_mangling(configuration):
                    conftest_file(configuration, 2, ''))
     file_source = (conftest_file(configuration, 1, '.f'),
                    conftest_file(configuration, 2, '.c'))
-    filename_target = map(str, file_target)
-    filename_source = map(str, file_source)
+    filename_target = list(map(str, file_target))
+    filename_source = list(map(str, file_source))
     file = open(filename_source[0], 'w')
     try:
         file.write('      SUBROUTINE FOOBAR()\n      RETURN\n' +
