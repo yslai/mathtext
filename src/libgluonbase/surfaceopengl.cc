@@ -212,7 +212,7 @@ namespace gluon {
 	/////////////////////////////////////////////////////////////////
 	// Graphics primitives
 
-	void opengl_surface_t::point(const float x, const float y) const
+	void opengl_surface_t::point(const float x, const float y)
 	{
 		glBegin(GL_POINTS);
 		glVertex2f(x, y);
@@ -220,7 +220,7 @@ namespace gluon {
 	}
 
 	void opengl_surface_t::line(const float x0, const float y0,
-								const float x1, const float y1) const
+								const float x1, const float y1)
 	{
 		glBegin(GL_LINES);
 		glVertex2f(x0, y0);
@@ -230,7 +230,7 @@ namespace gluon {
 
 	void opengl_surface_t::
 	rectangle(const float x, const float y,
-			  const float width, const float height) const
+			  const float width, const float height)
 	{
 		glBegin(GL_LINE_LOOP);
 		glVertex2f(x, y);
@@ -241,7 +241,7 @@ namespace gluon {
 	}
 
 	void opengl_surface_t::
-	rectangle(const mathtext::bounding_box_t &bounding_box) const
+	rectangle(const mathtext::bounding_box_t &bounding_box)
 	{
 		glBegin(GL_LINE_LOOP);
 		glVertex2f(bounding_box.left(), bounding_box.bottom());
@@ -253,7 +253,7 @@ namespace gluon {
 
 	void opengl_surface_t::
 	filled_rectangle(const float x, const float y,
-					 const float width, const float height) const
+					 const float width, const float height)
 	{
 		glBegin(GL_QUADS);
 		glVertex2f(x, y);
@@ -265,7 +265,6 @@ namespace gluon {
 
 	void opengl_surface_t::
 	filled_rectangle(const mathtext::bounding_box_t &bounding_box)
-		const
 	{
 		glBegin(GL_QUADS);
 		glVertex2f(bounding_box.left(), bounding_box.bottom());
@@ -275,7 +274,7 @@ namespace gluon {
 		glEnd();
 	}
 
-	void opengl_surface_t::polygon(const polygon_t &p) const
+	void opengl_surface_t::polygon(const polygon_t &p)
 	{
 		if (p.empty()) {
 			return;
@@ -287,7 +286,7 @@ namespace gluon {
 		glEnd();
 	}
 
-	void opengl_surface_t::filled_polygon(const polygon_t &p) const
+	void opengl_surface_t::filled_polygon(const polygon_t &p)
 	{
 		if (p.empty()) {
 			return;
@@ -303,7 +302,7 @@ namespace gluon {
 	raster(const float x, const float y,
 		   const float width, const float height,
 		   const float density[],
-		   const int nhorizontal, const int nvertical) const
+		   const int nhorizontal, const int nvertical)
 	{
 		const float dx = width / nhorizontal *
 			fabsf(_transform_logical_to_pixel[0]);

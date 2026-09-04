@@ -433,28 +433,26 @@ namespace gluon {
 		{
 			glPointSize(size);
 		}
-		void point(const float x, const float y) const;
+		void point(const float x, const float y);
 		inline void set_line_width(const float width)
 		{
 			glLineWidth(width);
 		}
 		void line(const float x0, const float y0,
-				  const float x1, const float y1) const;
+				  const float x1, const float y1);
 		void rectangle(const float x, const float y,
-					   const float width, const float height) const;
-		void rectangle(const mathtext::bounding_box_t &bounding_box)
-			const;
+					   const float width, const float height);
+		void rectangle(const mathtext::bounding_box_t &bounding_box);
 		void filled_rectangle(const float x, const float y,
-							  const float width, const float height)
-			const;
+							  const float width, const float height);
 		void filled_rectangle(const mathtext::bounding_box_t &
-							  bounding_box) const;
-		void polygon(const polygon_t &p) const;
-		void filled_polygon(const polygon_t &p) const;
+							  bounding_box);
+		void polygon(const polygon_t &p);
+		void filled_polygon(const polygon_t &p);
 		void raster(const float x, const float y,
 					const float width, const float height,
 					const float density[],
-					const int nhorizontal, const int nvertical) const;
+					const int nhorizontal, const int nvertical);
 		/////////////////////////////////////////////////////////////
 		// Typography
 		void open_font_overwrite(const std::string &filename,
@@ -546,24 +544,23 @@ namespace gluon {
 		/////////////////////////////////////////////////////////////
 		// Graphics primitives
 		void set_point_size(const float size);
-		void point(const float x, const float y) const;
+		void point(const float x, const float y);
 		void set_line_width(const float width);
 		void line(const float x0, const float y0,
-				  const float x1, const float y1) const;
+				  const float x1, const float y1);
 		void rectangle(const float x, const float y,
-					   const float width, const float height) const;
-		void rectangle(const mathtext::bounding_box_t &bounding_box)
-			const;
+					   const float width, const float height);
+		void rectangle(const mathtext::bounding_box_t &bounding_box);
 		void
 		filled_rectangle(const float x, const float y,
-						 const float width, const float height) const;
+						 const float width, const float height);
 		void
 		filled_rectangle(const mathtext::bounding_box_t &
-						 bounding_box) const;
+						 bounding_box);
 		void
 		raster(const float x, const float y, const float width,
 			   const float height, const float density[],
-			   const int nhorizontal, const int nvertical) const;
+			   const int nhorizontal, const int nvertical);
 		/////////////////////////////////////////////////////////////
 #if defined(HAVE_FREETYPE2) || defined(HAVE_FTGL)
 		void open_font_overwrite(const std::string &filename,

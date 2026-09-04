@@ -122,16 +122,15 @@ namespace gluon {
 		}
 		inline virtual void
 		line(const float x0, const float y0,
-			 const float x1, const float y1) const
+			 const float x1, const float y1)
 		{
 		}
 		inline virtual void
 		filled_rectangle(const float x, const float y,
 						 const float width, const float height)
-			const
 		{
 		}
-		inline virtual void filled_polygon(const polygon_t &p) const
+		inline virtual void filled_polygon(const polygon_t &p)
 		{
 		}
 		inline virtual float font_size(void) const
