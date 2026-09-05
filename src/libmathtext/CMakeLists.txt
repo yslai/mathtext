@@ -39,10 +39,8 @@ if(GCC_HAS_BIDI_CHARS_FLAG)
   set_source_files_properties(fontembed.cc COMPILE_FLAGS "-Wbidi-chars=none")
 endif()
 
-if (WIN32)
-  if (CMAKE_CXX_BYTE_ORDER STREQUAL "LITTLE_ENDIAN")
-    target_compile_definitions(mathtext PRIVATE LITTLE_ENDIAN=1)
-  endif()
+if (CMAKE_CXX_BYTE_ORDER STREQUAL "LITTLE_ENDIAN")
+  target_compile_definitions(mathtext PRIVATE IS_LITTLE_ENDIAN=1)
 endif()
 
 target_sources(

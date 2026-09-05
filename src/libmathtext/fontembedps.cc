@@ -140,9 +140,9 @@ namespace mathtext {
                }
             }
             else {
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
                dword = bswap_32(dword);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
                char str[5];
 
@@ -173,9 +173,9 @@ namespace mathtext {
          unsigned int dword = 0;
 
          memcpy(&dword, buffer + (length & ~3), k);
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
          dword = bswap_32(dword);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
          char str[5];
 
@@ -243,10 +243,10 @@ namespace mathtext {
             memcpy(&segment_header.length, &font_data[offset + 2],
                    sizeof(unsigned int));
             offset += sizeof(unsigned int) + 2;
-#ifndef LITTLE_ENDIAN
+#ifndef IS_LITTLE_ENDIAN
             segment_header.length =
             bswap_32(segment_header.length);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
             const char *match = "/FontName";
             char *buffer = new char[segment_header.length];
             char *fname;
