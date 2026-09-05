@@ -137,7 +137,7 @@ namespace mathtext {
 					float _size;
 				} _extensible;
 			};
-         float _delimiter_height{0.f};
+			float _delimiter_height{0.f};
 			inline math_token_t(
 				const bounding_box_t bounding_box,
 				const unsigned int style,
@@ -371,7 +371,7 @@ namespace mathtext {
 		inline float default_axis_height(
 			const bool display_style = false) const
 		{
-         (void)display_style;
+			(void)display_style;
 			return axis_height * style_size(
 				math_text_t::item_t::STYLE_TEXT);
 		}

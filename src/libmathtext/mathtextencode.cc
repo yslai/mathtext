@@ -131,11 +131,11 @@ namespace mathtext {
 
 		if (lower < glyph_control_sequence + nglyph &&
 #ifdef WIN32
-         strncmp(*lower, _code.c_str(), _code.size()) == 0
+			strncmp(*lower, _code.c_str(), _code.size()) == 0
 #else // WIN32
-         *lower == _code
+			*lower == _code
 #endif // WIN32
-         ) {
+			) {
 			const unsigned long index =
 				lower - glyph_control_sequence;
 

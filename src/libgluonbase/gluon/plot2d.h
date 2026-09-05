@@ -32,7 +32,7 @@ namespace gluon {
 #pragma warning(push)
 #pragma warning(disable: 869)
 #endif // __INTEL_COMPILER
-    class plot_2d_t {
+	class plot_2d_t {
 	public:
 		enum {
 			ALIGN_NONE = 0,
@@ -47,7 +47,7 @@ namespace gluon {
 			ALIGN_CENTER,
 			NALIGN
 		};
-    protected:
+	protected:
 		rect_t _rect;
 		bool _coordinate_matrix;
 		std::pair<double, double> _horizontal_range;
@@ -93,7 +93,7 @@ namespace gluon {
 				  double u0, double u1,
 				  const bool pi_like = false,
 				  const int ticks_top_right = true);
-    public:
+	public:
 		inline plot_2d_t(const rect_t &rect)
 			: _rect(rect), _coordinate_matrix(false),
 			  _horizontal_range(rect.left(), rect.right()),
@@ -112,7 +112,6 @@ namespace gluon {
 		}
 		inline virtual color_t get_color(void) const
 		{
-
 			return color_t();
 		}
 		inline virtual void set_color(const color_t color)
@@ -153,7 +152,7 @@ namespace gluon {
 			_vertical_label = label;
 		}
 		void frame(void);
-    };
+	};
 #ifdef __INTEL_COMPILER
 #pragma warning(pop)
 #endif // __INTEL_COMPILER

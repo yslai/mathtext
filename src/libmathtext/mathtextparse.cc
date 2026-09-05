@@ -429,7 +429,7 @@ namespace mathtext {
 
 			ret.push_back(code_substr);
 			begin = end;
-         while( begin<code.size() && code[begin] == ' ' ) {
+			while( begin<code.size() && code[begin] == ' ' ) {
 				begin++;
 			}
 		}

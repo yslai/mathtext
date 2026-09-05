@@ -45,7 +45,7 @@
 
 namespace gluon {
 
-    // An object oriented high-level interface to SDL
+	// An object oriented high-level interface to SDL
 
 #ifdef __INTEL_COMPILER
 #pragma warning(push)
@@ -318,7 +318,6 @@ namespace gluon {
 			_font_size = size;
 			std::fill(_current_font_size,
 					  _current_font_size + NFAMILY, size);
-
 		}
 		inline virtual void
 		reset_font_size(const unsigned int family)

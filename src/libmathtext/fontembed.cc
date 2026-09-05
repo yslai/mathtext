@@ -332,12 +332,12 @@ namespace mathtext {
 
 			offset.reserve(count + 1);
 			switch (off_size) {
-            case 1:
+			case 1:
 				for (size_t i = 0; i < count + 1; i++) {
 					offset.push_back(input_data_offset[i]);
 				}
 				break;
-            case 2:
+			case 2:
 				for (size_t i = 0; i < count + 1; i++) {
 					offset.push_back(reinterpret_cast<uint16_t *>(
 						input_data_offset)[i]);
@@ -346,7 +346,7 @@ namespace mathtext {
 #endif // LITTLE_ENDIAN
 				}
 				break;
-            case 3:
+			case 3:
 				for (size_t i = 0; i < 3 * (count + 1); i += 3) {
 					const uint32_t value =
 						input_data_offset[3 * i] << 16 |
@@ -356,7 +356,7 @@ namespace mathtext {
 					offset.push_back(value);
 				}
 				break;
-            case 4:
+			case 4:
 				for (size_t i = 0; i < count + 1; i++) {
 					offset.push_back(reinterpret_cast<uint32_t *>(
 						input_data_offset)[i]);
