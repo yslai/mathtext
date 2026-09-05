@@ -1,12 +1,20 @@
-# Copyright (C) 1995-2019, Rene Brun and Fons Rademakers.
-# All rights reserved.
+# mathtext - A TeX/LaTeX compatible rendering library. Copyright (C)
+# 2008-2012 Yue Shi Lai <ylai@users.sourceforge.net>
 #
-# For the licensing terms see $ROOTSYS/LICENSE.
-# For the list of contributors see $ROOTSYS/README/CREDITS.
-project(mathtext)
-cmake_minimum_required(VERSION 3.20)
+# This library is free software; you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as
+# published by the Free Software Foundation; either version 2.1 of the
+# License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, see <https://www.gnu.org/licenses/>
 
-add_library(mathtext STATIC
+add_library(mathtext
   fontembed.cc
   fontembedpdf.cc
   fontembedps.cc
@@ -19,16 +27,34 @@ add_library(mathtext STATIC
   mathtextparse.cc
   mathtextview.cc
 )
-target_include_directories(mathtext PUBLIC ./) # for mathtext/fontembed.h  mathtext/mathrender.h  mathtext/mathtext.h mathtext/geometry.h
+target_include_directories(mathtext PUBLIC .)
+set_target_properties(mathtext PROPERTIES
+  SOVERSION 0
+  POSITION_INDEPENDENT_CODE ON
+)
 
 include(CheckCXXCompilerFlag)
 check_cxx_compiler_flag(-Wbidi-chars=none GCC_HAS_BIDI_CHARS_FLAG)
 if(GCC_HAS_BIDI_CHARS_FLAG)
-    set_source_files_properties(fontembed.cc COMPILE_FLAGS "-Wbidi-chars=none")
+  set_source_files_properties(fontembed.cc COMPILE_FLAGS "-Wbidi-chars=none")
 endif()
+
 if (WIN32)
-  if (CMAKE_C_BYTE_ORDER STREQUAL "LITTLE_ENDIAN" OR CMAKE_CXX_BYTE_ORDER STREQUAL "LITTLE_ENDIAN")
+  if (CMAKE_CXX_BYTE_ORDER STREQUAL "LITTLE_ENDIAN")
     target_compile_definitions(mathtext PRIVATE LITTLE_ENDIAN=1)
   endif()
 endif()
-set_property(TARGET mathtext PROPERTY POSITION_INDEPENDENT_CODE ON)
+
+target_sources(
+  mathtext
+  PUBLIC
+    FILE_SET headers
+    TYPE HEADERS
+    FILES
+      mathtext/fontembed.h
+      mathtext/geometry.h
+      mathtext/mathrender.h
+      mathtext/mathtext.h
+)
+
+install(TARGETS mathtext FILE_SET headers)
