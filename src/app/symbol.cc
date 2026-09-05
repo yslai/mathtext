@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 {
 	gluon::screen_t screen(1280, 800);
 
-	screen.open_font("data/font/MyriadPro");
+	screen.open_font("data/font/Arimo");
 	screen.begin();
 
 	const char *symbol[] = {
@@ -265,6 +265,7 @@ int main(int argc, char *argv[])
 
 	screen.end();
 	screen.update();
+	screen.flush();
 	screen.pause();
 
 	return 0;
