@@ -493,23 +493,6 @@ namespace gluon {
 		FT_Glyph_Metrics &
 		freetype_metrics(const wchar_t character,
 						 const unsigned int family) const;
-		bool
-		parse_otf_cff_header(std::string &font_name,
-							 unsigned int &cff_offset,
-							 unsigned int &cff_length,
-							 const std::vector<FT_Byte> font_data)
-			const;
-#endif // defined(HAVE_FREETYPE2) || defined(HAVE_FTGL)
-		unsigned int ascii85_line_count(const uint8_t *buffer,
-										const size_t length) const;
-		void
-		append_ascii85(std::string &ascii, const uint8_t *buffer,
-					   const size_t length) const;
-#if defined(HAVE_FREETYPE2) || defined(HAVE_FTGL)
-		std::string
-		font_embed_type_2(std::string &font_name,
-						  const std::vector<FT_Byte> &font_data)
-			const;
 #endif // defined(HAVE_FREETYPE2) || defined(HAVE_FTGL)
 	protected:
 		std::string _filename;
