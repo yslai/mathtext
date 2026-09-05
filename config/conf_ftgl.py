@@ -12,9 +12,7 @@
 # Lesser General Public License for more details.
 #
 # You should have received a copy of the GNU Lesser General Public
-# License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-# 02110-1301 USA
+# License along with this library; if not, see <https://www.gnu.org/licenses/>
 
 import os
 
@@ -22,7 +20,7 @@ def config(configuration, search_path = []):
     configuration.env.Append(
         CPPPATH = os.path.join('/usr', 'include', 'freetype2'))
     for path_ftgl in [None] + search_path:
-        header_ftgl = os.path.join('FTGL', 'FTGL.h')
+        header_ftgl = os.path.join('FTGL', 'ftgl.h')
         if path_ftgl != None:
             header_ftgl = os.path.join(path_ftgl, 'include', header)
         if configuration.CheckCHeader([header_ftgl]):

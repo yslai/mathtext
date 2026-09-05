@@ -12,9 +12,7 @@
 // Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public
-// License along with this library; if not, write to the Free Software
-// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-// 02110-1301 USA
+// License along with this library; if not, see <https://www.gnu.org/licenses/>
 
 #include <mathtext/fontembed.h>
 #include <algorithm>
@@ -96,12 +94,12 @@ namespace mathtext {
 						 location);
 		offset_current +=
 			sizeof(struct ttf_encoding_subtable_format4_s);
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 		encoding_subtable_format4.length =
 			bswap_16(encoding_subtable_format4.length);
 		encoding_subtable_format4.seg_count_x2 =
 			bswap_16(encoding_subtable_format4.seg_count_x2);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
 		const uint16_t seg_count =
 			encoding_subtable_format4.seg_count_x2 >> 1;
@@ -113,11 +111,11 @@ namespace mathtext {
 						 seg_count * sizeof(uint16_t),
 						 location);
 		offset_current += seg_count * sizeof(uint16_t);
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 		for (uint16_t segment = 0; segment < seg_count; segment++) {
 			end_code[segment] = bswap_16(end_code[segment]);
 		}
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
 		uint16_t reserved_pad;
 
@@ -134,11 +132,11 @@ namespace mathtext {
 						 font_data.end(),
 						 seg_count * sizeof(uint16_t), location);
 		offset_current += seg_count * sizeof(uint16_t);
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 		for (uint16_t segment = 0; segment < seg_count; segment++) {
 			start_code[segment] = bswap_16(start_code[segment]);
 		}
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
 		uint16_t *id_delta = new uint16_t[seg_count];
 
@@ -147,11 +145,11 @@ namespace mathtext {
 						 font_data.end(),
 						 seg_count * sizeof(uint16_t), location);
 		offset_current += seg_count * sizeof(uint16_t);
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 		for (uint16_t segment = 0; segment < seg_count; segment++) {
 			id_delta[segment] = bswap_16(id_delta[segment]);
 		}
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
 		const uint16_t variable =
 			(encoding_subtable_format4.length >> 1) -
@@ -165,11 +163,11 @@ namespace mathtext {
 						 (seg_count + variable) * sizeof(uint16_t),
 						 location);
 		offset_current += (seg_count + variable) * sizeof(uint16_t);
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 		for (uint16_t j = 0; j < seg_count + variable; j++) {
 			id_range_offset[j] = bswap_16(id_range_offset[j]);
 		}
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
 		for (uint16_t segment = 0; segment < seg_count; segment++) {
 			for (uint32_t code = start_code[segment];
@@ -219,10 +217,10 @@ namespace mathtext {
 						 location);
 		offset_current +=
 			sizeof(struct ttf_encoding_subtable_format12_s);
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 		encoding_subtable_format12.ngroups =
 			bswap_32(encoding_subtable_format12.ngroups);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
 		struct ttf_encoding_subtable_format12_group_s {
 			uint32_t start_char_code;
@@ -240,14 +238,14 @@ namespace mathtext {
 				location);
 			offset_current +=
 				sizeof(struct ttf_encoding_subtable_format12_group_s);
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 			encoding_subtable_format12_group.start_char_code =
 				bswap_32(encoding_subtable_format12_group.start_char_code);
 			encoding_subtable_format12_group.end_char_code =
 				bswap_32(encoding_subtable_format12_group.end_char_code);
 			encoding_subtable_format12_group.start_glyph_id =
 				bswap_32(encoding_subtable_format12_group.start_glyph_id);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 			for (uint32_t code =
 					 encoding_subtable_format12_group.start_char_code,
 					 glyph_id =
@@ -315,9 +313,9 @@ namespace mathtext {
 		cff_index_t(const uint8_t *input_data)
 		{
 			memcpy(&count, input_data, sizeof(uint16_t));
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 			count = bswap_16(count);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 			memcpy(&off_size, input_data + sizeof(uint16_t),
 				   sizeof(uint8_t));
 
@@ -334,21 +332,21 @@ namespace mathtext {
 
 			offset.reserve(count + 1);
 			switch (off_size) {
-            case 1:
+			case 1:
 				for (size_t i = 0; i < count + 1; i++) {
 					offset.push_back(input_data_offset[i]);
 				}
 				break;
-            case 2:
+			case 2:
 				for (size_t i = 0; i < count + 1; i++) {
 					offset.push_back(reinterpret_cast<uint16_t *>(
 						input_data_offset)[i]);
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 					offset.back() = bswap_16(offset.back());
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 				}
 				break;
-            case 3:
+			case 3:
 				for (size_t i = 0; i < 3 * (count + 1); i += 3) {
 					const uint32_t value =
 						input_data_offset[3 * i] << 16 |
@@ -358,13 +356,13 @@ namespace mathtext {
 					offset.push_back(value);
 				}
 				break;
-            case 4:
+			case 4:
 				for (size_t i = 0; i < count + 1; i++) {
 					offset.push_back(reinterpret_cast<uint32_t *>(
 						input_data_offset)[i]);
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 					offset.back() = bswap_32(offset.back());
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 				}
 				break;
 			}
@@ -413,9 +411,9 @@ namespace mathtext {
 #endif
 			return retval;
 		}
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 		offset_table.num_tables = bswap_16(offset_table.num_tables);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
 		struct otf_table_directory_s {
 			char tag[4];
@@ -437,12 +435,12 @@ namespace mathtext {
 				font_data.end(),
 				sizeof(struct otf_table_directory_s),
 				location);
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 			table_directory.offset =
 				bswap_32(table_directory.offset);
 			table_directory.length =
 				bswap_32(table_directory.length);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 #if 0
 			fprintf(stderr, "%s:%d: tag = %c%c%c%c, offset = %u, "
 					"length = %u\n", __FILE__, __LINE__,
@@ -535,11 +533,11 @@ namespace mathtext {
 		uint32_t sum = 0;
 
 		for (size_t i = 0; i < nword; i++) {
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 			sum += bswap_32(table[i]);
-#else // LITTLE_ENDIAN
+#else // IS_LITTLE_ENDIAN
 			sum += table[i];
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 		}
 
 		// Do not assume 0x00 padding and calculate partial uint32_t
@@ -548,8 +546,8 @@ namespace mathtext {
 			reinterpret_cast<const uint8_t *>(&(table[nword]));
 
 		switch(table_data.size() & 3U) {
-		case 3:   sum += table_tail[2] << 8;
-		case 2:   sum += table_tail[1] << 16;
+		case 3:   sum += table_tail[2] << 8;  /* fall through */
+		case 2:   sum += table_tail[1] << 16; /* fall through */
 		case 1:   sum += table_tail[0] << 24; break;
 		}
 
@@ -636,12 +634,12 @@ namespace mathtext {
 				   &font_data[offset_table_size + i *
 							  sizeof(struct ttf_table_directory_s)],
 				   sizeof(struct ttf_table_directory_s));
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 			table_directory.offset =
 				bswap_32(table_directory.offset);
 			table_directory.length =
 				bswap_32(table_directory.length);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 			if (!(table_directory.offset + table_directory.length <=
 				  font_data.size())) {
 				ERROR_ACCESS("table directory");
@@ -673,10 +671,10 @@ namespace mathtext {
 
 		memcpy(&mapping_table, &font_data[cmap_offset],
 			   sizeof(struct ttf_mapping_table_s));
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 		mapping_table.num_encoding_tables =
 			bswap_16(mapping_table.num_encoding_tables);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
 		uint32_t *subtable_offset =
 			new uint32_t[mapping_table.num_encoding_tables];
@@ -695,13 +693,13 @@ namespace mathtext {
 							  sizeof(struct ttf_mapping_table_s) +
 							  i * sizeof(struct ttf_encoding_table_s)],
 				   sizeof(struct ttf_encoding_table_s));
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 			encoding_table.platform_id =
 				bswap_16(encoding_table.platform_id);
 			encoding_table.encoding_id =
 				bswap_16(encoding_table.encoding_id);
 			encoding_table.offset = bswap_32(encoding_table.offset);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 			subtable_offset[i] = cmap_offset + encoding_table.offset;
 		}
 
@@ -718,14 +716,14 @@ namespace mathtext {
 			memcpy(&encoding_subtable_common,
 				   &font_data[subtable_offset[i]],
 				   sizeof(struct ttf_encoding_subtable_common_s));
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 			encoding_subtable_common.format =
 				bswap_16(encoding_subtable_common.format);
 			encoding_subtable_common.length =
 				bswap_16(encoding_subtable_common.length);
 			encoding_subtable_common.language =
 				bswap_16(encoding_subtable_common.language);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
 			size_t offset_current = subtable_offset[i];
 #if 0
@@ -845,13 +843,13 @@ namespace mathtext {
 		}
 		memcpy(&head_table, &font_data[head_offset],
 			   sizeof(struct ttf_head_table_s));
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 		head_table.units_per_em = bswap_16(head_table.units_per_em);
 		head_table.x_min = bswap_16(head_table.x_min);
 		head_table.y_min = bswap_16(head_table.y_min);
 		head_table.x_max = bswap_16(head_table.x_max);
 		head_table.y_max = bswap_16(head_table.y_max);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
 		units_per_em = head_table.units_per_em;
 		font_bbox[0] = head_table.x_min * 1000.0 / units_per_em;
@@ -875,9 +873,9 @@ namespace mathtext {
 		uint16_t number_of_h_metrics;
 
 		memcpy(&number_of_h_metrics, &font_data[hhea_offset + 34], 2);
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 		number_of_h_metrics = bswap_16(number_of_h_metrics);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
 		return number_of_h_metrics;
 	}
@@ -891,9 +889,9 @@ namespace mathtext {
 		advance_width.resize(number_of_h_metrics);
 		for (size_t i = 0; i < number_of_h_metrics; i++) {
 			memcpy(&advance_width[i], &font_data[hmtx_offset + 4 * i], 2);
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 			advance_width[i] = bswap_16(advance_width[i]);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 		}
 
 		return advance_width;
@@ -914,9 +912,9 @@ namespace mathtext {
 		uint16_t num_glyphs;
 
 		memcpy(&num_glyphs, &font_data[maxp_offset + 4], 2);
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 		num_glyphs = bswap_16(num_glyphs);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
 		return num_glyphs;
 	}
@@ -945,14 +943,14 @@ namespace mathtext {
 
 		memcpy(&naming_table_header, &font_data[name_offset],
 			   sizeof(struct ttf_naming_table_header_s));
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 		naming_table_header.format =
 			bswap_16(naming_table_header.format);
 		naming_table_header.count =
 			bswap_16(naming_table_header.count);
 		naming_table_header.string_offset =
 			bswap_16(naming_table_header.string_offset);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
 		cid_encoding_id = 0xffffU;
 
@@ -978,13 +976,13 @@ namespace mathtext {
 				   &font_data[base_offset + i *
 							  sizeof(struct ttf_name_record_s)],
 				   sizeof(struct ttf_name_record_s));
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 			name_record.platform_id =
 				bswap_16(name_record.platform_id);
 			name_record.encoding_id =
 				bswap_16(name_record.encoding_id);
 			name_record.name_id = bswap_16(name_record.name_id);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 			if (name_record.platform_id == 1 &&
 				name_record.encoding_id == 0 &&
 				name_record.name_id == 6) {
@@ -995,10 +993,10 @@ namespace mathtext {
 				// is required by OpenType specification), while the
 				// Windows platform uses a UCS-2 string that would
 				// require conversion.
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 				name_record.length = bswap_16(name_record.length);
 				name_record.offset = bswap_16(name_record.offset);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 				if (!(name_offset +
 					  naming_table_header.string_offset +
 					  name_record.offset + name_record.length <
@@ -1017,10 +1015,10 @@ namespace mathtext {
 			else if (name_record.platform_id == 3 &&
 					 name_record.encoding_id == 1 &&
 					 name_record.name_id == 6) {
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 				name_record.length = bswap_16(name_record.length);
 				name_record.offset = bswap_16(name_record.offset);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 				if (!(name_offset +
 					  naming_table_header.string_offset +
 					  name_record.offset + name_record.length <
@@ -1118,7 +1116,7 @@ namespace mathtext {
 		}
 		memcpy(&os_2_table, &font_data[os_2_offset],
 			   sizeof(struct ttf_os_2_table_s));
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 		os_2_table.x_avg_char_width =
 			bswap_16(os_2_table.x_avg_char_width);
 		os_2_table.s_family_class =
@@ -1131,7 +1129,7 @@ namespace mathtext {
 			bswap_16(os_2_table.s_typo_line_gap);
 		os_2_table.s_x_height = bswap_16(os_2_table.s_x_height);
 		os_2_table.s_cap_height = bswap_16(os_2_table.s_cap_height);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
 		switch (os_2_table.s_family_class >> 8) {
 		case 1:
@@ -1214,7 +1212,7 @@ namespace mathtext {
 			   &font_data[post_offset],
 			   sizeof(struct ttf_post_script_table_s));
 
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 		post_script_table.format_type =
 			bswap_32(post_script_table.format_type);
 		post_script_table.italic_angle =
@@ -1225,7 +1223,7 @@ namespace mathtext {
 			bswap_32(post_script_table.min_mem_type42);
 		post_script_table.max_mem_type42 =
 			bswap_32(post_script_table.max_mem_type42);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
 		italic_angle = post_script_table.italic_angle *
 			(1.0 / (1U << 16));
@@ -1257,9 +1255,9 @@ namespace mathtext {
 				   &font_data[post_offset +
 							  sizeof(struct ttf_post_script_table_s)],
 				   sizeof(uint16_t));
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 			num_glyphs = bswap_16(num_glyphs);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
 			uint16_t *glyph_name_index = new uint16_t[num_glyphs];
 
@@ -1268,11 +1266,11 @@ namespace mathtext {
 							  sizeof(struct ttf_post_script_table_s) +
 							  sizeof(uint16_t)],
 				   num_glyphs * sizeof(uint16_t));
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 			for (uint16_t i = 0; i < num_glyphs; i++) {
 				glyph_name_index[i] = bswap_16(glyph_name_index[i]);
 			}
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
 			size_t max_glyph_name_index = 0;
 			for (int i = num_glyphs - 1; i >= 0; i--) {
@@ -1354,9 +1352,9 @@ namespace mathtext {
 		} cff_index;
 
 		memcpy(&cff_index.count, &font_data[current_offset], 2);
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 		cff_index.count = bswap_16(cff_index.count);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 		current_offset += 2;
 		if (!(cff_index.count > 0)) {
 			return cff_index.data;
@@ -1567,9 +1565,9 @@ namespace mathtext {
 					ERROR_ACCESS("CFF Charset");
 				}
 				memcpy(&sid, &data[charset_offset + 2 * i + 1], 2);
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 				sid = bswap_16(sid);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 				charset.push_back(cff_sid_to_string(sid, string_index));
 			}
 			break;
@@ -1662,9 +1660,9 @@ namespace mathtext {
 			// Not a OpenType CFF/Type 2 font
 			return false;
 		}
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 		offset_table.num_tables = bswap_16(offset_table.num_tables);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 
 		std::map<std::string, std::pair<uint32_t, uint32_t> > table =
 			parse_ttf_offset_table(
@@ -1830,11 +1828,11 @@ namespace mathtext {
 		}
 		memcpy(&offset_table, &font_data[0],
 			   sizeof(struct ttf_offset_table_s));
-#ifdef LITTLE_ENDIAN
+#ifdef IS_LITTLE_ENDIAN
 		offset_table.sfnt_version =
 			bswap_32(offset_table.sfnt_version);
 		offset_table.num_tables = bswap_16(offset_table.num_tables);
-#endif // LITTLE_ENDIAN
+#endif // IS_LITTLE_ENDIAN
 		if (offset_table.sfnt_version != 0x00010000) {
 			return false;
 		}

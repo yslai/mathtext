@@ -14,9 +14,7 @@
 // Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public
-// License along with this library; if not, write to the Free Software
-// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-// 02110-1301 USA
+// License along with this library; if not, see <https://www.gnu.org/licenses/>
 
 #ifndef MATHRENDER_H_
 #define MATHRENDER_H_
@@ -139,7 +137,7 @@ namespace mathtext {
 					float _size;
 				} _extensible;
 			};
-         float _delimiter_height{0.f};
+			float _delimiter_height{0.f};
 			inline math_token_t(
 				const bounding_box_t bounding_box,
 				const unsigned int style,
@@ -373,7 +371,7 @@ namespace mathtext {
 		inline float default_axis_height(
 			const bool display_style = false) const
 		{
-         (void)display_style;
+			(void)display_style;
 			return axis_height * style_size(
 				math_text_t::item_t::STYLE_TEXT);
 		}

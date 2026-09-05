@@ -12,9 +12,7 @@
 // Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public
-// License along with this library; if not, write to the Free Software
-// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-// 02110-1301 USA
+// License along with this library; if not, see <https://www.gnu.org/licenses/>
 
 #include <iostream>
 #include <gluon/screen.h>
@@ -71,10 +69,11 @@ namespace gluon {
 				SDL_SetVideoMode(_screen_rect.width(),
 								 _screen_rect.height(),
 								 _depth, *iterator);
-			if (_sdl_surface)
+			if (_sdl_surface) {
 				_sdl_fullscreen =
 					((*iterator & SDL_FULLSCREEN) != 0);
 				break;
+			}
 		}
 		if (_sdl_surface == NULL) {
 			std::cerr << __FILE__ << ':' << __LINE__

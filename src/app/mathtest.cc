@@ -12,9 +12,7 @@
 // Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public
-// License along with this library; if not, write to the Free Software
-// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-// 02110-1301 USA
+// License along with this library; if not, see <https://www.gnu.org/licenses/>
 
 #include <cstdio>
 #include <cmath>
@@ -35,7 +33,7 @@ int main(int argc, char *argv[])
 
 	text.render_structure() = true;
 
-	gluon::screen_t screen(1280, 360);
+	gluon::screen_t screen(1420, 360);
 
 	screen.open_font("data/font/Arimo");
 	screen.set_font_size(64);
@@ -51,6 +49,7 @@ int main(int argc, char *argv[])
 	screen.text(32, baseline, 0, text, 0);
 	screen.end();
 	screen.update();
+	screen.flush();
 	screen.pause();
 
 	return 0;

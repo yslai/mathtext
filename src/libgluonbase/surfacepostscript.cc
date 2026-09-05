@@ -12,9 +12,7 @@
 // Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public
-// License along with this library; if not, write to the Free Software
-// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-// 02110-1301 USA
+// License along with this library; if not, see <https://www.gnu.org/licenses/>
 
 #include <cmath>
 #include <iostream>
@@ -294,7 +292,7 @@ namespace gluon {
 	}
 
 	void postscript_surface_t::
-	point(const float x, const float y) const
+	point(const float x, const float y)
 	{
 		if (_current_point_size != 0) {
 			const point_t transformed = _transform_logical_to_pixel *
@@ -316,7 +314,7 @@ namespace gluon {
 
 	void postscript_surface_t::
 	line(const float x0, const float y0,
-		 const float x1, const float y1) const
+		 const float x1, const float y1)
 	{
 		const point_t transformed0 = _transform_logical_to_pixel *
 			point_t(x0, y0);
@@ -333,7 +331,7 @@ namespace gluon {
 
 	void postscript_surface_t::
 	rectangle(const float x, const float y,
-			  const float width, const float height) const
+			  const float width, const float height)
 	{
 		const point_t transformed0 = _transform_logical_to_pixel *
 			point_t(x, y);
@@ -354,7 +352,7 @@ namespace gluon {
 	}
 
 	void postscript_surface_t::
-	rectangle(const mathtext::bounding_box_t &bounding_box) const
+	rectangle(const mathtext::bounding_box_t &bounding_box)
 	{
 		const point_t transformed0 = _transform_logical_to_pixel *
 			bounding_box.lower_left();
@@ -376,7 +374,7 @@ namespace gluon {
 
 	void postscript_surface_t::
 	filled_rectangle(const float x, const float y,
-					 const float width, const float height) const
+					 const float width, const float height)
 	{
 		const point_t transformed0 = _transform_logical_to_pixel *
 			point_t(x, y);
@@ -398,7 +396,6 @@ namespace gluon {
 
 	void postscript_surface_t::
 	filled_rectangle(const mathtext::bounding_box_t &bounding_box)
-		const
 	{
 		const point_t transformed0 = _transform_logical_to_pixel *
 			bounding_box.lower_left();
@@ -421,7 +418,7 @@ namespace gluon {
 	void postscript_surface_t::
 	raster(const float x, const float y, const float width,
 		   const float height, const float density[],
-		   const int nhorizontal, const int nvertical) const
+		   const int nhorizontal, const int nvertical)
 	{
 		fputs("/DeviceRGB setcolorspace\n", _fp);
 
@@ -466,6 +463,7 @@ namespace gluon {
 
 		std::string ascii;
 
+		mathtext::font_embed_postscript_t::
 		append_ascii85(ascii, reinterpret_cast<uint8_t *>(buffer),
 					   npixel * 3);
 

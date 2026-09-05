@@ -14,9 +14,7 @@
 // Lesser General Public License for more details.
 //
 // You should have received a copy of the GNU Lesser General Public
-// License along with this library; if not, write to the Free Software
-// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-// 02110-1301 USA
+// License along with this library; if not, see <https://www.gnu.org/licenses/>
 
 #ifndef GLUON_PLOT2D_H_
 #define GLUON_PLOT2D_H_
@@ -34,7 +32,7 @@ namespace gluon {
 #pragma warning(push)
 #pragma warning(disable: 869)
 #endif // __INTEL_COMPILER
-    class plot_2d_t {
+	class plot_2d_t {
 	public:
 		enum {
 			ALIGN_NONE = 0,
@@ -49,7 +47,7 @@ namespace gluon {
 			ALIGN_CENTER,
 			NALIGN
 		};
-    protected:
+	protected:
 		rect_t _rect;
 		bool _coordinate_matrix;
 		std::pair<double, double> _horizontal_range;
@@ -95,7 +93,7 @@ namespace gluon {
 				  double u0, double u1,
 				  const bool pi_like = false,
 				  const int ticks_top_right = true);
-    public:
+	public:
 		inline plot_2d_t(const rect_t &rect)
 			: _rect(rect), _coordinate_matrix(false),
 			  _horizontal_range(rect.left(), rect.right()),
@@ -114,7 +112,6 @@ namespace gluon {
 		}
 		inline virtual color_t get_color(void) const
 		{
-
 			return color_t();
 		}
 		inline virtual void set_color(const color_t color)
@@ -122,16 +119,15 @@ namespace gluon {
 		}
 		inline virtual void
 		line(const float x0, const float y0,
-			 const float x1, const float y1) const
+			 const float x1, const float y1)
 		{
 		}
 		inline virtual void
 		filled_rectangle(const float x, const float y,
 						 const float width, const float height)
-			const
 		{
 		}
-		inline virtual void filled_polygon(const polygon_t &p) const
+		inline virtual void filled_polygon(const polygon_t &p)
 		{
 		}
 		inline virtual float font_size(void) const
@@ -156,7 +152,7 @@ namespace gluon {
 			_vertical_label = label;
 		}
 		void frame(void);
-    };
+	};
 #ifdef __INTEL_COMPILER
 #pragma warning(pop)
 #endif // __INTEL_COMPILER

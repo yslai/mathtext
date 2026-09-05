@@ -14,45 +14,34 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, see <https://www.gnu.org/licenses/>
 
-add_library(mathtext
-  fontembed.cc
-  fontembedpdf.cc
-  fontembedps.cc
+add_library(gluonbase
+  color.cc
   geometry.cc
-  mathrender.cc
-  mathrenderstyle.cc
-  mathrendertoken.cc
-  mathtext.cc
-  mathtextencode.cc
-  mathtextparse.cc
-  mathtextview.cc
+  screen.cc
+  surface.cc
+  surfaceopengl.cc
+  surfacepostscript.cc
 )
-target_include_directories(mathtext PUBLIC .)
-set_target_properties(mathtext PROPERTIES
+target_include_directories(gluonbase PUBLIC .)
+set_target_properties(gluonbase PROPERTIES
   SOVERSION 0
   POSITION_INDEPENDENT_CODE ON
 )
 
-include(CheckCXXCompilerFlag)
-check_cxx_compiler_flag(-Wbidi-chars=none GCC_HAS_BIDI_CHARS_FLAG)
-if(GCC_HAS_BIDI_CHARS_FLAG)
-  set_source_files_properties(fontembed.cc COMPILE_FLAGS "-Wbidi-chars=none")
+target_link_libraries(gluonbase mathtext)
+if(SDL_FOUND)
+  target_compile_definitions(gluonbase PUBLIC -DHAVE_SDL=1)
+  target_link_libraries(gluonbase SDL::SDL)
 endif()
-
-if (CMAKE_CXX_BYTE_ORDER STREQUAL "LITTLE_ENDIAN")
-  target_compile_definitions(mathtext PRIVATE IS_LITTLE_ENDIAN=1)
+if(OpenGL_FOUND)
+  target_compile_definitions(gluonbase PUBLIC -DHAVE_OPENGL=1)
+  target_link_libraries(gluonbase OpenGL::OpenGL)
 endif()
-
-target_sources(
-  mathtext
-  PUBLIC
-    FILE_SET headers
-    TYPE HEADERS
-    FILES
-      mathtext/fontembed.h
-      mathtext/geometry.h
-      mathtext/mathrender.h
-      mathtext/mathtext.h
-)
-
-install(TARGETS mathtext FILE_SET headers)
+if(FTGL_FOUND)
+  target_compile_definitions(gluonbase PUBLIC -DHAVE_FTGL=1)
+  target_link_libraries(gluonbase PkgConfig::FTGL)
+endif()
+if(LCMS_FOUND)
+  target_compile_definitions(gluonbase PUBLIC -DHAVE_LCMS=1)
+  target_link_libraries(gluonbase PkgConfig::LCMS)
+endif()

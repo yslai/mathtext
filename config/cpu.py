@@ -12,9 +12,7 @@
 # Lesser General Public License for more details.
 #
 # You should have received a copy of the GNU Lesser General Public
-# License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-# 02110-1301 USA
+# License along with this library; if not, see <https://www.gnu.org/licenses/>
 
 import os, sys
 
@@ -48,9 +46,9 @@ def capability():
                             'k6-3', 'i586-i686'] or \
                             architecture[:7] == 'pentium' or \
                             architecture[:6] == 'athlon':
-        if cpuinfo.has_key('vendor_id') and \
-               cpuinfo.has_key('cpu family') and \
-               cpuinfo.has_key('model'):
+        if 'vendor_id' in cpuinfo and \
+               'cpu family' in cpuinfo and \
+               'model' in cpuinfo:
             if cpuinfo['vendor_id'] == 'AuthenticAMD':
                 # FIXME: 32-bit Athlon XP (SSE) cannot be
                 # distinguished this way from 32-bit Athlon, but I do
@@ -74,8 +72,8 @@ def capability():
                     # 32-bit Nocoa or Prescott
                     capability += ['HAVE_SSE', 'HAVE_SSE2']
     elif architecture in ['x86_64', 'amd64']:
-        if cpuinfo.has_key('vendor_id') and \
-               cpuinfo.has_key('cpu family'):
+        if 'vendor_id' in cpuinfo and \
+               'cpu family' in cpuinfo:
             if cpuinfo['vendor_id'] == 'AuthenticAMD':
                 capability += ['HAVE_SSE', 'HAVE_SSE2']
             elif cpuinfo['vendor_id'] == 'GenuineIntel':

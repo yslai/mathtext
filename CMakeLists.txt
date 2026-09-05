@@ -1,5 +1,3 @@
-# -*- mode: python; -*-
-
 # mathtext - A TeX/LaTeX compatible rendering library. Copyright (C)
 # 2008-2012 Yue Shi Lai <ylai@users.sourceforge.net>
 #
@@ -16,23 +14,17 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, see <https://www.gnu.org/licenses/>
 
-import os
+cmake_minimum_required(VERSION 3.23)
+project(mathtext CXX)
 
-Import('env')
+include(GNUInstallDirs)
 
-build_subdirectory = ['libgluonbase', 'libmathtext', 'app']
-other_subdirectory = []
+find_package(SDL)
+find_package(OpenGL)
+find_package(PkgConfig)
+if(PkgConfig_FOUND)
+  pkg_check_modules(FTGL IMPORTED_TARGET ftgl)
+  pkg_check_modules(LCMS IMPORTED_TARGET lcms)
+endif()
 
-Export('env')
-
-SConscript([os.path.join(directory, 'SConscript')
-            for directory in build_subdirectory])
-
-# Cleaning
-env.Clean('.', env.Glob(os.path.join('#', 'src', '*~')))
-env.Clean('.', env.Glob(os.path.join('#', 'src', '*', '*~')))
-for directory in build_subdirectory + other_subdirectory:
-    env.Clean('.', env.Glob(os.path.join(
-        '#', 'src', directory, '*~')))
-    env.Clean('.', env.Glob(os.path.join(
-        '#', 'src', directory, '*', '*~')))
+add_subdirectory(src)
