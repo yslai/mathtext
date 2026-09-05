@@ -463,6 +463,7 @@ namespace gluon {
 
 		std::string ascii;
 
+		mathtext::font_embed_postscript_t::
 		append_ascii85(ascii, reinterpret_cast<uint8_t *>(buffer),
 					   npixel * 3);
 
